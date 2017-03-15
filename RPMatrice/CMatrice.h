@@ -7,18 +7,18 @@
 #include <iostream>
 #include <assert.h>
 
-#include "natural.h"
 #include "CParse.h"
 #include "element.h"
+#include "natural.h"
 
 class CMatrice
 {
 private:
-	CMatrice tMATMatrice[][];
+	CMatrice pMATMatrice[][];
 
-	natural uiMATNbLignes;
+	unsigned int uiMATNbLignes;
 
-	natural uiMATNbColonnes;
+	unsigned int uiMATNbColonnes;
 
 	string sMATTypeMatrice;
 
@@ -30,13 +30,13 @@ public:
 
 	void ~CMatrice();
 
-	void CMatrice(natural uiNbLignes, natural uiNbColonnes);
-	dsfdsfsdfsdfs;
-	void CMatrice(CMatrice Matrice);
+	void CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
-	void MATModifierElement(natural uiNbLignes, natural uiNbColonnes, element eElement);
+	void CMatrice(CMatrice MATMatrice);
 
-	element MATLireElement(natural uiNbLignes, natural uiNbColonnes);
+	void MATModifierElement(unsigned int uiNbLignes, element eElement);
+
+	element MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
 	CMatrice MATCalculerTransposee();
 
@@ -56,22 +56,22 @@ public:
 
 	void MATEcrireNbLignes(natural nNbLignes);
 
-	natural MATLireNbLignes();
+	unsigned int MATLireNbLignes();
 
 	/**
 	 *  
 	 */
-	void MATEcrireNbColonnes(natural nNbColonnes);
+	void MATEcrireNbColonnes(unsigned int nNbColonnes);
 
-	natural MATLireNbColonnes();
+	unsigned int MATLireNbColonnes();
 
-	void MATAjouterColonnesM(natural uiNbColonnes);
+	void MATAjouterColonnesM(unsigned int uiNbColonnes);
 
-	void MATAjouterLignesM(natural uiNbLignes);
+	void MATAjouterLignesM(unsigned int uiNbLignes);
 
-	void MATSupprimerColonneM(natural uiNumColonne);
+	void MATSupprimerColonneM(unsigned int uiNumColonne);
 
-	void MATSupprimerLigneM(natural uiNumLigne);
+	void MATSupprimerLigneM(unsigned int uiNumLigne);
 
 };
 #endif

@@ -15,19 +15,19 @@ void CMatrice::~CMatrice()
 {
 }
 
-void CMatrice::CMatrice(natural uiNbLignes, natural uiNbColonnes)
+void CMatrice::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
 }
 
-void CMatrice::CMatrice(CMatrice Matrice)
+void CMatrice::CMatrice(CMatrice MATMatrice)
 {
 }
 
-void CMatrice::MATModifierElement(natural uiNbLignes, natural uiNbColonnes, element eElement)
+void CMatrice::MATModifierElement(unsigned int uiNbLignes, element eElement)
 {
 }
 
-element CMatrice::MATLireElement(natural uiNbLignes, natural uiNbColonnes)
+element CMatrice::MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
 	return 0;
 }
@@ -76,32 +76,32 @@ void CMatrice::MATEcrireNbLignes(natural nNbLignes)
 {
 }
 
-natural CMatrice::MATLireNbLignes()
+unsigned int CMatrice::MATLireNbLignes()
 {
 	return 0;
 }
 
-void CMatrice::MATEcrireNbColonnes(natural nNbColonnes)
+void CMatrice::MATEcrireNbColonnes(unsigned int nNbColonnes)
 {
 }
 
-natural CMatrice::MATLireNbColonnes()
+unsigned int CMatrice::MATLireNbColonnes()
 {
 	return 0;
 }
 
-void CMatrice::MATAjouterColonnesM(natural uiNbColonnes)
+void CMatrice::MATAjouterColonnesM(unsigned int uiNbColonnes)
 {
 }
 
-void CMatrice::MATAjouterLignesM(natural uiNbLignes)
+void CMatrice::MATAjouterLignesM(unsigned int uiNbLignes)
 {
 }
 
-void CMatrice::MATSupprimerColonneM(natural uiNumColonne)
+void CMatrice::MATSupprimerColonneM(unsigned int uiNumColonne)
 {
 }
 
-void CMatrice::MATSupprimerLigneM(natural uiNumLigne)
+void CMatrice::MATSupprimerLigneM(unsigned int uiNumLigne)
 {
 }
