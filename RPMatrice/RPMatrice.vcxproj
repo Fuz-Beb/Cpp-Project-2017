@@ -12,11 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMatrice.h" />
-    <ClInclude Include="element.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMatrice.cpp" />
-    <ClCompile Include="element.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{52079F58-218F-4744-8E83-C53C912EC207}</ProjectGuid>
