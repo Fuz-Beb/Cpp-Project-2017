@@ -10,23 +10,19 @@
 class CException
 {
 private:
+	// Attributs
 	unsigned int uiEXCCode;
-
 	char * psEXCMessage;
 
-
 public:
+	// Constructeur et destructeur
 	CException();
-
 	~CException();
 
-	unsigned int EXCLectureCode();
-
-	void EXCEcritureCode(unsigned int uiCodeErreur);
-
-	char * EXCLectureMessage();
-
-	void EXCEcritureMessage(char * psMessage);
-
+	// Accesseurs
+	inline unsigned int EXCLectureCode();
+	inline void EXCEcritureCode(unsigned int uiCodeErreur);
+	inline char * EXCLectureMessage();
+	inline void EXCEcritureMessage(char * psMessage);
 };
 #endif

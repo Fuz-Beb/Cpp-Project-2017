@@ -1,29 +1,75 @@
+
+#include "CMatrice.h"
 #include <string>
 #include <vector>
 #include <list>
 #include <iostream>
 #include <assert.h>
 
-#include "CMatrice.h"
 
 
-CMatrice::CMatrice()
+template <class Type>
+CMatrice<Type>::CMatrice()
 {
 }
 
-CMatrice::~CMatrice()
+template <class Type>
+CMatrice<Type>::~CMatrice()
 {
 }
 
-CMatrice::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
+template <class Type>
+CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
 }
 
-CMatrice::CMatrice(CMatrice<Type> MATMatrice)
+template <class Type>
+CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 {
 }
 
-void CMatrice::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
+template <class Type>
+void CMatrice<Type>::MATEcrireNbLignes(unsigned int uiNbLignes)
+{
+}
+
+template <class Type>
+unsigned int CMatrice<Type>::MATLireNbLignes()
+{
+	return 0;
+}
+
+template <class Type>
+void CMatrice<Type>::MATEcrireNbColonnes(unsigned int uiNbColonnes)
+{
+}
+
+template <class Type>
+unsigned int CMatrice<Type>::MATLireNbColonnes()
+{
+	return 0;
+}
+
+ template <class Type>
+ CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
+{
+	return 0;
+}
+
+template <class Type>
+CMatrice<Type> CMatrice<Type>::MATAfficherMatrice()
+{
+	return 0;
+}
+
+template <class Type>
+CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrices(double dNombre)
+{
+	return 0;
+}
+
+template <class Type>
+void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
 {
 }
 
@@ -33,76 +79,63 @@ template <class Type>
 	return 0;
 }
 
-CMatrice<Type> CMatrice::MATCalculerTransposee()
+template <class Type>
+void CMatrice<Type>::MATAjouterColonnesM(unsigned int uiNbColonnes)
+{
+}
+
+template <class Type>
+void CMatrice<Type>::MATAjouterLignesM(unsigned int uiNbLignes)
+{
+}
+
+template <class Type>
+void CMatrice<Type>::MATSupprimerColonneM(unsigned int uiNumColonne)
+{
+}
+
+template <class Type>
+void CMatrice<Type>::MATSupprimerLigneM(unsigned int uiNumLigne)
+{
+}
+
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
+{
+	return 0;
+}
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
 	return 0;
 }
 
-CMatrice<Type> CMatrice::MATAfficherMatrice()
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator*(Type & MATMatrice)
 {
 	return 0;
 }
 
-CMatrice<Type> CMatrice::MATAdditionnerMatrices()
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
 	return 0;
 }
 
-CMatrice<Type> CMatrice::MATMultiplierMatrices()
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator/(Type & MATMatrice)
 {
 	return 0;
 }
 
-CMatrice<Type> CMatrice::MATMultiplierMConst(double dNombre)
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 {
 	return 0;
 }
 
-CMatrice<Type> CMatrice::MATDiviserMConst(double dNombre)
+template <class Type>
+CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {
 	return 0;
-}
-
-CMatrice<Type> CMatrice::MATPPuissanceMatrices(double dNombre)
-{
-	return 0;
-}
-
-CMatrice<Type> CMatrice::MATOperator=(CMatrice<Type> MATMatrice)
-{
-	return 0;
-}
-
-void CMatrice::MATEcrireNbLignes(unsigned int uiNbLignes)
-{
-}
-
-unsigned int CMatrice::MATLireNbLignes()
-{
-	return 0;
-}
-
-void CMatrice::MATEcrireNbColonnes(unsigned int uiNbColonnes)
-{
-}
-
-unsigned int CMatrice::MATLireNbColonnes()
-{
-	return 0;
-}
-
-void CMatrice::MATAjouterColonnesM(unsigned int uiNbColonnes)
-{
-}
-
-void CMatrice::MATAjouterLignesM(unsigned int uiNbLignes)
-{
-}
-
-void CMatrice::MATSupprimerColonneM(unsigned int uiNumColonne)
-{
-}
-
-void CMatrice::MATSupprimerLigneM(unsigned int uiNumLigne)
-{
 }

@@ -7,63 +7,49 @@
 #include <iostream>
 #include <assert.h>
 
-template <class Type>
-class CMatrice
+template <class Type> class CMatrice
 {
+
+	// Attributs
 private:
 	Type pMATMATMatrice[][];
-
 	unsigned int uiMATNbLignes;
-
 	unsigned int uiMATNbColonnes;
-
 	char * psMATTypeMatrice;
 
-
 public:
-	CMatrice();
+	// Constructeur et destructeur
+	CMatrice<Type>();
+	~CMatrice<Type>();
+	CMatrice<Type>(unsigned int uiNbLignes, unsigned int uiNbColonnes);
+	CMatrice<Type>(CMatrice & MATMatrice);
 
-	~CMatrice();
+	// Accesseurs
+	inline void MATEcrireNbLignes(unsigned int uiNbLignes);
+	inline unsigned int MATLireNbLignes();
+	inline void MATEcrireNbColonnes(unsigned int uiNbColonnes);
+	inline unsigned int MATLireNbColonnes();
 
-	CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes);
-
-	CMatrice(CMatrice<Type> MATMatrice);
-
-	void MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement);
-
-	Type MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes);
-
+	// Calculs mathématiques
 	CMatrice<Type> MATCalculerTransposee();
-
 	CMatrice<Type> MATAfficherMatrice();
-
-	CMatrice<Type> MATAdditionnerMatrices();
-
-	CMatrice<Type> MATMultiplierMatrices();
-
-	CMatrice<Type> MATMultiplierMConst(double dNombre);
-
-	CMatrice<Type> MATDiviserMConst(double dNombre);
-
 	CMatrice<Type> MATPPuissanceMatrices(double dNombre);
 
-	CMatrice<Type> MATOperator=(CMatrice<Type> MATMatrice);
-
-	void MATEcrireNbLignes(unsigned int uiNbLignes);
-
-	unsigned int MATLireNbLignes();
-
-	void MATEcrireNbColonnes(unsigned int uiNbColonnes);
-
-	unsigned int MATLireNbColonnes();
-
+	// Gérer les éléments de la matrice
+	void MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement);
+	Type MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 	void MATAjouterColonnesM(unsigned int uiNbColonnes);
-
 	void MATAjouterLignesM(unsigned int uiNbLignes);
-
 	void MATSupprimerColonneM(unsigned int uiNumColonne);
-
 	void MATSupprimerLigneM(unsigned int uiNumLigne);
 
+	// Surchage
+	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> & operator-(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> & operator*(Type & MATMatrice);
+	CMatrice<Type> & operator*(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> & operator/(Type & MATMatrice);
+	CMatrice<Type> & operator/(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 };
 #endif
