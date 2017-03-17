@@ -27,7 +27,7 @@ CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 {
 	uiEXCCode = uiCodeErreur;
 	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
-	strcpy_s(psEXCMessage, sizeof(psEXCMessage), psMessageErreur);
+	strcpy_s(psEXCMessage, strlen(psMessageErreur) + 1, psMessageErreur);
 }
 
 
@@ -98,5 +98,5 @@ void CException::EXCEcritureMessage(char * psMessage)
 		delete psEXCMessage;
 
 	psEXCMessage = new char[strlen(psMessage) + 1];
-	strcpy_s(psEXCMessage, sizeof psEXCMessage, psMessage);
+	strcpy_s(psEXCMessage, strlen(psMessage) + 1, psMessage);
 }

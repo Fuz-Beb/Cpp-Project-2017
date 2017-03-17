@@ -153,7 +153,7 @@ template <class Type>
 }
 
  template <class Type>
-CMatrice<Type> CMatrice<Type>::MATAfficherMatrice()
+void CMatrice<Type>::MATAfficherMatrice()
 {
 	return 0;
 }
@@ -175,9 +175,16 @@ Entraine : Modification de l'élèment
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
 {
-	MATVerifierPortee();
+	try
+	{
+		MATVerifierPortee(uiNbLignes, uiNbColonnes);
+	}
+	catch(CException & test)
+	{
+		std::cerr << "Code d'erreur : " << test.EXCLectureCode();
+	}
 
-	ppqMATMatrice[uiNbLignes][uiNbColonnes] = tElement;
+	ppqMATMatrice[uiNbLignes - 1][uiNbColonnes - 1] = tElement;
 }
 
 /*****************************
@@ -191,8 +198,8 @@ Entraine : retourne l'element à l'endroit de la matrice
 template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
-	MATVerifierPortee();
-	return ppqMATMatrice[uiNbLignes][uiNbColonnes];
+	MATVerifierPortee(uiNbLignes, uiNbColonnes);
+	return ppqMATMatrice[uiNbLignes - 1][uiNbColonnes - 1];
 }
 
 template <class Type>
@@ -246,8 +253,10 @@ Entraine : (néant) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis so
 template <class Type>
 void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes)
 {
-	if (uiMATNbLignes < uiNumLignes || uiMATNbColonnes < uiNumColonnes)
-		throw new CException(DIMENSIONHORSPORTEE, "Erreur dans la dimension - hors portée");
+	if (uiMATNbLignes < uiNumLignes || uiNumLignes == 0 || uiMATNbColonnes < uiNumColonnes || uiNumColonnes == 0)
+	{
+		throw new CException(DIMENSIONHORSPORTEE, "ERREUR");
+	}
 }
 
 template <class Type>

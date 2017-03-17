@@ -3,9 +3,6 @@
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 
-#define ECHECALLOCATION 1;
-#define DIMENSIONHORSPORTEE 2;
-
 template <class Type> class CMatrice
 {
 	// Attributs
@@ -29,7 +26,7 @@ public:
 
 	// Calculs mathématiques
 	CMatrice<Type> MATCalculerTransposee();
-	CMatrice<Type> MATAfficherMatrice();
+	void MATAfficherMatrice();
 	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
 
 	// Gérer les éléments de la matrice
