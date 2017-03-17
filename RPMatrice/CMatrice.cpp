@@ -212,11 +212,21 @@ template <class Type>
 template <class Type>
 void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
 {
+	// NON FONCTIONNEL A FINIR
+		ppqMATMatrice[uiMATNbColonnes + uiNbColonnes] =  (Type*) realloc(ppqMATMatrice[uiMATNbColonnes + uiNbColonnes], sizeof(Type) * uiMATNbColonnes + uiNbColonnes);
+		if (ppqMATMatrice[uiMATNbColonnes + uiNbColonnes] == NULL)
+			throw new CException(ECHECALLOCATION, "Echec de la reallocation");
+	}
+
 }
 
 template <class Type>
 void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 {
+	// NON FONCTIONNEL A FINIR
+	ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
+	if (ppqMATMatrice == NULL)
+		throw new CException(ECHECALLOCATION, "Echec de l'allocation");*/
 }
 
 template <class Type>
