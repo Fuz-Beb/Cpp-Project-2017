@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "CException.h"
 
 
@@ -20,6 +14,22 @@ CException::CException()
 	uiEXCCode = 0;
 	psEXCMessage = NULL;
 }
+
+/*****************************
+Constructeur à deux arguments
+******************************
+Entrée : unsigned int - code d'erreur / char * - message d'erreur
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
+{
+	uiEXCCode = uiCodeErreur;
+	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
+	strcpy_s(psEXCMessage, sizeof(psEXCMessage), psMessageErreur);
+}
+
 
 /*****************************
 Destructeur par défaut
@@ -88,5 +98,5 @@ void CException::EXCEcritureMessage(char * psMessage)
 		delete psEXCMessage;
 
 	psEXCMessage = new char[strlen(psMessage) + 1];
-	strcpy(psEXCMessage, psMessage);
+	strcpy_s(psEXCMessage, sizeof psEXCMessage, psMessage);
 }

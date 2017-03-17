@@ -9,7 +9,7 @@
 
 class CException
 {
-private:
+private: 
 	// Attributs
 	unsigned int uiEXCCode;
 	char * psEXCMessage;
@@ -17,6 +17,7 @@ private:
 public:
 	// Constructeur et destructeur
 	CException();
+	CException(unsigned int uiCodeErreur, char * psMessageErreur);
 	~CException();
 
 	// Accesseurs

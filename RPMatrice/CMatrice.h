@@ -1,28 +1,20 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
 
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
-template <class Type> class CMatrice
+template <typename Type> class CMatrice
 {
-
 	// Attributs
 private:
-	Type pMATMATMatrice[][];
+	Type ** ppqMATMatrice;
 	unsigned int uiMATNbLignes;
 	unsigned int uiMATNbColonnes;
-	char * psMATTypeMatrice;
 
 public:
 	// Constructeur et destructeur
-	CMatrice<Type>();
-	~CMatrice<Type>();
-	CMatrice<Type>(unsigned int uiNbLignes, unsigned int uiNbColonnes);
-	CMatrice<Type>(CMatrice & MATMatrice);
+	CMatrice();
+	~CMatrice();
+	CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes);
+	CMatrice(CMatrice & MATMatrice);
 
 	// Accesseurs
 	inline void MATEcrireNbLignes(unsigned int uiNbLignes);
@@ -33,7 +25,7 @@ public:
 	// Calculs mathématiques
 	CMatrice<Type> MATCalculerTransposee();
 	CMatrice<Type> MATAfficherMatrice();
-	CMatrice<Type> MATPPuissanceMatrices(double dNombre);
+	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
 
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement);
@@ -52,4 +44,7 @@ public:
 	CMatrice<Type> & operator/(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 };
+
 #endif
+
+

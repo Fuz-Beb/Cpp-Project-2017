@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "CParse.h"
 
 
@@ -20,7 +14,7 @@ unsigned int CParse::PARLireNbColonnes()
 {
 	return 0;
 }
-
+ 
 void CParse::PAREcrireNbColonnes(unsigned int uiNbColonnes)
 {
 }
