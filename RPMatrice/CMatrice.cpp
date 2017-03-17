@@ -10,9 +10,21 @@ CMatrice<Type>::CMatrice()
 	strcpy(psMATTypeMatrice, Type);*/
 }
 
+/*****************************
+Destructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : L'objet est détruit
+*****************************/
 template <class Type>
 CMatrice<Type>::~CMatrice()
 {
+	for(unsigned int uiBoucle = 0; uiBoucle < uiMATNbLignes; uiBoucle++)
+		delete[] ppqMATMatrice[uiBoucle];
+
+	delete[] ppqMATMatrice;
 }
 
 template <class Type>
@@ -30,9 +42,30 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 	strcpy(psMATTypeMatrice, Type);*/
 }
 
+/*****************************
+Constructeur de recopie
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé/recopié
+*****************************/
 template <class Type>
 CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 {
+	CMatrice<Type> ppqMATMatriceRetour = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+	
+	unsigned int uiBoucleColonne;
+
+	for (unsigned int uiBoucleLigne = 0; uiBoucleLigne < ppqMATMatriceRetour.uiMATNbLignes; uiBoucleLigne++)
+	{
+		for (uiBoucleColonne = 0; uiBoucleColonne < ppqMATMatriceRetour.uiMATNbColonnes; uiBoucleColonne++)
+		{
+			ppqMATMatriceRetour.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+		}
+
+		uiBoucleColonne = 0;
+	}
 }
 
 template <class Type>
