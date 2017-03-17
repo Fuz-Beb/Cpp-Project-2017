@@ -8,7 +8,6 @@ private:
 	Type ** ppqMATMatrice;
 	unsigned int uiMATNbLignes;
 	unsigned int uiMATNbColonnes;
-	char * psMATTypeMatrice;
 
 public:
 	// Constructeur et destructeur
@@ -22,8 +21,6 @@ public:
 	inline unsigned int MATLireNbLignes();
 	inline void MATEcrireNbColonnes(unsigned int uiNbColonnes);
 	inline unsigned int MATLireNbColonnes();
-	inline void MATEcrireTypeMatrice(char * sTypeMatrice);
-	inline char * MATLireTypeMatrice();
 
 	// Calculs mathématiques
 	CMatrice<Type> MATCalculerTransposee();

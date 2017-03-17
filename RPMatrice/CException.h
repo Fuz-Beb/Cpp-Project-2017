@@ -17,6 +17,7 @@ private:
 public:
 	// Constructeur et destructeur
 	CException();
+	CException(unsigned int uiCodeErreur, char * psMessageErreur);
 	~CException();
 
 	// Accesseurs

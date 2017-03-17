@@ -16,6 +16,22 @@ CException::CException()
 }
 
 /*****************************
+Constructeur à deux arguments
+******************************
+Entrée : unsigned int - code d'erreur / char * - message d'erreur
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
+{
+	uiEXCCode = uiCodeErreur;
+	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
+	strcpy_s(psEXCMessage, sizeof(psEXCMessage), psMessageErreur);
+}
+
+
+/*****************************
 Destructeur par défaut
 ******************************
 Entrée : néant
