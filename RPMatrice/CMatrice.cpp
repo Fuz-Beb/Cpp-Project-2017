@@ -1,13 +1,23 @@
 #include "CMatrice.h"
+#include "CException.h"
 
+
+/*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 template <class Type>
 CMatrice<Type>::CMatrice()
 {
 	ppqMATMatrice = (Type**)malloc(0);
+	if (ppqMATMatrice == NULL)
+		throw new CException(1, "Echec de l'allocation");
 	uiMATNbLignes = 0;
 	uiMATNbColonnes = 0;
-	/*psMATTypeMatrice = new char[20];
-	strcpy(psMATTypeMatrice, Type);*/
 }
 
 template <class Type>
@@ -15,6 +25,14 @@ CMatrice<Type>::~CMatrice()
 {
 }
 
+/*****************************
+Constructeur à deux arguments
+******************************
+Entrée : unsigned int - code d'erreur / char * - message d'erreur
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 template <class Type>
 CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
@@ -22,12 +40,16 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 	uiMATNbColonnes = uiNbColonnes;
 
 	// Allocation mémoire de la matrice
-	ppqMATMatrice = new Type*[uiMATNbLignes]; // Allocation des lignes
-	for (unsigned int eBoucle = 0; eBoucle < uiMATNbColonnes; eBoucle++) // Allocation des colonnes
-		ppqMATMatrice[eBoucle] = new Type[uiMATNbColonnes];
+	ppqMATMatrice = (Type**) malloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
+	if (ppqMATMatrice == NULL)
+		throw new CException(1, "Echec de l'allocation");
 
-	/*psMATTypeMatrice = new char[20];
-	strcpy(psMATTypeMatrice, Type);*/
+	for (unsigned int eBoucle = 0; eBoucle < uiMATNbColonnes; eBoucle++) // Allocation des colonnes
+	{
+		ppqMATMatrice[eBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
+		if (ppqMATMatrice[eBoucle] == NULL)
+			throw new CException(1, "Echec de l'allocation");
+	}
 }
 
 template <class Type>
@@ -38,6 +60,7 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 template <class Type>
 void CMatrice<Type>::MATEcrireNbLignes(unsigned int uiNbLignes)
 {
+
 }
 
 template <class Type>
@@ -53,17 +76,6 @@ void CMatrice<Type>::MATEcrireNbColonnes(unsigned int uiNbColonnes)
 
 template <class Type>
 unsigned int CMatrice<Type>::MATLireNbColonnes()
-{
-	return 0;
-}
-
-template <class Type>
-void CMatrice<Type>::MATEcrireTypeMatrice(char * sTypeMatrice)
-{
-}
-
-template <class Type>
-char * CMatrice<Type>::MATLireTypeMatrice()
 {
 	return 0;
 }
@@ -89,6 +101,7 @@ CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
 {
+
 }
 
 template <class Type>

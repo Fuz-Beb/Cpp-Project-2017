@@ -4,5 +4,5 @@
 
 void main()
 {
-	CMatrice<int> a = CMatrice<int>();
+	CMatrice<int> a = CMatrice<int>(2,4);
 }
