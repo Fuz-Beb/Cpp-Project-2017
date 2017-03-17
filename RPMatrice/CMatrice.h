@@ -1,7 +1,9 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
+#define ECHECALLOCATION 1
+#define DIMENSIONHORSPORTEE 2
 
-template <typename Type> class CMatrice
+template <class Type> class CMatrice
 {
 	// Attributs
 private:
@@ -30,10 +32,17 @@ public:
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement);
 	Type MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes);
-	void MATAjouterColonnesM(unsigned int uiNbColonnes);
-	void MATAjouterLignesM(unsigned int uiNbLignes);
-	void MATSupprimerColonneM(unsigned int uiNumColonne);
-	void MATSupprimerLigneM(unsigned int uiNumLigne);
+	
+	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
+	void MATAjouterLignesFin(unsigned int uiNbLignes);
+	void MATSupprimerColonneFin(unsigned int uiNbColonnes);
+	void MATSupprimerLigneFin(unsigned int uiNbLignes);
+	void MATAjouterColonnesPrecis(unsigned int uiNumColonnes);
+	void MATAjouterLignesPrecis(unsigned int uiNumLignes);
+	void MATSupprimerColonnePrecis(unsigned int uiNumColonnes);
+	void MATSupprimerLignePrecis(unsigned int uiNumLignes);
+
+	void MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes);
 
 	// Surchage
 	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);
