@@ -180,6 +180,14 @@ void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int ui
 	ppqMATMatrice[uiNbLignes][uiNbColonnes] = tElement;
 }
 
+/*****************************
+Methode : Lire l'élèment à l'endroit de la matrice
+******************************
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes
+Necessité : néant
+Sortie : Type
+Entraine : retourne l'element à l'endroit de la matrice
+*****************************/
 template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
