@@ -26,7 +26,7 @@ public:
 
 	// Calculs mathématiques
 	CMatrice<Type> MATCalculerTransposee();
-	CMatrice<Type> MATAfficherMatrice();
+	void MATAfficherMatrice();
 	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
 
 	// Gérer les éléments de la matrice
