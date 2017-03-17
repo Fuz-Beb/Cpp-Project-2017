@@ -4,5 +4,13 @@
 
 void main()
 {
-	CMatrice<int> a = CMatrice<int>();
+	// Test constructeur par défaut
+	CMatrice<int> * a = new CMatrice<int>();
+
+	// Test constructeur de recopie
+	CMatrice<int> * b = new CMatrice<int>(* a);
+
+	// Test destructeur par défaut
+	delete(a);
+
 }
