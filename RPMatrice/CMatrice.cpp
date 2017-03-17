@@ -80,14 +80,8 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 	unsigned int uiBoucleColonne;
 
 	for (unsigned int uiBoucleLigne = 0; uiBoucleLigne < ppqMATMatriceRetour.uiMATNbLignes; uiBoucleLigne++)
-	{
 		for (uiBoucleColonne = 0; uiBoucleColonne < ppqMATMatriceRetour.uiMATNbColonnes; uiBoucleColonne++)
-		{
 			ppqMATMatriceRetour.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
-		}
-
-		uiBoucleColonne = 0;
-	}
 }
 
 /*****************************
@@ -152,10 +146,30 @@ template <class Type>
 	return 0;
 }
 
+
+/*****************************
+Methode : Afficher la matrice à l'écran
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : L'affichage à l'écran de la matrice
+*****************************/
  template <class Type>
-CMatrice<Type> CMatrice<Type>::MATAfficherMatrice()
+void CMatrice<Type>::MATAfficherMatrice()
 {
-	return 0;
+	unsigned int uiBoucleLigne, uiBoucleColonne;
+
+	printf("Affichage de la matrice :\n");
+ 
+	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLigne ; uiBoucleLigne++) {
+		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
+			cout << ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] << "\t";
+		}
+
+		printf("\n");
+	}
+
 }
 
 template <class Type>

@@ -3,9 +3,6 @@
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 
-#define ECHECALLOCATION 1;
-#define DIMENSIONHORSPORTEE 2;
-
 template <class Type> class CMatrice
 {
 	// Attributs
