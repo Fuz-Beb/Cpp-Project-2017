@@ -173,7 +173,8 @@ void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int ui
 template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
-
+	MATVerifierPortee();
+	return ppqMATMatrice[uiNbLignes][uiNbColonnes];
 }
 
 template <class Type>
@@ -222,7 +223,7 @@ Methode : Vérifier la dimension de la matrice
 Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
 Necessité : néant
 Sortie : néant
-Entraine : (rien) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis sont incorrectes)
+Entraine : (néant) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis sont incorrectes)
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes)
