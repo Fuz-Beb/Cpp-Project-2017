@@ -164,10 +164,20 @@ CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
 	return 0;
 }
 
+/*****************************
+Methode : Modifier l'élèment à l'endroit de la matrice
+******************************
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement
+Necessité : néant
+Sortie : néant
+Entraine : Modification de l'élèment
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
 {
+	MATVerifierPortee();
 
+	ppqMATMatrice[uiNbLignes][uiNbColonnes] = tElement;
 }
 
 template <class Type>
@@ -202,7 +212,7 @@ void CMatrice<Type>::MATAjouterColonnesPrecis(unsigned int uiNumColonnes)
 {
 }
 
-template <class Type>
+ template <class Type>
 void CMatrice<Type>::MATAjouterLignesPrecis(unsigned int uiNumLignes)
 {
 }
