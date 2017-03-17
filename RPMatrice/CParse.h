@@ -7,7 +7,7 @@
 #include <iostream>
 #include <assert.h>
 
-class CParse
+class CParse 
 {
 private:
 	// Attributs

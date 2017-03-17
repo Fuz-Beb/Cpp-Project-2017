@@ -9,7 +9,7 @@
 
 class CException
 {
-private:
+private: 
 	// Attributs
 	unsigned int uiEXCCode;
 	char * psEXCMessage;

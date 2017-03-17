@@ -1,16 +1,13 @@
-
 #include "CMatrice.h"
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
-
 
 template <class Type>
 CMatrice<Type>::CMatrice()
 {
+	ppqMATMatrice = (Type**)malloc(0);
+	uiMATNbLignes = 0;
+	uiMATNbColonnes = 0;
+	/*psMATTypeMatrice = new char[20];
+	strcpy(psMATTypeMatrice, Type);*/
 }
 
 template <class Type>
@@ -21,6 +18,16 @@ CMatrice<Type>::~CMatrice()
 template <class Type>
 CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
+	uiMATNbLignes = uiNbLignes;
+	uiMATNbColonnes = uiNbColonnes;
+
+	// Allocation mémoire de la matrice
+	ppqMATMatrice = new Type*[uiMATNbLignes]; // Allocation des lignes
+	for (unsigned int eBoucle = 0; eBoucle < uiMATNbColonnes; eBoucle++) // Allocation des colonnes
+		ppqMATMatrice[eBoucle] = new Type[uiMATNbColonnes];
+
+	/*psMATTypeMatrice = new char[20];
+	strcpy(psMATTypeMatrice, Type);*/
 }
 
 template <class Type>
@@ -50,20 +57,31 @@ unsigned int CMatrice<Type>::MATLireNbColonnes()
 	return 0;
 }
 
- template <class Type>
- CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
+template <class Type>
+void CMatrice<Type>::MATEcrireTypeMatrice(char * sTypeMatrice)
+{
+}
+
+template <class Type>
+char * CMatrice<Type>::MATLireTypeMatrice()
 {
 	return 0;
 }
 
 template <class Type>
+ CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
+{
+	return 0;
+}
+
+ template <class Type>
 CMatrice<Type> CMatrice<Type>::MATAfficherMatrice()
 {
 	return 0;
 }
 
 template <class Type>
-CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrices(double dNombre)
+CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
 {
 	return 0;
 }
@@ -79,7 +97,7 @@ template <class Type>
 	return 0;
 }
 
-template <class Type>
+ template <class Type>
 void CMatrice<Type>::MATAjouterColonnesM(unsigned int uiNbColonnes)
 {
 }

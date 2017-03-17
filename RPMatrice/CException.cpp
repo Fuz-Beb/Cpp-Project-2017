@@ -1,9 +1,3 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "CException.h"
 
 
@@ -88,5 +82,5 @@ void CException::EXCEcritureMessage(char * psMessage)
 		delete psEXCMessage;
 
 	psEXCMessage = new char[strlen(psMessage) + 1];
-	strcpy(psEXCMessage, psMessage);
+	strcpy_s(psEXCMessage, sizeof psEXCMessage, psMessage);
 }
