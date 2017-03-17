@@ -15,7 +15,7 @@ CMatrice<Type>::CMatrice()
 {
 	ppqMATMatrice = (Type**)malloc(0);
 	if (ppqMATMatrice == NULL)
-		throw new CException(1, "Echec de l'allocation");
+		throw new CException(ECHECALLOCATION, "Echec de l'allocation");
 	uiMATNbLignes = 0;
 	uiMATNbColonnes = 0;
 }
@@ -40,7 +40,7 @@ CMatrice<Type>::~CMatrice()
 /*****************************
 Constructeur à deux arguments
 ******************************
-Entrée : unsigned int - code d'erreur / char * - message d'erreur
+Entrée : unsigned int - code d'erreur, char * - message d'erreur
 Necessité : néant
 Sortie : néant
 Entraine : l'objet en cours est initialisé
@@ -54,13 +54,13 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 	// Allocation mémoire de la matrice
 	ppqMATMatrice = (Type**) malloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
 	if (ppqMATMatrice == NULL)
-		throw new CException(1, "Echec de l'allocation");
+		throw new CException(ECHECALLOCATION, "Echec de l'allocation");
 
 	for (unsigned int eBoucle = 0; eBoucle < uiMATNbColonnes; eBoucle++) // Allocation des colonnes
 	{
 		ppqMATMatrice[eBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
 		if (ppqMATMatrice[eBoucle] == NULL)
-			throw new CException(1, "Echec de l'allocation");
+			throw new CException(ECHECALLOCATION, "Echec de l'allocation");
 	}
 }
 
@@ -90,27 +90,60 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 	}
 }
 
+/*****************************
+Methode : Ecrire nombre de lignes
+******************************
+Entrée : unsigned int uiNbLignes
+Necessité : néant
+Sortie : néant
+Entraine : modification nombre de lignes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATEcrireNbLignes(unsigned int uiNbLignes)
 {
-
+	uiMATNbLignes = uiNbLignes;
 }
 
+/*****************************
+Methode : Lire nombre de lignes
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : unsigned int
+Entraine : retourne nombre de lignes
+*****************************/
 template <class Type>
 unsigned int CMatrice<Type>::MATLireNbLignes()
 {
-	return 0;
+	return uiMATNbLignes;
 }
 
+/*****************************
+Methode : Ecrire nombre de colonnes
+******************************
+Entrée : unsigned int uiNbColonnes
+Necessité : néant
+Sortie : néant
+Entraine : modification nombre de colonnes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATEcrireNbColonnes(unsigned int uiNbColonnes)
 {
+	uiMATNbColonnes = uiNbColonnes;
 }
 
+/*****************************
+Methode : Lire nombre de colonnes
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : retourne nombre de colonnes
+*****************************/
 template <class Type>
 unsigned int CMatrice<Type>::MATLireNbColonnes()
 {
-	return 0;
+	return uiMATNbColonnes;
 }
 
 template <class Type>
@@ -140,27 +173,62 @@ void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int ui
 template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
-	return 0;
+
+}
+
+template <class Type>
+void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
+{
+}
+
+template <class Type>
+void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
+{
+}
+
+template <class Type>
+void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
+{
+}
+
+template <class Type>
+void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
+{
 }
 
  template <class Type>
-void CMatrice<Type>::MATAjouterColonnesM(unsigned int uiNbColonnes)
+void CMatrice<Type>::MATAjouterColonnesPrecis(unsigned int uiNumColonnes)
 {
 }
 
 template <class Type>
-void CMatrice<Type>::MATAjouterLignesM(unsigned int uiNbLignes)
+void CMatrice<Type>::MATAjouterLignesPrecis(unsigned int uiNumLignes)
 {
 }
 
 template <class Type>
-void CMatrice<Type>::MATSupprimerColonneM(unsigned int uiNumColonne)
+void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonnes)
 {
 }
 
 template <class Type>
-void CMatrice<Type>::MATSupprimerLigneM(unsigned int uiNumLigne)
+void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLignes)
 {
+}
+
+/*****************************
+Methode : Vérifier la dimension de la matrice
+******************************
+Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : (rien) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis sont incorrectes)
+*****************************/
+template <class Type>
+void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes)
+{
+	if (uiMATNbLignes < uiNumLignes || uiMATNbColonnes < uiNumColonnes)
+		throw new CException(DIMENSIONHORSPORTEE, "Erreur dans la dimension - hors portée");
 }
 
 template <class Type>

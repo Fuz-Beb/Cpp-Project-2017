@@ -18,7 +18,7 @@ CException::CException()
 /*****************************
 Constructeur à deux arguments
 ******************************
-Entrée : unsigned int - code d'erreur / char * - message d'erreur
+Entrée : unsigned int uiCodeErreur, char * psMessageErreur
 Necessité : néant
 Sortie : néant
 Entraine : l'objet en cours est initialisé
@@ -50,7 +50,7 @@ Methode : Lecture du code d'erreur
 *****************************
 Entrée : néant
 Necessité : néant
-Sortie : unsigned int - le code d'erreur
+Sortie : unsigned int
 Entraine : retourne le code d'erreur
 *****************************/
 unsigned int CException::EXCLectureCode()
@@ -61,7 +61,7 @@ unsigned int CException::EXCLectureCode()
 /*****************************
 Methode : Modification du code d'erreur
 ******************************
-Entrée : unsigned int - le code d'erreur
+Entrée : unsigned int uiCodeErreur
 Necessité : néant
 Sortie : néant
 Entraine : modification du code d'erreur
@@ -76,7 +76,7 @@ Methode : Lecture du message d'erreur
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : char * - le message d'erreur
+Sortie : char *
 Entraine : retourne le message d'erreur
 *****************************/
 char * CException::EXCLectureMessage()
@@ -87,7 +87,7 @@ char * CException::EXCLectureMessage()
 /*****************************
 Methode : Modification du message d'erreur
 ******************************
-Entrée : char * - le message d'erreur
+Entrée : char * psMessage
 Necessité : néant
 Sortie : néant
 Entraine : modification du message d'erreur
