@@ -1,5 +1,7 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
+#define ECHECALLOCATION 1
+#define DIMENSIONHORSPORTEE 2
 
 template <typename Type> class CMatrice
 {

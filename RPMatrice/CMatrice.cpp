@@ -15,7 +15,7 @@ CMatrice<Type>::CMatrice()
 {
 	ppqMATMatrice = (Type**)malloc(0);
 	if (ppqMATMatrice == NULL)
-		throw new CException(1, "Echec de l'allocation");
+		throw new CException(ECHECALLOCATION, "Echec de l'allocation");
 	uiMATNbLignes = 0;
 	uiMATNbColonnes = 0;
 }
@@ -54,13 +54,13 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 	// Allocation mémoire de la matrice
 	ppqMATMatrice = (Type**) malloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
 	if (ppqMATMatrice == NULL)
-		throw new CException(1, "Echec de l'allocation");
+		throw new CException(ECHECALLOCATION, "Echec de l'allocation");
 
 	for (unsigned int eBoucle = 0; eBoucle < uiMATNbColonnes; eBoucle++) // Allocation des colonnes
 	{
 		ppqMATMatrice[eBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
 		if (ppqMATMatrice[eBoucle] == NULL)
-			throw new CException(1, "Echec de l'allocation");
+			throw new CException(ECHECALLOCATION, "Echec de l'allocation");
 	}
 }
 
@@ -131,10 +131,20 @@ CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
 	return 0;
 }
 
+/*****************************
+Methode : Modifier l'élèment à l'endroit de la matrice
+******************************
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement
+Necessité : néant
+Sortie : néant
+Entraine : Modification de l'élèment
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
 {
-
+	MATVerifierPortee();
+	
+	ppqMATMatrice[uiNbLignes][uiNbColonnes] = tElement;
 }
 
 template <class Type>
