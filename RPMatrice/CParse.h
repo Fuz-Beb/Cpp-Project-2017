@@ -10,22 +10,18 @@
 class CParse
 {
 private:
+	// Attributs
 	unsigned int uiPARNbLignes;
-
 	unsigned int uiPARNbColonnes;
 
-
-private:
-	unsigned int PARLireNbLignes();
-
-	void PAREcrireNbLigne(unsigned int uiNbLignes);
-
-	unsigned int PARLireNbColonnes();
-
-	void PAREcrireNbColonnes(unsigned int uiNbColonnes);
+	// Accesseurs
+	inline unsigned int PARLireNbLignes();
+	inline void PAREcrireNbLigne(unsigned int uiNbLignes);
+	inline unsigned int PARLireNbColonnes();
+	inline void PAREcrireNbColonnes(unsigned int uiNbColonnes);
 
 public:
+	// Méthode
 	void PARTraiterFichier(char * psChemin);
-
 };
 #endif
