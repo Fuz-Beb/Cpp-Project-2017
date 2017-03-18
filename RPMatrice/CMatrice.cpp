@@ -24,6 +24,7 @@ CMatrice<Type>::CMatrice()
 	uiMATNbColonnes = 0;
 }
 
+
 /*****************************
 Destructeur par défaut
 ******************************
@@ -35,7 +36,9 @@ Entraine : L'objet est détruit
 template <class Type>
 CMatrice<Type>::~CMatrice()
 {
-	for(unsigned int uiBoucle = 0; uiBoucle < uiMATNbLignes; uiBoucle++)
+	unsigned int uiBoucle;
+
+	for(uiBoucle = 0; uiBoucle < uiMATNbLignes; uiBoucle++)
 		delete[] ppqMATMatrice[uiBoucle];
 
 	delete[] ppqMATMatrice;
@@ -52,6 +55,8 @@ Entraine : l'objet en cours est initialisé
 template <class Type>
 CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
+	unsigned int uiBoucle;
+
 	uiMATNbLignes = uiNbLignes;
 	uiMATNbColonnes = uiNbColonnes;
 
@@ -60,10 +65,10 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 	if (ppqMATMatrice == NULL)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-	for (unsigned int eBoucle = 0; eBoucle < uiMATNbColonnes; eBoucle++) // Allocation des colonnes
+	for (uiBoucle = 0; uiBoucle < uiMATNbColonnes; uiBoucle++) // Allocation des colonnes
 	{
-		ppqMATMatrice[eBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
-		if (ppqMATMatrice[eBoucle] == NULL)
+		ppqMATMatrice[uiBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
+		if (ppqMATMatrice[uiBoucle] == NULL)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 	}
 }
@@ -79,13 +84,13 @@ Entraine : l'objet en cours est initialisé/recopié
 template <class Type>
 CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 {
-	CMatrice<Type> ppqMATMatriceRetour = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+	unsigned int uiBoucleLigne, uiBoucleColonne;
 	
-	unsigned int uiBoucleColonne;
+	CMatrice<Type> * ppqMATMatriceRetour = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
-	for (unsigned int uiBoucleLigne = 0; uiBoucleLigne < ppqMATMatriceRetour.uiMATNbLignes; uiBoucleLigne++)
-		for (uiBoucleColonne = 0; uiBoucleColonne < ppqMATMatriceRetour.uiMATNbColonnes; uiBoucleColonne++)
-			ppqMATMatriceRetour.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+	for (uiBoucleLigne = 0; uiBoucleLigne < ppqMATMatriceRetour->uiMATNbLignes; uiBoucleLigne++)
+		for (uiBoucleColonne = 0; uiBoucleColonne < ppqMATMatriceRetour->uiMATNbColonnes; uiBoucleColonne++)
+			ppqMATMatriceRetour->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 }
 
 /*****************************
@@ -202,7 +207,8 @@ void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int ui
 		ppqMATMatrice[uiNbLignes - 1][uiNbColonnes - 1] = tElement;
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-}
+		std::terminate();
+	}
 }
 
 /*****************************
@@ -221,7 +227,8 @@ template <class Type>
 		return ppqMATMatrice[uiNbLignes - 1][uiNbColonnes - 1];
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-}
+		std::terminate();
+	}
 }
 
 /*****************************
@@ -260,7 +267,7 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 	
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
-	}
+}
 }
 
 template <class Type>
@@ -398,10 +405,25 @@ template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
 	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+
 		MATVerifierDimension(MATMatrice.MATLireNbLignes(), MATMatrice.MATLireNbColonnes());
-		// Traitement Ajout
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.MATLireNbLignes(), MATMatrice.MATLireNbColonnes());
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < MATLireNbLignes() ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < MATLireNbColonnes() ; uiBoucleColonne++)
+				MATNewMatrice->MATModifierElement(uiBoucleLigne + 1, uiBoucleColonne + 1, MATLireElement(uiBoucleLigne + 1, uiBoucleColonne + 1) + MATMatrice.MATLireElement(uiBoucleLigne + 1, uiBoucleColonne + 1));
+
+		return *this;
+
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
 	}
 }
 template <class Type>
