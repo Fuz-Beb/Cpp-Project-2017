@@ -1,7 +1,9 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
+
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
+#define DIMENSIONINEGALE 3
 
 template <class Type> class CMatrice
 {
@@ -43,6 +45,7 @@ public:
 	void MATSupprimerLignePrecis(unsigned int uiNumLignes);
 
 	void MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes);
+	void MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
 	// Surchage
 	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);

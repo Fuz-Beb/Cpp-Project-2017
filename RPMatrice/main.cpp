@@ -4,6 +4,8 @@
 
 void main()
 {
+	unsigned int z = 0;
+
 	// Test constructeur par défaut
 	CMatrice<int> * a = new CMatrice<int>();
 
@@ -18,4 +20,7 @@ void main()
 
 	c.MATAfficherMatrice();
 
+	// Test de modification et de lecture des élements de la matrice
+	CMatrice<int> c = CMatrice<int>(2,2);
+	c.MATModifierElement(3,2, 1);
 }

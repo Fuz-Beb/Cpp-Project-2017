@@ -21,9 +21,9 @@ public:
 	~CException();
 
 	// Accesseurs
-	inline unsigned int EXCLectureCode();
-	inline void EXCEcritureCode(unsigned int uiCodeErreur);
-	inline char * EXCLectureMessage();
-	inline void EXCEcritureMessage(char * psMessage);
+	unsigned int EXCLectureCode();
+	void EXCEcritureCode(unsigned int uiCodeErreur);
+	char * EXCLectureMessage();
+	void EXCEcritureMessage(char * psMessage);
 };
 #endif
