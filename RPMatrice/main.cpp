@@ -15,6 +15,14 @@ void main()
 	// Test destructeur par défaut
 	delete(a);
 
+	// Test méthode MATAfficherMatrice
+	CMatrice<int> c = CMatrice<int>(2, 2);
+	c.MATModifierElement(1,1, 1);
+	c.MATModifierElement(1,2, 2);
+	c.MATModifierElement(2,1, 3);
+	c.MATModifierElement(2,2, 4);
+	c.MATAfficherMatrice();
+
 	// Test de modification et de lecture des élements de la matrice
 	
 	// Matrice 1
