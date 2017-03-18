@@ -40,12 +40,12 @@ public:
 	void MATAjouterLignesFin(unsigned int uiNbLignes);
 	void MATSupprimerColonneFin(unsigned int uiNbColonnes);
 	void MATSupprimerLigneFin(unsigned int uiNbLignes);
-	void MATAjouterColonnePrecis(unsigned int uiNumColonnes);
-	void MATAjouterLignePrecis(unsigned int uiNumLignes);
-	void MATSupprimerColonnePrecis(unsigned int uiNumColonnes);
-	void MATSupprimerLignePrecis(unsigned int uiNumLignes);
+	void MATAjouterColonnePrecis(unsigned int uiNumColonne);
+	void MATAjouterLignePrecis(unsigned int uiNumLigne);
+	void MATSupprimerColonnePrecis(unsigned int uiNumColonne);
+	void MATSupprimerLignePrecis(unsigned int uiNumLigne);
 
-	void MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes);
+	void MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne);
 	void MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
 	// Surchage

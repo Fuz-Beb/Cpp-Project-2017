@@ -293,7 +293,7 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 }
 
 /*****************************
-Methode : Ajouter une/des colonnes à un endroit précis de la matrice
+Methode : Ajouter une colonne à un endroit précis de la matrice
 ******************************
 Entrée : unsigned int uiNumColonnes
 Necessité : néant
@@ -301,7 +301,7 @@ Sortie : néant
 Entraine : Réallocation et ajout d'une colonne
 *****************************/
  template <class Type>
-void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonnes)
+void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 {
 	try	{
 
@@ -327,7 +327,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonnes)
 }
 
 /*****************************
-Methode : Ajouter une/des lignes à un endroit précis de la matrice
+Methode : Ajouter une ligne à un endroit précis de la matrice
 ******************************
 Entrée : unsigned int uiNumLignes
 Necessité : néant
@@ -335,7 +335,7 @@ Sortie : néant
 Entraine : Réallocation et ajout d'une ligne
 *****************************/
  template <class Type>
-void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLignes)
+void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 {
 	try	{
 
@@ -358,8 +358,16 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLignes)
 	}
 }
 
+/*****************************
+Methode : Supprimer une colonne à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation et suppression d'une colonne
+*****************************/
 template <class Type>
-void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonnes)
+void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
 	try	{
 
@@ -388,9 +396,39 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonnes)
 	}
 }
 
+/*****************************
+Methode : Supprimer unes ligne à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumLignes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation et suppression d'une ligne
+*****************************/
 template <class Type>
-void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLignes)
+void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 {
+	try	{
+
+		unsigned int uiBoucleDecalage = uiNumLignes, uiBoucleColonne, uiBoucleLigne, uiBoucle;
+
+		if(uiNumLignes > uiMATNbLignes)
+			throw CException(ACTIONHORSPORTEE, "Echec de la suppression");
+
+		else
+			for(uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
+				for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
+					MATModifierElement(uiBoucleDecalage, uiBoucleColonne, MATLireElement(uiBoucleDecalage + 1, uiBoucleColonne));
+
+		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbColonnes - 1);
+	
+		if (ppqMATMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de la reallocation");
+
+		uiMATNbLignes--;
+
+	} catch(CException & EXCObjet) {
+		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
+	}
 }
 
 /*****************************
@@ -402,7 +440,7 @@ Sortie : néant
 Entraine : (néant) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis sont incorrectes)
 *****************************/
 template <class Type>
-void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes)
+void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
 	if (uiMATNbLignes < uiNumLignes || uiNumLignes == 0 || uiMATNbColonnes < uiNumColonnes || uiNumColonnes == 0)
 		throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
