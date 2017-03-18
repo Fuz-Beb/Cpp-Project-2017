@@ -13,4 +13,9 @@ void main()
 	// Test destructeur par défaut
 	delete(a);
 
+	// Test méthode MATAfficherMatrice
+	CMatrice<int> c = CMatrice<int>();
+
+	c.MATAfficherMatrice();
+
 }
