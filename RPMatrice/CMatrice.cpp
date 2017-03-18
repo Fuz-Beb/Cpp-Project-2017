@@ -400,14 +400,14 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 {
 	try	{
 
-		unsigned int uiBoucleDecalage = uiNumLignes;
+		unsigned int uiBoucleDecalage = uiNumLignes, uiBoucleColonne, uiBoucleLigne, uiBoucle;
 
 		if(uiNumLignes > uiMATNbLignes)
 			throw CException(ACTIONHORSPORTEE, "Echec de la suppression");
 
 		else
-			for(unsigned int uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
-				for(unsigned int uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
+			for(uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
+				for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
 					MATModifierElement(uiBoucleDecalage, uiBoucleColonne, MATLireElement(uiBoucleDecalage + 1, uiBoucleColonne));
 
 		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbColonnes - 1);
