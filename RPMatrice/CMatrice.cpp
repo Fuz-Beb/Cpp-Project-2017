@@ -243,7 +243,12 @@ template <class Type>
 void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
 {
 	try {
+		unsigned int uiBoucle = 1;
+		while(uiBoucle <= uiNbColonnes)
+		{
 			MATAjouterColonnePrecis(uiMATNbColonnes + 1);
+			uiBoucle++;
+		}
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -262,9 +267,13 @@ Entraine : Réallocation selon ajout nb lignes
 template <class Type>
 void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 {
-	// NON FONCTIONNEL A FINIR
 	try {
+		unsigned int uiBoucle = 1;
+		while(uiBoucle <= uiNbLignes)
+		{
 			MATAjouterLignePrecis(uiMATNbLignes + 1);
+			uiBoucle++;
+		}
 	
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
