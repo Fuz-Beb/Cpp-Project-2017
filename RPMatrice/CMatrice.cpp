@@ -373,19 +373,19 @@ CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
-		MATVerifierDimension(MATMatrice.MATLireNbLignes(), MATMatrice.MATLireNbColonnes());
+		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		
 		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.MATLireNbLignes(), MATMatrice.MATLireNbColonnes());
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-		for (uiBoucleLigne = 0 ; uiBoucleLigne < MATLireNbLignes() ; uiBoucleLigne++)
-			for (uiBoucleColonne = 0 ; uiBoucleColonne < MATLireNbColonnes() ; uiBoucleColonne++)
-				MATNewMatrice->MATModifierElement(uiBoucleLigne + 1, uiBoucleColonne + 1, MATLireElement(uiBoucleLigne + 1, uiBoucleColonne + 1) + MATMatrice.MATLireElement(uiBoucleLigne + 1, uiBoucleColonne + 1));
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] + MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-		return *this;
+		return *MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -425,5 +425,24 @@ CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {
-	return 0;
+	// Prendre en compte que si c'est un objet, il faut vider la matrice avant pour liberer la mémoire
+	unsigned int uiBoucleLigne, uiBoucleColonne;
+
+	if (uiMATNbLignes < MATMatrice.uiMATNbLignes)
+		MATAjouterLignesFin(MATMatrice.uiMATNbLignes - uiMATNbLignes);
+		
+	else if (uiMATNbLignes > MATMatrice.uiMATNbLignes)
+		MATSupprimerLigneFin(uiMATNbLignes - MATMatrice.uiMATNbLignes);
+	
+	if (uiMATNbColonnes < MATMatrice.uiMATNbColonnes)
+		MATAjouterColonnesFin(MATMatrice.uiMATNbColonnes - uiMATNbColonnes);
+
+	else if (uiMATNbColonnes > MATMatrice.uiMATNbColonnes)
+		MATSupprimerColonneFin(uiMATNbColonnes - MATMatrice.uiMATNbColonnes);
+	
+	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+			ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+	
+	return *this;
 }
