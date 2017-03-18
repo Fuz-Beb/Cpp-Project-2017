@@ -4,6 +4,7 @@
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 #define DIMENSIONINEGALE 3
+#define ACTIONHORSPORTEE 4
 
 template <class Type> class CMatrice
 {
@@ -39,8 +40,8 @@ public:
 	void MATAjouterLignesFin(unsigned int uiNbLignes);
 	void MATSupprimerColonneFin(unsigned int uiNbColonnes);
 	void MATSupprimerLigneFin(unsigned int uiNbLignes);
-	void MATAjouterColonnesPrecis(unsigned int uiNumColonnes);
-	void MATAjouterLignesPrecis(unsigned int uiNumLignes);
+	void MATAjouterColonnePrecis(unsigned int uiNumColonnes);
+	void MATAjouterLignePrecis(unsigned int uiNumLignes);
 	void MATSupprimerColonnePrecis(unsigned int uiNumColonnes);
 	void MATSupprimerLignePrecis(unsigned int uiNumLignes);
 
