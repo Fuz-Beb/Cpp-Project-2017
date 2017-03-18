@@ -243,20 +243,27 @@ template <class Type>
 void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
 {
 	try {
-			MATAjouterColonnesPrecis(uiBoucle + uiMATNbColonnes);
-			uiMATNbColonnes++;
+			MATAjouterColonnePrecis(uiMATNbColonnes + 1);
 
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
-}
+	}
 }
 
+/*****************************
+Methode : Ajouter une/des lignes en bas de la matrice
+******************************
+Entrée : unsigned int uiNbLignes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation selon ajout nb lignes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 {
 	// NON FONCTIONNEL A FINIR
 	try {
-		
+			MATAjouterLignePrecis(uiMATNbLignes + 1);
 	
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
@@ -266,6 +273,7 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 {
+
 }
 
 template <class Type>
@@ -282,7 +290,7 @@ Sortie : néant
 Entraine : Réallocation et ajout d'une colonne
 *****************************/
  template <class Type>
-void CMatrice<Type>::MATAjouterColonnesPrecis(unsigned int uiNumColonnes)
+void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonnes)
 {
 	try	{
 
@@ -295,11 +303,11 @@ void CMatrice<Type>::MATAjouterColonnesPrecis(unsigned int uiNumColonnes)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
 		}
 
-		uiMATNbColonnes++;
-
 		if(uiNumColonnes <= uiMATNbColonnes)
 			for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbLignes, uiBoucle++)
 				MATModifierElement(uiBoucle, uiBoucleDecalage, MATLireElement(uiBoucle, uiBoucleDecalage - 1));
+
+		uiMATNbColonnes++;
 
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
@@ -315,20 +323,22 @@ Sortie : néant
 Entraine : Réallocation et ajout d'une ligne
 *****************************/
  template <class Type>
-void CMatrice<Type>::MATAjouterLignesPrecis(unsigned int uiNumLignes)
+void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLignes)
 {
 	try	{
+
+		unsigned int uiBoucleDecalage = uiMATNbLignes;
 
 		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbLignes + 1); // Allocation des lignes
 	
 		if (ppqMATMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
-		uiMATNbLignes++;
-
 		if(uiNumLignes <= uiMATNbLignes)
-			for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbLignes, uiBoucle++)
-				MATModifierElement(uiBoucle, uiBoucleDecalage, MATLireElement(uiBoucle, uiBoucleDecalage - 1));
+			for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbColonnes, uiBoucle++)
+				MATModifierElement(uiBoucleDecalage, uiBoucle, MATLireElement(uiBoucleDecalage - 1, uiBoucle));
+
+		uiMATNbLignes++;
 
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
@@ -338,6 +348,30 @@ void CMatrice<Type>::MATAjouterLignesPrecis(unsigned int uiNumLignes)
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonnes)
 {
+	try	{
+
+		unsigned int uiBoucleDecalage = uiNumColonnes;
+
+		if(uiNumColonnes > uiMATNbColonnes)
+			throw CException(ACTIONHORSPORTEE, "Echec de la suppression");
+
+		else
+			for(unsigned int uiBoucleColonne = 0, uiBoucleColonne < uiMATNbColonnes, uiBoucleColonne++)
+				for(unsigned int uiBoucleLigne = 0, uiBoucleLigne < uiMATNbLignes, uiBoucle++)
+					MATModifierElement(uiBoucleLigne, uiBoucleDecalage + uiBoucleColonne, MATLireElement(uiBoucleLigne, uiBoucleDecalage + uiBoucleColonne + 1));
+
+		for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbLignes, uiBoucle++) {
+			ppqMATMatrice[uiBoucle] =  (Type*) realloc(ppqMATMatrice[uiBoucle], sizeof(Type) * uiMATNbColonnes - 1);
+			
+			if (ppqMATMatrice[uiBoucle] == NULL)
+				throw CException(ECHECALLOCATION, "Echec de la reallocation");
+		}
+
+		uiMATNbColonnes--;
+
+	} catch(CException & EXCObjet) {
+		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
+	}
 }
 
 template <class Type>
