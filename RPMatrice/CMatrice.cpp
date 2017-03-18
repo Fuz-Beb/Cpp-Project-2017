@@ -166,8 +166,8 @@ void CMatrice<Type>::MATAfficherMatrice()
 
 	// Verifier si c'est un objet alors ne pas afficher
 
-	if(typeid(Type).name() != typeid(double).name() && typeid(Type).name() != typeid(float).name() && typeid(int).name() != typeid(char).name() && typeid(Type).name() != typeid(string).name())
-		cout << "test : " << typeid(Type).name();
+	/*if(typeid(Type).name() != typeid(double).name() && typeid(Type).name() != typeid(float).name() && typeid(int).name() != typeid(char).name() && typeid(Type).name() != typeid(string).name())
+		cout << "test : " << typeid(Type).name();*/
 	printf("Affichage de la matrice :\n");
  
  
@@ -249,10 +249,7 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 {
 	// NON FONCTIONNEL A FINIR
 	try {
-		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
-	
-	if (ppqMATMatrice == NULL)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		
 	
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
@@ -269,6 +266,14 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 {
 }
 
+/*****************************
+Methode : Ajouter une/des colonnes à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation et ajout d'une colonne
+*****************************/
  template <class Type>
 void CMatrice<Type>::MATAjouterColonnesPrecis(unsigned int uiNumColonnes)
 {
@@ -285,22 +290,42 @@ void CMatrice<Type>::MATAjouterColonnesPrecis(unsigned int uiNumColonnes)
 
 		uiMATNbColonnes++;
 
-		if(uiNumColonnes <= uiMATNbColonnes) {
-			for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbLignes, uiBoucle++) {
+		if(uiNumColonnes <= uiMATNbColonnes)
+			for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbLignes, uiBoucle++)
 				MATModifierElement(uiBoucle, uiBoucleDecalage, MATLireElement(uiBoucle, uiBoucleDecalage - 1));
-			}
-		}
-
-		
 
 	} catch(CException & EXCObjet) {
 		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
 	}
 }
 
+/*****************************
+Methode : Ajouter une/des lignes à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumLignes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation et ajout d'une ligne
+*****************************/
  template <class Type>
 void CMatrice<Type>::MATAjouterLignesPrecis(unsigned int uiNumLignes)
 {
+	try	{
+
+		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbLignes + 1); // Allocation des lignes
+	
+		if (ppqMATMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de la reallocation");
+
+		uiMATNbLignes++;
+
+		if(uiNumLignes <= uiMATNbLignes)
+			for(unsigned int uiBoucle = 0, uiBoucle < uiMATNbLignes, uiBoucle++)
+				MATModifierElement(uiBoucle, uiBoucleDecalage, MATLireElement(uiBoucle, uiBoucleDecalage - 1));
+
+	} catch(CException & EXCObjet) {
+		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
+	}
 }
 
 template <class Type>
