@@ -41,8 +41,8 @@ Entraine : l'objet en cours est détruit
 *****************************/
 CException::~CException()
 {
-	if (psEXCMessage != NULL)
-		delete psEXCMessage;
+	/*if (psEXCMessage != NULL)
+		delete psEXCMessage;*/
 }
 
 /*****************************
