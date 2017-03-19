@@ -51,10 +51,13 @@ void main()
 
 
 
-	/*printf("%d", Matrice3.MATLireElement(1,1));*/
-	/*Matrice3.MATAfficherMatrice();*/
-	/*Matrice3.MATLireElement(3,1);
-	Matrice3.MATLireElement(3,2);
+	Matrice3.MATAjouterColonnesFin(1);
+	Matrice3.MATModifierElement(2, 3, 1);
+
+	
+	//Matrice3.MATAjouterColonnePrecis(3);
+	//Matrice3.MATAjouterColonnePrecis(3);
+	//Matrice3.MATAjouterLignePrecis(3);
 	//Matrice3.MATModifierElement(3, 2, 17);
 	printf("APRES");
 
