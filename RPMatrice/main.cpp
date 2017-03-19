@@ -50,8 +50,15 @@ void main()
 	printf("AVANT");
 	Matrice3.MATAfficherMatrice();
 
-	Matrice3.MATAjouterLignePrecis(3);
-	Matrice3.MATModifierElement(3, 2, 17);
+
+	Matrice3.MATAjouterColonnesFin(1);
+	Matrice3.MATModifierElement(2, 3, 1);
+
+	
+	//Matrice3.MATAjouterColonnePrecis(3);
+	//Matrice3.MATAjouterColonnePrecis(3);
+	//Matrice3.MATAjouterLignePrecis(3);
+	//Matrice3.MATModifierElement(3, 2, 17);
 	printf("APRES");
 
 	Matrice3.MATAfficherMatrice();

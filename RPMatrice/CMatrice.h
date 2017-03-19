@@ -33,8 +33,8 @@ public:
 	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
 
 	// Gérer les éléments de la matrice
-	void MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement);
-	Type MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes);
+	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
+	Type MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne);
 	
 	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
 	void MATAjouterLignesFin(unsigned int uiNbLignes);

@@ -200,11 +200,11 @@ Sortie : néant
 Entraine : Modification de l'élèment
 *****************************/
 template <class Type>
-void CMatrice<Type>::MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement)
+void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement)
 {
 	try {
-		MATVerifierPortee(uiNbLignes, uiNbColonnes);
-		ppqMATMatrice[uiNbLignes - 1][uiNbColonnes - 1] = tElement;
+		MATVerifierPortee(uiNumLigne, uiNumColonne);
+		ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1] = tElement;
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		std::terminate();
@@ -220,11 +220,11 @@ Sortie : Type
 Entraine : retourne l'element à l'endroit de la matrice
 *****************************/
 template <class Type>
- Type CMatrice<Type>::MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes)
+ Type CMatrice<Type>::MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
 	try {
-		MATVerifierPortee(uiNbLignes, uiNbColonnes);
-		return ppqMATMatrice[uiNbLignes - 1][uiNbColonnes - 1];
+		//MATVerifierPortee(uiNumLigne, uiNumColonne);
+		return ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1];
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		std::terminate();
@@ -305,20 +305,23 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 {
 	try	{
 
-		unsigned int uiBoucleDecalage = uiMATNbColonnes, uiBoucle;
+		unsigned int uiBoucleColonne = 0, uiBoucleLigne = 0;
 
-		for(uiBoucle = 0 ; uiBoucle < uiMATNbLignes ; uiBoucle++) {
-			ppqMATMatrice[uiBoucle] =  (Type*) realloc(ppqMATMatrice[uiBoucle], sizeof(Type) * uiMATNbColonnes + 1);
+		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
+			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * uiMATNbColonnes + 1);
 			
-			if (ppqMATMatrice[uiBoucle] == NULL)
+			if (ppqMATMatrice[uiBoucleLigne] == NULL)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
 		}
 
-		if(uiNumColonnes <= uiMATNbColonnes)
-			for(uiBoucle = 0 ; uiBoucle < uiMATNbLignes ; uiBoucle++)
-				MATModifierElement(uiBoucle, uiBoucleDecalage, MATLireElement(uiBoucle, uiBoucleDecalage - 1));
-
 		uiMATNbColonnes++;
+
+		if(uiNumColonne < uiMATNbColonnes){
+		}
+			//
+			/*for(uiBoucleColonne = uiMATNbColonnes ; uiBoucleColonne > uiNumColonne ; uiBoucleColonne--)
+				for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+					MATModifierElement(uiBoucleLigne, uiBoucleColonne, MATLireElement(uiBoucleLigne, uiBoucleColonne - 1));*/
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -339,16 +342,16 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 {
 	try	{
 
-		unsigned int uiBoucleDecalage = uiMATNbLignes, uiBoucle;
+		unsigned int uiBoucleDecalage = uiMATNbLignes, uiBoucle = 0;
 
 		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes + 1); // Allocation des lignes
 	
 		if (ppqMATMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
-		if(uiNumLignes <= uiMATNbLignes)
+		if(uiNumLigne <= uiMATNbLignes)
 			for(uiBoucle = 0 ; uiBoucle < uiMATNbColonnes ; uiBoucle++)
-				MATModifierElement(uiBoucleDecalage, uiBoucle, MATLireElement(uiBoucleDecalage - 1, uiBoucle));
+				MATModifierElement(uiBoucleDecalage + 1, uiBoucle, MATLireElement(uiBoucleDecalage - 1, uiBoucle));
 
 		uiMATNbLignes++;
 
@@ -442,7 +445,7 @@ Entraine : (néant) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis so
 template <class Type>
 void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
-	if (uiMATNbLignes < uiNumLignes || uiNumLignes == 0 || uiMATNbColonnes < uiNumColonnes || uiNumColonnes == 0)
+	if (uiMATNbLignes < uiNumLigne || uiNumLigne == 0 || uiMATNbColonnes < uiNumColonne || uiNumColonne == 0)
 		throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 }
 
