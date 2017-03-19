@@ -49,20 +49,9 @@ void main()
 	Matrice3.MATModifierElement(2,1, 3);
 	Matrice3.MATModifierElement(2,2, 4);
 
-
-
-	Matrice3.MATAjouterColonnesFin(1);
-	Matrice3.MATModifierElement(2, 3, 1);
-
-	
-	//Matrice3.MATAjouterColonnePrecis(3);
-	//Matrice3.MATAjouterColonnePrecis(3);
-	//Matrice3.MATAjouterLignePrecis(3);
-	//Matrice3.MATModifierElement(3, 2, 17);
-	printf("APRES");
-
-	Matrice3.MATAfficherMatrice();*/
-
-	Matrice3 = Matrice1 + Matrice2;
+	Matrice3.MATAjouterLignePrecis(3);
+	Matrice3.MATAfficherMatrice();
+	Matrice3.MATModifierElement(1,1, 17);
+	Matrice3.MATModifierElement(1,2, 20);
 	Matrice3.MATAfficherMatrice();
 }
