@@ -10,11 +10,13 @@ template <class Type> class CMatrice
 {
 	// Attributs
 private:
-	Type ** ppqMATMatrice;
-	unsigned int uiMATNbLignes;
-	unsigned int uiMATNbColonnes;
+	
+
 
 public:
+	Type ** ppqMATMatrice;
+		unsigned int uiMATNbLignes;
+	unsigned int uiMATNbColonnes;
 	// Constructeur et destructeur
 	CMatrice();
 	~CMatrice();
@@ -59,5 +61,4 @@ public:
 };
 
 #endif
-
 

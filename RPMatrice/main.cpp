@@ -1,10 +1,12 @@
 #include "CMatrice.cpp"
 #include "CException.h"
 #include "CParse.h"
+#include <iostream>
+#include <stdint.h>
 
 void main()
 {
-	unsigned int z = 0;
+
 
 	// Test constructeur par défaut
 	//CMatrice<int> * a = new CMatrice<int>();
@@ -47,19 +49,17 @@ void main()
 	Matrice3.MATModifierElement(2,1, 3);
 	Matrice3.MATModifierElement(2,2, 4);
 
-	printf("AVANT");
-	Matrice3.MATAfficherMatrice();
 
-	Matrice3.MATAjouterLignePrecis(3);
-	Matrice3.MATModifierElement(3, 2, 17);
+
+	/*printf("%d", Matrice3.MATLireElement(1,1));*/
+	/*Matrice3.MATAfficherMatrice();*/
+	/*Matrice3.MATLireElement(3,1);
+	Matrice3.MATLireElement(3,2);
+	//Matrice3.MATModifierElement(3, 2, 17);
 	printf("APRES");
 
-	Matrice3.MATAfficherMatrice();
+	Matrice3.MATAfficherMatrice();*/
 
-	
-	
-	
-	
-	/*Matrice3 = Matrice1 + Matrice2;*/
-	/*Matrice3.MATAfficherMatrice();*/
+	Matrice3 = Matrice1 + Matrice2;
+	Matrice3.MATAfficherMatrice();
 }
