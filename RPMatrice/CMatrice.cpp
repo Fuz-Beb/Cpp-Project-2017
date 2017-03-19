@@ -342,17 +342,34 @@ Entraine : Réallocation et ajout d'une ligne
 void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 {
 	try	{
+		unsigned int uiBoucleLigne = uiMATNbLignes, uiBoucleColonne = 0;
 
-		unsigned int uiBoucleDecalage = uiMATNbLignes, uiBoucle = 0;
+		if (uiNumLigne > uiMATNbLignes + 1)
+			throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 
 		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * (uiMATNbLignes + 1)); // Allocation des lignes
 	
 		if (ppqMATMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
-		if(uiNumLigne <= uiMATNbLignes)
-			for(uiBoucle = 0 ; uiBoucle < uiMATNbColonnes ; uiBoucle++)
-				MATModifierElement(uiBoucleDecalage + 1, uiBoucle, MATLireElement(uiBoucleDecalage - 1, uiBoucle));
+		ppqMATMatrice[uiMATNbLignes] = (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
+		
+		if (ppqMATMatrice[uiMATNbLignes] == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		if (uiNumLigne <= uiMATNbLignes)
+		{
+			while (uiBoucleLigne > uiNumLigne - 1)
+			{
+				uiBoucleColonne = 0;
+				while (uiBoucleColonne < uiMATNbColonnes)
+				{
+					ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne-1][uiBoucleColonne];
+					uiBoucleColonne++;
+				}
+				uiBoucleLigne--;
+			}
+		}
 
 		uiMATNbLignes++;
 
