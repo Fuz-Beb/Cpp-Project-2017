@@ -79,16 +79,25 @@ void main()
 
 	Matrice3.MATAjouterColonnePrecis(12);
 	*/
-	// Test d'affichage + MATSupprimerColonnePrecis
 
-	//Matrice3.MATSupprimerColonnePrecis(1);
+	// OK - Test d'affichage + MATSupprimerColonnePrecis
+	/*
+	Matrice3.MATSupprimerColonnePrecis(3);
+
+	*/
+
+	// Test d'affichage + MATSupprimerColonneFin & MATSupprimerLigneFin
+	Matrice3.MATSupprimerLigneFin(1);
+	Matrice3.MATSupprimerColonneFin(1);
+
+	// Affichage Après modification
 
 	// OK - Test d'affichage + MATAjouterLignePrecis
 	/*Matrice3.MATAjouterLignePrecis(4);
 	Matrice3.MATModifierElement(3, 2, 17);
 	printf("APRES");
 	Matrice3.MATAfficherMatrice();*/
-
+	
 	// Test d'affichage + MATSupprimerLignePrecis
 	/*Matrice3.MATSupprimerLignePrecis(1);
 	Matrice3.MATAfficherMatrice();*/
