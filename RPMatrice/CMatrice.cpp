@@ -470,7 +470,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 }
 
 /*****************************
-Methode : Vérifier la dimension de la matrice
+Methode : Vérifier la portée de l'action dans la matrice
 ******************************
 Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
 Necessité : néant
@@ -484,6 +484,14 @@ void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiN
 		throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 }
 
+/*****************************
+Methode : Vérifier la dimension de la matrice
+******************************
+Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : (néant) ou (Exception DIMENSIONINEGALE : les dimensions fournis ne correspondent pas à la matrice)
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
@@ -491,6 +499,14 @@ void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int 
 		throw CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 }
 
+/*****************************
+Methode : Surcharge operateur +
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
@@ -516,36 +532,185 @@ CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 		std::terminate();
 	}
 }
+
+/*****************************
+Methode : Surcharge operateur -
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
-	return 0;
+	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+
+		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] - MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+
+		return *MATNewMatrice;
+
+	} catch (CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
+/*****************************
+Methode : Surcharge operateur / par constante
+******************************
+Entrée : Type & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator*(Type & MATMatrice)
 {
-	return 0;
+	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+
+		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice;
+
+		return *MATNewMatrice;
+
+	} catch (CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
+/*****************************
+Methode : Surcharge operateur *
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
-	return 0;
+	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+
+		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+
+		return *MATNewMatrice;
+
+	} catch (CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
+/*****************************
+Methode : Surcharge operateur / par constante
+******************************
+Entrée : Type & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator/(Type & MATMatrice)
 {
-	return 0;
+	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+
+		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice;
+
+		return *MATNewMatrice;
+
+	} catch (CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
+/*****************************
+Methode : Surcharge operateur /
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 {
-	return 0;
+	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+
+		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+
+		return *MATNewMatrice;
+
+	} catch (CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
+/*****************************
+Methode : Surcharge operateur =
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {
