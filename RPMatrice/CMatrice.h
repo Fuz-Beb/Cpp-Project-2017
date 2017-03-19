@@ -15,7 +15,7 @@ private:
 
 public:
 	Type ** ppqMATMatrice;
-		unsigned int uiMATNbLignes;
+	unsigned int uiMATNbLignes;
 	unsigned int uiMATNbColonnes;
 	// Constructeur et destructeur
 	CMatrice();

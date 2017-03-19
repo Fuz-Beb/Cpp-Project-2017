@@ -7,17 +7,16 @@
 void main()
 {
 
-
-	// Test constructeur par défaut
+	// OK - Test constructeur par défaut
 	//CMatrice<int> * a = new CMatrice<int>();
 
-	// Test constructeur de recopie
+	// OK - Test constructeur de recopie
 	//CMatrice<int> * b = new CMatrice<int>(* a);
 
-	// Test destructeur par défaut
+	// OK - Test destructeur par défaut
 	//delete(a);
 
-	// Test méthode MATAfficherMatrice
+	// OK - Test méthode MATAfficherMatrice
 	/*CMatrice<int> c = CMatrice<int>(2, 2);
 	c.MATModifierElement(1,1, 1);
 	c.MATModifierElement(1,2, 2);
@@ -49,9 +48,48 @@ void main()
 	Matrice3.MATModifierElement(2,1, 3);
 	Matrice3.MATModifierElement(2,2, 4);
 
-	Matrice3.MATAjouterLignePrecis(3);
+	
+	// Test d'affichage :
+	
+	printf("AVANT");
 	Matrice3.MATAfficherMatrice();
-	Matrice3.MATModifierElement(1,1, 17);
-	Matrice3.MATModifierElement(1,2, 20);
+
+	// OK - Test d'affichage + MATAjouterColonnesFin
+	/*
+	Matrice3.MATAjouterColonnesFin(1);
+	Matrice3.MATModifierElement(2, 3, 1);
+	Matrice3.MATModifierElement(1, 3, 1);
+
+	Matrice3.MATAjouterColonnesFin(1);
+	Matrice3.MATModifierElement(2, 4, 9);
+	Matrice3.MATModifierElement(1, 4, 8);
+	*/
+
+	// OK - Test d'affichage + MATAjouterColonnePrecis
+	/*
+	Matrice3.MATAjouterColonnePrecis(2);
+	Matrice3.MATModifierElement(1, 2, 7);
+	Matrice3.MATModifierElement(2, 2, 6);
+	Matrice3.MATAjouterColonnePrecis(2);
+	Matrice3.MATModifierElement(1, 2, 9);
+	Matrice3.MATModifierElement(2, 2, 8);
+	Matrice3.MATAjouterColonnePrecis(5);
+	Matrice3.MATModifierElement(1, 5, 10);
+	Matrice3.MATModifierElement(2, 5, 12);
+
+	Matrice3.MATAjouterColonnePrecis(12);
+	*/
+	// Test d'affichage + MATSupprimerColonnePrecis
+
+	Matrice3.MATSupprimerColonnePrecis(1);
+
+
+	//Matrice3.MATAjouterLignePrecis(3);
+	//Matrice3.MATModifierElement(3, 2, 17);
+	printf("APRES");
+	
 	Matrice3.MATAfficherMatrice();
+	/*
+	Matrice3 = Matrice1 + Matrice2;
+	Matrice3.MATAfficherMatrice();*/
 }
