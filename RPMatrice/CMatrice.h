@@ -12,7 +12,7 @@ template <class Type> class CMatrice
 private:
 	Type ** ppqMATMatrice;
 	unsigned int uiMATNbLignes;
-	unsigned int uiMATNbColonnes;	
+	unsigned int uiMATNbColonnes;
 
 public:
 	// Constructeur et destructeur
