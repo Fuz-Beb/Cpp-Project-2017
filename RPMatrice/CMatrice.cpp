@@ -342,7 +342,7 @@ Entraine : Réallocation et ajout d'une ligne
 void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 {
 	try	{
-		unsigned int uiBoucleLigne = uiMATNbLignes, uiBoucleColonne = 0;
+		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		if (uiNumLigne > uiMATNbLignes + 1)
 			throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
@@ -357,19 +357,11 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 		if (ppqMATMatrice[uiMATNbLignes] == NULL)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-		if (uiNumLigne <= uiMATNbLignes)
-		{
-			while (uiBoucleLigne > uiNumLigne - 1)
-			{
-				uiBoucleColonne = 0;
-				while (uiBoucleColonne < uiMATNbColonnes)
-				{
-					ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne-1][uiBoucleColonne];
-					uiBoucleColonne++;
-				}
-				uiBoucleLigne--;
-			}
-		}
+
+		if (uiNumLigne < uiMATNbLignes)
+			for(uiBoucleLigne = uiMATNbLignes ; uiBoucleLigne > uiNumLigne ; uiBoucleLigne--)
+				for(uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+					ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne - 1][uiBoucleColonne];
 
 		uiMATNbLignes++;
 
@@ -427,16 +419,15 @@ template <class Type>
 void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 {
 	try	{
+		unsigned int uiBoucleLigne, uiBoucleColonne;
 
-		unsigned int uiBoucleDecalage = uiNumLignes, uiBoucleColonne, uiBoucleLigne, uiBoucle;
+		MATVerifierPortee(uiNumLigne, uiMATNbColonnes);
 
-		MATVerifierPortee(uiNumLignes, uiMATNbColonnes);
+		for(uiBoucleLigne = uiNumLigne; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
+			for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
+				ppqMATMatrice[uiBoucleLigne - 1][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-			for(uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
-				for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
-					MATModifierElement(uiBoucleDecalage, uiBoucleColonne, MATLireElement(uiBoucleDecalage + 1, uiBoucleColonne));
-
-		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * (uiMATNbColonnes - 1));
+		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * (uiMATNbLignes - 1));
 	
 		if (ppqMATMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
@@ -444,7 +435,8 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 		uiMATNbLignes--;
 
 	} catch(CException & EXCObjet) {
-		std::cerr << EXCObjet.EXCLectureMessage << ". Code d'erreur : " << EXCObjet.EXCLectureCode();
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
 	}
 }
 
