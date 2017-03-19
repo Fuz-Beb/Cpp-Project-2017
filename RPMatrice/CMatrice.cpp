@@ -223,7 +223,7 @@ template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
 	try {
-		//MATVerifierPortee(uiNumLigne, uiNumColonne);
+		MATVerifierPortee(uiNumLigne, uiNumColonne);
 		return ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1];
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -307,8 +307,11 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 
 		unsigned int uiBoucleColonne = 0, uiBoucleLigne = 0;
 
+		if(uiNumColonne > uiMATNbColonnes + 1)
+			throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
+
 		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
-			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * uiMATNbColonnes + 1);
+			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * (uiMATNbColonnes + 1));
 			
 			if (ppqMATMatrice[uiBoucleLigne] == NULL)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
@@ -316,12 +319,10 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 
 		uiMATNbColonnes++;
 
-		if(uiNumColonne < uiMATNbColonnes){
-		}
-			//
-			/*for(uiBoucleColonne = uiMATNbColonnes ; uiBoucleColonne > uiNumColonne ; uiBoucleColonne--)
+		if(uiNumColonne < uiMATNbColonnes)
+			for(uiBoucleColonne = uiMATNbColonnes ; uiBoucleColonne > uiNumColonne ; uiBoucleColonne--)
 				for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-					MATModifierElement(uiBoucleLigne, uiBoucleColonne, MATLireElement(uiBoucleLigne, uiBoucleColonne - 1));*/
+					ppqMATMatrice[uiBoucleLigne][uiBoucleColonne - 1] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne - 2];
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -344,7 +345,7 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 
 		unsigned int uiBoucleDecalage = uiMATNbLignes, uiBoucle = 0;
 
-		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes + 1); // Allocation des lignes
+		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * (uiMATNbLignes + 1)); // Allocation des lignes
 	
 		if (ppqMATMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
@@ -374,18 +375,16 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
 	try	{
 
-		unsigned int uiBoucleDecalage = uiNumColonnes, uiBoucleColonne, uiBoucleLigne, uiBoucle;
+		unsigned int uiBoucleDecalage = uiNumColonne, uiBoucleColonne = 0, uiBoucleLigne = 0, uiBoucle = 0;
 
-		if(uiNumColonnes > uiMATNbColonnes)
-			throw CException(ACTIONHORSPORTEE, "Echec de la suppression");
+		MATVerifierPortee(uiMATNbLignes, uiNumColonne);
 
-		else
-			for(uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucle++)
-					MATModifierElement(uiBoucleLigne, uiBoucleDecalage + uiBoucleColonne, MATLireElement(uiBoucleLigne, uiBoucleDecalage + uiBoucleColonne + 1));
+		for(uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+			for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+				ppqMATMatrice[uiBoucleLigne][uiBoucleDecalage + uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleDecalage + uiBoucleColonne + 1];
 
 		for(uiBoucle = 0 ; uiBoucle < uiMATNbLignes ; uiBoucle++) {
-			ppqMATMatrice[uiBoucle] =  (Type*) realloc(ppqMATMatrice[uiBoucle], sizeof(Type) * uiMATNbColonnes - 1);
+			ppqMATMatrice[uiBoucle] =  (Type*) realloc(ppqMATMatrice[uiBoucle], sizeof(Type) * (uiMATNbColonnes - 1));
 			
 			if (ppqMATMatrice[uiBoucle] == NULL)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
@@ -414,15 +413,13 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 
 		unsigned int uiBoucleDecalage = uiNumLignes, uiBoucleColonne, uiBoucleLigne, uiBoucle;
 
-		if(uiNumLignes > uiMATNbLignes)
-			throw CException(ACTIONHORSPORTEE, "Echec de la suppression");
+		MATVerifierPortee(uiNumLignes, uiMATNbColonnes);
 
-		else
-			for(uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
-				for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
-					MATModifierElement(uiBoucleDecalage, uiBoucleColonne, MATLireElement(uiBoucleDecalage + 1, uiBoucleColonne));
+		for(uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
+			for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
+				MATModifierElement(uiBoucleDecalage, uiBoucleColonne, MATLireElement(uiBoucleDecalage + 1, uiBoucleColonne));
 
-		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * uiMATNbColonnes - 1);
+		ppqMATMatrice = (Type**) realloc(sizeof(Type*) * (uiMATNbColonnes - 1));
 	
 		if (ppqMATMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
