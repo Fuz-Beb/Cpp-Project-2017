@@ -580,18 +580,16 @@ CMatrice<Type> & CMatrice<Type>::operator*(Type & MATMatrice)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
-
-		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		
 		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice;
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * MATMatrice;
 
 		return *MATNewMatrice;
 
@@ -648,12 +646,10 @@ CMatrice<Type> & CMatrice<Type>::operator/(Type & MATMatrice)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
-
-		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		
 		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
