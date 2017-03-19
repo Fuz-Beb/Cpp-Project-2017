@@ -1,7 +1,10 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
+
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
+#define DIMENSIONINEGALE 3
+#define ACTIONHORSPORTEE 4
 
 template <class Type> class CMatrice
 {
@@ -30,19 +33,20 @@ public:
 	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
 
 	// Gérer les éléments de la matrice
-	void MATModifierElement(unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement);
-	Type MATLireElement(unsigned int uiNbLignes, unsigned int uiNbColonnes);
+	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
+	Type MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne);
 	
 	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
 	void MATAjouterLignesFin(unsigned int uiNbLignes);
 	void MATSupprimerColonneFin(unsigned int uiNbColonnes);
 	void MATSupprimerLigneFin(unsigned int uiNbLignes);
-	void MATAjouterColonnesPrecis(unsigned int uiNumColonnes);
-	void MATAjouterLignesPrecis(unsigned int uiNumLignes);
-	void MATSupprimerColonnePrecis(unsigned int uiNumColonnes);
-	void MATSupprimerLignePrecis(unsigned int uiNumLignes);
+	void MATAjouterColonnePrecis(unsigned int uiNumColonne);
+	void MATAjouterLignePrecis(unsigned int uiNumLigne);
+	void MATSupprimerColonnePrecis(unsigned int uiNumColonne);
+	void MATSupprimerLignePrecis(unsigned int uiNumLigne);
 
-	void MATVerifierPortee(unsigned int uiNumLignes, unsigned int uiNumColonnes);
+	void MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne);
+	void MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
 	// Surchage
 	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);
