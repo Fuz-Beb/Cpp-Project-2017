@@ -86,6 +86,10 @@ void main()
 
 	*/
 
+	// Test d'affichage + MATSupprimerColonneFin & MATSupprimerLigneFin
+	Matrice3.MATSupprimerLigneFin(1);
+	Matrice3.MATSupprimerColonneFin(1);
+
 	// Affichage Après modification
 
 	printf("APRES");

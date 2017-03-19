@@ -271,25 +271,54 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 		unsigned int uiBoucle = 1;
 		while(uiBoucle <= uiNbLignes)
 		{
-			MATAjouterLignePrecis(uiMATNbLignes + 1);
+			MATSupprimerLignePrecis(uiMATNbLignes);
 			uiBoucle++;
 		}
 	
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		std::terminate();
-}
+	}
 }
 
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 {
+	try {
+		unsigned int uiBoucle = 1;
 
+		MATVerifierPortee(uiMATNbLignes, uiNbColonnes + 1);
+
+		while(uiBoucle <= uiNbColonnes)
+		{
+			MATSupprimerColonnePrecis(uiMATNbColonnes);
+			uiBoucle++;
+		}
+
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
 template <class Type>
 void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 {
+	try {
+		unsigned int uiBoucle = 1;
+
+		MATVerifierPortee(uiNbLignes + 1, uiMATNbColonnes);
+
+		while(uiBoucle <= uiNbLignes)
+		{
+			MATSupprimerLignePrecis(uiMATNbLignes);
+			uiBoucle++;
+		}
+
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
 /*****************************
