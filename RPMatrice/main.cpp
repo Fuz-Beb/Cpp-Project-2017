@@ -79,13 +79,15 @@ void main()
 
 	Matrice3.MATAjouterColonnePrecis(12);
 	*/
-	// Test d'affichage + MATSupprimerColonnePrecis
 
-	Matrice3.MATSupprimerColonnePrecis(1);
+	// OK - Test d'affichage + MATSupprimerColonnePrecis
+	/*
+	Matrice3.MATSupprimerColonnePrecis(3);
 
+	*/
 
-	//Matrice3.MATAjouterLignePrecis(3);
-	//Matrice3.MATModifierElement(3, 2, 17);
+	// Affichage Après modification
+
 	printf("APRES");
 	
 	Matrice3.MATAfficherMatrice();

@@ -375,18 +375,18 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
 	try	{
 
-		unsigned int uiBoucleDecalage = uiNumColonne, uiBoucleColonne = 0, uiBoucleLigne = 0, uiBoucle = 0;
+		unsigned int uiBoucleColonne = 0, uiBoucleLigne = 0;
 
 		MATVerifierPortee(uiMATNbLignes, uiNumColonne);
 
-		for(uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+		for(uiBoucleColonne = uiNumColonne ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 			for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-				ppqMATMatrice[uiBoucleLigne][uiBoucleDecalage + uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleDecalage + uiBoucleColonne + 1];
+				ppqMATMatrice[uiBoucleLigne][uiBoucleColonne - 1] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-		for(uiBoucle = 0 ; uiBoucle < uiMATNbLignes ; uiBoucle++) {
-			ppqMATMatrice[uiBoucle] =  (Type*) realloc(ppqMATMatrice[uiBoucle], sizeof(Type) * (uiMATNbColonnes - 1));
+		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
+			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * (uiMATNbColonnes - 1));
 			
-			if (ppqMATMatrice[uiBoucle] == NULL)
+			if (ppqMATMatrice[uiBoucleLigne] == NULL)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
 		}
 
