@@ -40,8 +40,9 @@ void main()
 		Matrice2.MATModifierElement(2,1, 73);
 		Matrice2.MATModifierElement(2,2, 922);
 
-	// Matrice de repection
+	// Matrices
 		CMatrice<int> Matrice3 = CMatrice<int>(2,2);
+		CMatrice<int> Matrice4 = CMatrice<int>(2,2);
 
 		Matrice3.MATModifierElement(1,1, 1);
 		Matrice3.MATModifierElement(1,2, 2);
@@ -107,8 +108,6 @@ void main()
 
 	// Test des surcharges
 	
-		//CMatrice<int> Matrice4 = CMatrice<int>(2,2);
-	
 		//Matrice4 = Matrice3 * Matrice3;
 
 		/*
@@ -125,9 +124,12 @@ void main()
 		Matrice4.MATAfficherMatrice();
 		*/
 	
-	// Test suivant :
-
-
+	// Test de la puissance matrice
+		/* REVOIR LA PUISSANCE !!!
+		Matrice4 = Matrice3.MATPPuissanceMatrice(2);
+		printf("Puissance : \n");
+		Matrice4.MATAfficherMatrice();
+		*/
 	// Affichage Après modification
 
 	printf("APRES : \n");

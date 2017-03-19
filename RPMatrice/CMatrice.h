@@ -1,3 +1,7 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
 

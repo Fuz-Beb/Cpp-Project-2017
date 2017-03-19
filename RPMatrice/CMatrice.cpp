@@ -1,10 +1,6 @@
 #include "CMatrice.h"
 #include "CException.h"
 
-// A supprimer
-#include <iostream>
-using namespace std;
-
 
 /*****************************
 Constructeur par défaut
@@ -188,7 +184,25 @@ void CMatrice<Type>::MATAfficherMatrice()
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
 {
-	return 0;
+	try {
+		unsigned int uiBoucleLigne, uiBoucleColonne;
+		
+		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
+		if (MATNewMatrice == NULL)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = pow(ppqMATMatrice[uiBoucleLigne][uiBoucleColonne], dNombre);
+
+		return *MATNewMatrice;
+
+	} catch (CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::terminate();
+	}
 }
 
 /*****************************
