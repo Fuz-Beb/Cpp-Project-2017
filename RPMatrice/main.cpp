@@ -27,33 +27,48 @@ void main()
 	// Test de modification et de lecture des élements de la matrice
 	
 	// Matrice 1
-		CMatrice<int> Matrice1 = CMatrice<int>(4,4);
-		Matrice1.MATModifierElement(1,1, 7);
-		Matrice1.MATModifierElement(1,2, 98);
-		Matrice1.MATModifierElement(2,1, 0);
-		Matrice1.MATModifierElement(2,2, 6);
+		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
+		Matrice1.MATModifierElement(1,1, -1);
+		Matrice1.MATModifierElement(1,2, 4);
+		Matrice1.MATModifierElement(1,3, 1);
+		Matrice1.MATModifierElement(2,1, 17);
+		Matrice1.MATModifierElement(2,2, 0);
+		Matrice1.MATModifierElement(2,3, 4);
+		Matrice1.MATModifierElement(3,1, 117);
+		Matrice1.MATModifierElement(3,2, 22);
+		Matrice1.MATModifierElement(3,3, 1);
 
 	// Matrice 2
-		CMatrice<int> Matrice2 = CMatrice<int>(4,4);
-		Matrice2.MATModifierElement(1,1, 0);
-		Matrice2.MATModifierElement(1,2, -1);
-		Matrice2.MATModifierElement(2,1, 73);
-		Matrice2.MATModifierElement(2,2, 922);
+		CMatrice<int> Matrice2 = CMatrice<int>(3,3);
+		Matrice2.MATModifierElement(1,1, 22);
+		Matrice2.MATModifierElement(1,2, 233);
+		Matrice2.MATModifierElement(1,3, 4);
+		Matrice2.MATModifierElement(2,1, -17);
+		Matrice2.MATModifierElement(2,2, 0);
+		Matrice2.MATModifierElement(2,3, 4);
+		Matrice2.MATModifierElement(3,1, 17);
+		Matrice2.MATModifierElement(3,2, 0);
+		Matrice2.MATModifierElement(3,3, 4);
 
 	// Matrices
-		CMatrice<int> Matrice3 = CMatrice<int>(2,2);
-		CMatrice<int> Matrice4 = CMatrice<int>(2,2);
+		CMatrice<int> Matrice3 = CMatrice<int>(4,10);
+		//CMatrice<int> Matrice4 = CMatrice<int>(2,2);
 
-		Matrice3.MATModifierElement(1,1, 1);
-		Matrice3.MATModifierElement(1,2, 2);
-		Matrice3.MATModifierElement(2,1, 3);
-		Matrice3.MATModifierElement(2,2, 4);
+		/*Matrice3.MATModifierElement(1,1, 1);
+		Matrice3.MATModifierElement(3,1, 1);
+		Matrice3.MATModifierElement(3,2, 2);
+		Matrice3.MATModifierElement(1,1, 1);*/
+
+		//printf("Element : %d", Matrice3.MATLireElement(3,1));
+		//printf("Element : %d", Matrice3.MATLireElement(3,2));
+		//Matrice3.MATModifierElement(2,1, 1);
+		//Matrice3.MATModifierElement(2,2, 1);
 
 	
 	// Test d'affichage :
 	
-		printf("AVANT : \n");
-		Matrice3.MATAfficherMatrice();
+		//printf("AVANT : \n");
+		//Matrice3.MATAfficherMatrice();
 
 	// OK - Test d'affichage + MATAjouterColonnesFin
 		/*
@@ -107,6 +122,22 @@ void main()
 		*/
 
 	// Test des surcharges
+
+		// OK - operator+
+		// OK - operator-
+		// OK - operator*
+
+		// Echec - C * CMatrice<Type>
+		// Faire un nouveau constructeur ??
+		// CMatrice::CMatrice(Type) ??
+
+
+		int A = 3;
+		Matrice3 = Matrice1 * A;
+		/*Matrice3 = A * Matrice1;*/
+		printf("Après surcharge \n\n");
+		Matrice3.MATAfficherMatrice();
+
 	
 		//Matrice4 = Matrice3 * Matrice3;
 
@@ -132,6 +163,6 @@ void main()
 		*/
 	// Affichage Après modification
 
-	printf("APRES : \n");
-	Matrice3.MATAfficherMatrice();
+	/*printf("APRES : \n");*/
+	//Matrice3.MATAfficherMatrice();
 }
