@@ -5,11 +5,6 @@ using namespace std;
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
 
-#define ECHECALLOCATION 1
-#define DIMENSIONHORSPORTEE 2
-#define DIMENSIONINEGALE 3
-#define ACTIONHORSPORTEE 4
-
 template <class Type> class CMatrice
 {
 	// Attributs

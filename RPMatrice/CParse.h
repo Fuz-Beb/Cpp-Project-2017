@@ -6,6 +6,16 @@
 #include <list>
 #include <iostream>
 #include <assert.h>
+#include <fstream>
+#include <cctype>
+#include <string>
+#include <iostream>
+
+#include <cstring>
+
+#include <array>
+
+using namespace std;
 
 class CParse 
 {
@@ -20,8 +30,14 @@ private:
 	inline unsigned int PARLireNbColonnes();
 	inline void PAREcrireNbColonnes(unsigned int uiNbColonnes);
 
+	// Conversion en minuscule string
+	void toLower(basic_string<char>& sChaine);
+	void toLower(basic_string<wchar_t>& sChaine);
+	//void string_to_float(string & sChaine, float* tab);
+
 public:
 	// Méthode
 	void PARTraiterFichier(char * psChemin);
+	
 };
 #endif
