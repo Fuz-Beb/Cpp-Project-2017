@@ -2,6 +2,7 @@
 #include "CException.h"
 #include "CMatrice.h"
 
+
 /*****************************
 Methode : 
 ******************************
@@ -10,9 +11,9 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-char * CParseMatrice::PAMLireType() 
+unsigned int CParseMatrice::PAMLireNbLignes()
 {
-	return 0;
+	return uiPARNbLignes;
 }
 
 /*****************************
@@ -25,7 +26,20 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
 {
+	uiPARNbLignes = std::stoi(sChaine);
+}
 
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+unsigned int CParseMatrice::PAMLireNbColonnes()
+{
+	return uiPARNbColonnes;
 }
 
 /*****************************
@@ -38,7 +52,20 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
 {
+	uiPARNbColonnes = std::stoi(sChaine);
+}
 
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+char * CParseMatrice::PAMLireType() 
+{
+	return 0;
 }
 
 /*****************************

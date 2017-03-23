@@ -20,7 +20,6 @@ CMatrice<Type>::CMatrice()
 	uiMATNbColonnes = 0;
 }
 
-
 /*****************************
 Destructeur par défaut
 ******************************

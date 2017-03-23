@@ -13,14 +13,13 @@ private:
 
 	// Accesseurs
 	inline unsigned int PAMLireNbLignes();
-	inline void PAMEcrireNbLigne(unsigned int uiNbLignes);
+	inline void PAMAssignerNbLignes(char * sChaine);
 	inline unsigned int PAMLireNbColonnes();
-	inline void PAMEcrireNbColonnes(unsigned int uiNbColonnes);
+	inline void PAMAssignerNbColonnes(char * sChaine);
 
 	// Methodes
 	char * PAMLireType();
-	void PAMAssignerNbLignes(char * sChaine);
-	void PAMAssignerNbColonnes(char * sChaine);
+	
 public:
 	void PAMTraiterFichier();
 };
