@@ -1,147 +1,87 @@
 #include "CParse.h"
 #include "CException.h"
-#include "CMatrice.h"
 
 /*****************************
-Methode : Lire nombre de lignes
+Methode : 
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : unsigned int
-Entraine : retourne nombre de lignes
-*****************************/
-unsigned int CParse::PARLireNbLignes()
-{
-	return uiPARNbLignes;
-}
-
-/*****************************
-Methode : Ecrire nombre de lignes
-******************************
-Entrée : unsigned int uiNbLignes
-Necessité : néant
 Sortie : néant
-Entraine : modification nombre de lignes
+Entraine : néant
 *****************************/
-void CParse::PAREcrireNbLigne(unsigned int uiNbLignes)
+void PAROuvrirFichier(char * sChaine)
 {
-	uiPARNbLignes = uiNbLignes;
+
 }
 
 /*****************************
-Methode : Lire nombre de colonnes
+Methode : 
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : unsigned int
-Entraine : retourne nombre de colonnes
-*****************************/
-unsigned int CParse::PARLireNbColonnes()
-{
-	return uiPARNbColonnes;
-}
- 
-/*****************************
-Methode : Ecrire nombre de colonnes
-******************************
-Entrée : unsigned int uiNbColonnes
-Necessité : néant
 Sortie : néant
-Entraine : modification nombre de colonnes
+Entraine : néant
 *****************************/
-void CParse::PAREcrireNbColonnes(unsigned int uiNbColonnes)
+void PARLireLigne(unsigned int uiNumLigne)
 {
-	uiPARNbColonnes = uiNbColonnes;
+
 }
 
 /*****************************
-Methode : Traiter fichier
+Methode : 
 ******************************
-Entrée : 
+Entrée : néant
 Necessité : néant
 Sortie : néant
-Entraine : 
+Entraine : néant
 *****************************/
-void CParse::PARTraiterFichier(char * psChemin)
-{/*
-	string sContenu[4];
-	string sBuffer;
-	char * sBufferDouble;
-	unsigned int uiBoucle = 0, uiBoucleBuffer = 0, uiCompteurLigne = 0, uiCompteurColonne = 0, uiBoucleBufferDouble = 0, uiMaxColonne;
-	ifstream fichier("test.txt", ios::in); // Ouvrir le fichier en lecture
+void PARConvertirStr2Double(char * sChaine)
+{
 
-	if(!fichier)// Si ouverture a reussi
-		throw CException(ECHECFICHIER, "Echec d'ouverture du fichier");
-
-	while(getline(fichier, sContenu[uiBoucle])) {
-		uiBoucle++;
-		toLower(sContenu[0]);
-	}
-
-	if(sContenu[0] != "double")
-		throw CException(MAUVAISTYPE, "La matrice lue n'est pas de type double");
-
-	if(atoi(sContenu[1].c_str()) < 1)
-		throw CException(ERREURTAILLE, "Erreur de la taille");
-
-	uiPARNbLignes = atoi(sContenu[1].c_str());
-
-	if(atoi(sContenu[2].c_str()) < 1)
-		throw CException(ERREURTAILLE, "Erreur de la taille");
-
-	uiPARNbColonnes = atoi(sContenu[1].c_str());
-
-	CMatrice<double> pMATMatrice = CMatrice<double>(uiPARNbLignes, uiPARNbColonnes);
-
-
-	while(getline(fichier, sBuffer)) { // Parcourir les lignes jusqu'à la fin
-		
-		uiMaxColonne = uiPARNbColonnes; // Remise du compteur de colonne à la taille annoncée
-
-		while(uiBoucleBuffer < uiMaxColonne) { // Parcourir les colonnes de la ligne actuel
-			
-			if(sBuffer[uiBoucleBuffer] != ' ') { // Verifier si espace
-				//sBufferDouble[uiBoucleBufferDouble] = sBuffer[uiBoucleBuffer]; // A FREE ET A STRDUP
-				
-				if(sBufferDouble != NULL)
-					//sBufferDouble = // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
-				
-				sBufferDouble = strdup((const char*)sBuffer[uiBoucleBuffer]); // A FREE ET A STRDUP
-				uiBoucleBufferDouble++;
-
-				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t')
-					pMATMatrice.MATModifierElement(uiCompteurLigne, uiCompteurColonne, stof(sBufferDouble));
-					free(sBufferDouble);
-			}
-
-			else
-				uiMaxColonne++;
-
-			// Ligne ajouter element matrice
-
-			uiBoucleBuffer++;
-		}
-
-		uiCompteurLigne++;
-	}
-
-
-	fichier.close();*/
 }
 
-void toLower(basic_string<char>& sChaine) {
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void PAROuvrirFichier()
+{
+
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void PARFermerFicher()
+{
+
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void PARConvertirMinusc(basic_string<char> & sChaine)
+{
    for (basic_string<char>::iterator p = sChaine.begin();
         p != sChaine.end(); ++p) {
       *p = tolower(*p);
    }
 }
 
-void toLower(basic_string<wchar_t>& sChaine) {
-   for (basic_string<wchar_t>::iterator p = sChaine.begin();
-        p != sChaine.end(); ++p) {
-      *p = towlower(*p);
-   }
-}
 
 /*
 void string_to_float(string & chaine, float* tab)

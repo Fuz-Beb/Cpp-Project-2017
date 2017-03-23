@@ -14,12 +14,14 @@
     <ClInclude Include="CException.h" />
     <ClInclude Include="CMatrice.h" />
     <ClInclude Include="CParse.h" />
+    <ClInclude Include="CParseMatrice.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CException.cpp" />
     <ClCompile Include="CMatrice.cpp" />
     <ClCompile Include="CParse.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="CParseMatrice.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{52079F58-218F-4744-8E83-C53C912EC207}</ProjectGuid>
