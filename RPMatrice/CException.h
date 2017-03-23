@@ -7,6 +7,12 @@
 #include <iostream>
 #include <assert.h>
 
+#define ECHECALLOCATION 1
+#define DIMENSIONHORSPORTEE 2
+#define DIMENSIONINEGALE 3
+#define ACTIONHORSPORTEE 4
+#define DIVISIONPARZERO 5
+
 class CException
 {
 private: 

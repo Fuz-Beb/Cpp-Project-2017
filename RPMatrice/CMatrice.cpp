@@ -183,6 +183,15 @@ void CMatrice<Type>::MATAfficherMatrice()
 	}
 }
 
+
+/*****************************
+Methode : Mettre une matrice à la puissance
+******************************
+Entrée : double dNombre
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Mise à la puissance de la matrice
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
 {
@@ -297,6 +306,15 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 	}
 }
 
+
+/*****************************
+Methode : Supprimer une/des colonnes à droite de la matrice
+******************************
+Entrée : unsigned int uiNbColonnes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation selon suppression nb colonnes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 {
@@ -317,6 +335,14 @@ void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 	}
 }
 
+/*****************************
+Methode : Supprimer une/des ligne en bas de la matrice
+******************************
+Entrée : unsigned int uiNbLignes
+Necessité : néant
+Sortie : néant
+Entraine : Réallocation selon suppression nb lignes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 {
@@ -529,8 +555,6 @@ CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
@@ -563,8 +587,6 @@ CMatrice<Type> & CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
@@ -591,12 +613,10 @@ Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator*(Type & MATMatrice)
+CMatrice<Type> & CMatrice<Type>::operator*(Type & qMATparam)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
@@ -604,7 +624,7 @@ CMatrice<Type> & CMatrice<Type>::operator*(Type & MATMatrice)
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * MATMatrice;
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * qMATparam;
 
 		return *MATNewMatrice;
 
@@ -628,9 +648,8 @@ CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
-		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+		if (uiMATNbColonnes != MATMatrice.uiMATNbLignes)
+			throw CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
@@ -657,12 +676,13 @@ Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator/(Type & MATMatrice)
+CMatrice<Type> & CMatrice<Type>::operator/(Type & qMATparam)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+
+		if (qMATparam == 0)
+			throw CException(DIVISIONPARZERO, "Divison par zéro impossible");
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
@@ -670,7 +690,7 @@ CMatrice<Type> & CMatrice<Type>::operator/(Type & MATMatrice)
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice;
+				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / qMATparam;
 
 		return *MATNewMatrice;
 
@@ -695,16 +715,17 @@ CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 		if (MATNewMatrice == NULL)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
+				if (MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] == 0)
+					throw CException(DIVISIONPARZERO, "Divison par zéro impossible");
 				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+			}
 
 		return *MATNewMatrice;
 
@@ -745,4 +766,19 @@ CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 			ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 	
 	return *this;
+}
+
+
+/*****************************
+Methode : Surcharge operateur * avec deux arguments
+******************************
+Entrée : Type qMATparam, CMatrice<Type> & MATparam
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur * (pour avoir la commutativité)
+*****************************/
+template <class Type>
+CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATparam)
+{
+	return MATparam * qMATparam;
 }

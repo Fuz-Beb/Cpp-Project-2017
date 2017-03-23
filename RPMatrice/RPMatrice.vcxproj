@@ -17,7 +17,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CException.cpp" />
-    <ClCompile Include="CMatrice.cpp" />
+    <ClCompile Include="CMatrice.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CParse.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
