@@ -1,5 +1,5 @@
-#ifndef C_PARSE_H
-#define C_PARSE_H
+#ifndef C_PARSEMATRICE_H
+#define C_PARSEMATRICE_H
 
 #include <fstream>
 
@@ -7,21 +7,21 @@ class CParseMatrice
 {
 private:
 	// Attributs
-	unsigned int uiPARNbLignes;
-	unsigned int uiPARNbColonnes;
+	static unsigned int uiPARNbLignes;
+	static unsigned int uiPARNbColonnes;
 	
 
 	// Accesseurs
-	inline unsigned int PAMLireNbLignes();
-	inline void PAMAssignerNbLignes(char * sChaine);
-	inline unsigned int PAMLireNbColonnes();
-	inline void PAMAssignerNbColonnes(char * sChaine);
+	static inline unsigned int PAMLireNbLignes();
+	static inline void PAMAssignerNbLignes(char * sChaine);
+	static inline unsigned int PAMLireNbColonnes();
+	static inline void PAMAssignerNbColonnes(char * sChaine);
 
 	// Methodes
-	char * PAMLireType();
+	static char * PAMLireType();
 	
 public:
-	void PAMTraiterFichier();
+	//static void PAMTraiterFichier(char * sChemin);
 };
 
 #endif
