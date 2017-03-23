@@ -14,6 +14,7 @@
 #define ECHECFICHIER 5
 #define MAUVAISTYPE 6
 #define ERREURTAILLE 7
+#define DIVISIONPARZERO 8
 
 class CException
 {
