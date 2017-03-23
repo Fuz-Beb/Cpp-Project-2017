@@ -138,7 +138,7 @@ Methode : Lire nombre de colonnes
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
+Sortie : unsigned int
 Entraine : retourne nombre de colonnes
 *****************************/
 template <class Type>
