@@ -50,12 +50,16 @@ public:
 	// Surchage
 	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator-(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator*(Type & MATMatrice);
+	CMatrice<Type> & operator*(Type & qMATparam);
 	CMatrice<Type> & operator*(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator/(Type & MATMatrice);
+	CMatrice<Type> & operator/(Type & qMATparam);
 	CMatrice<Type> & operator/(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 };
 
-#endif
+template<class Type>
+CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATMatrice);
 
+#include "CMatrice.cpp"
+
+#endif
