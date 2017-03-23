@@ -77,32 +77,39 @@ Necessité : néant
 Sortie : néant
 Entraine : 
 *****************************/
-/*void CParseMatrice::PAMTraiterFichier(char * sChemin)
+void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
 	char * sBuffer = NULL;
 
-	CParse::PAROuvrirFichier(sChemin);
+	// Probleme ICI !!! Voir si héritage...
+	//PAROuvrirFichier(sChemin);
 
 
-	sBuffer = PAMLireType();
+	//sBuffer = PAMLireType();
 
 	if(sBuffer != "double")
 		throw CException(MAUVAISTYPE, "La matrice lue n'est pas de type double");
 
 	delete(sBuffer);
-	sBuffer = CParse::PARLireLigne(2);
-	PAMAssignerNbLignes(sBuffer);
+	//sBuffer = CParse::PARLireLigne(2);
+	//PAMAssignerNbLignes(sBuffer);
 
 	delete(sBuffer);
-	sBuffer = CParse::PARLireLigne(3);
-	PAMAssignerNbColonnes(sBuffer);
+	//sBuffer = CParse::PARLireLigne(3);
+	//PAMAssignerNbColonnes(sBuffer);
 
 	delete(sBuffer);
-	sBuffer = CParse::PARLireLigne(4);
+	//sBuffer = CParse::PARLireLigne(4);
 	
 	delete(sBuffer);
 
-
+	// Reste ici a faire boucle pour navigue dans les lignes
+		// char * sBuffer = stdup(PARLireLigne(uiBoucle));
+		// Puis boucle pour naviguer dans les colonnes du buffer
+			// Faire un genre de substring pour découper le sBuffer en colonne et appeler ModifierElement Matrice
+	
+	// Certaines exception à prendre ne compte / A reformuler
+	
 	//if(atoi(sContenu[1].c_str()) < 1)
 		throw CException(ERREURTAILLE, "Erreur de la taille");
 
@@ -113,7 +120,47 @@ Entraine :
 
 //	uiPARNbColonnes = atoi(sContenu[1].c_str());
 
-	CMatrice<double> pMATMatrice = CMatrice<double>(uiPARNbLignes, uiPARNbColonnes);
+
+	// A replacer plus haut pour créer la matrice double
+	//CMatrice<double> pMATMatrice = CMatrice<double>(uiPARNbLignes, uiPARNbColonnes);
+
+
+	// Code à replacer :
+
+		/*
+	while(getline(fichier, sBuffer)) { // Parcourir les lignes jusqu'à la fin
+		
+		uiMaxColonne = uiPARNbColonnes; // Remise du compteur de colonne à la taille annoncée
+
+		while(uiBoucleBuffer < uiMaxColonne) { // Parcourir les colonnes de la ligne actuel
+			
+			if(sBuffer[uiBoucleBuffer] != ' ') { // Verifier si espace
+				//sBufferDouble[uiBoucleBufferDouble] = sBuffer[uiBoucleBuffer]; // A FREE ET A STRDUP
+				
+				if(sBufferDouble != NULL)
+					//sBufferDouble = // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
+				
+				sBufferDouble = strdup((const char*)sBuffer[uiBoucleBuffer]); // A FREE ET A STRDUP
+				uiBoucleBufferDouble++;
+
+				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t')
+					pMATMatrice.MATModifierElement(uiCompteurLigne, uiCompteurColonne, stof(sBufferDouble));
+					free(sBufferDouble);
+			}
+
+			else
+				uiMaxColonne++;
+
+			// Ligne ajouter element matrice
+
+			uiBoucleBuffer++;
+		}
+
+		uiCompteurLigne++;
+	}
+
+
+	fichier.close();*/
 
 	
-}*/
+}

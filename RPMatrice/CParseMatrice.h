@@ -21,7 +21,7 @@ private:
 	static char * PAMLireType();
 	
 public:
-	//static void PAMTraiterFichier(char * sChemin);
+	static void PAMTraiterFichier(char * sChemin);
 };
 
 #endif

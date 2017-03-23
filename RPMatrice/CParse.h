@@ -19,7 +19,7 @@ public:
 	~CParse();
 
 	// Méthode
-	static void PAROuvrirFichier(char * sChaine);
+	void PAROuvrirFichier(char * sChaine);
 	static char * PARLireLigne(unsigned int uiNumLigne);
 	void PARConvertirStr2Double(char * sChaine);
 	void PARFermerFicher();
