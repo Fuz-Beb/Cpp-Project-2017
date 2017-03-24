@@ -1,14 +1,12 @@
 #ifndef C_PARSEMATRICE_H
 #define C_PARSEMATRICE_H
 
-#include <fstream>
-
 class CParseMatrice
 {
 private:
 	// Attributs
-	static unsigned int uiPARNbLignes;
-	static unsigned int uiPARNbColonnes;
+	static unsigned int uiPAMNbLignes;
+	static unsigned int uiPAMNbColonnes;
 	
 
 	// Accesseurs
@@ -21,7 +19,7 @@ private:
 	static char * PAMLireType();
 	
 public:
-	static void PAMTraiterFichier(char * sChemin);
+	void PAMTraiterFichier(char * sChemin);
 };
 
 #endif

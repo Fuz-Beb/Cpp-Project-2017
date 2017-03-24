@@ -14,7 +14,7 @@ Entraine : néant
 *****************************/
 unsigned int CParseMatrice::PAMLireNbLignes()
 {
-	return uiPARNbLignes;
+	return uiPAMNbLignes;
 }
 
 /*****************************
@@ -27,7 +27,7 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
 {
-	uiPARNbLignes = std::stoi(sChaine);
+	uiPAMNbLignes = std::stoi(sChaine);
 }
 
 /*****************************
@@ -40,7 +40,7 @@ Entraine : néant
 *****************************/
 unsigned int CParseMatrice::PAMLireNbColonnes()
 {
-	return uiPARNbColonnes;
+	return uiPAMNbColonnes;
 }
 
 /*****************************
@@ -53,7 +53,7 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
 {
-	uiPARNbColonnes = std::stoi(sChaine);
+	uiPAMNbColonnes = std::stoi(sChaine);
 }
 
 /*****************************
@@ -81,9 +81,10 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
 	char * sBuffer = NULL;
 
-	// Probleme ICI !!! Voir si héritage...
-	//PAROuvrirFichier(sChemin);
+	// Toujours probleme de lien
+	CParse * PAParser = new CParse();
 
+	//PARParser.PAROuvrirFichier(sChemin);
 
 	//sBuffer = PAMLireType();
 

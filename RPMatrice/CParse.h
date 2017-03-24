@@ -1,8 +1,7 @@
+#include <fstream>
+
 #ifndef C_PARSE_H
 #define C_PARSE_H
-
-#include <assert.h>
-#include <fstream>
 
 using namespace std;
 
@@ -19,8 +18,8 @@ public:
 	~CParse();
 
 	// Méthode
-	void PAROuvrirFichier(char * sChaine);
-	static char * PARLireLigne(unsigned int uiNumLigne);
+	static void PAROuvrirFichier(char * sChaine);
+	char * PARLireLigne(unsigned int uiNumLigne);
 	void PARConvertirStr2Double(char * sChaine);
 	void PARFermerFicher();
 	void PARConvertirMinusc(basic_string<char> & sChaine);
