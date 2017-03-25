@@ -159,12 +159,11 @@ void main()
 		//Matrice3 = Matrice1.MATCalculerTransposee();
 		//Matrice3.MATAfficherMatrice();
 
-		// Test de la puissance matrice
-		Matrice3 = Matrice1.MATPPuissanceMatrice(2);
-		Matrice3.MATAfficherMatrice();
+		// OK - Test de la puissance matrice
+		// Matrice3 = Matrice1.MATPPuissanceMatrice(2);
+		// Matrice3.MATAfficherMatrice();
 	// Affichage Après modification
 
 	//printf("APRES : \n");
 	//Matrice3.MATAfficherMatrice();
-
 }

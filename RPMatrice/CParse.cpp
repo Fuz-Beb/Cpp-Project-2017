@@ -2,6 +2,54 @@
 #include "CException.h"
 
 /*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParse::CParse()
+{
+	sPARChemin = nullptr;
+}
+
+/*****************************
+Destructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : L'objet est détruit
+*****************************/
+CParse::~CParse()
+{
+	delete(sPARChemin);
+}
+
+/*****************************
+Constructeur de confort
+******************************
+Entrée : char * sChemin
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParse::CParse(char * sChemin)
+{
+	unsigned int uiTaille = strlen(sChemin);
+	if(sPARChemin != NULL)
+		delete(sPARChemin);
+
+	sPARChemin = (char *) malloc(sizeof(char *) * uiTaille + 1);
+
+	if(sPARChemin == NULL)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+	strncpy_s(sPARChemin, uiTaille + 1, sChemin, uiTaille);
+}
+
+/*****************************
 Methode : 
 ******************************
 Entrée : néant
@@ -36,19 +84,6 @@ Sortie : néant
 Entraine : néant
 *****************************/
 void PARConvertirStr2Double(char * sChaine)
-{
-
-}
-
-/*****************************
-Methode : 
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
-*****************************/
-void PAROuvrirFichier()
 {
 
 }
