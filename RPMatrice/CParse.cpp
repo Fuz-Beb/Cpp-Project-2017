@@ -88,7 +88,6 @@ void string_to_float(string & chaine, float* tab)
 {
 	int cc=nbre_colonne((char*)chaine.c_str());
 	tab=new float [cc];
-
 	for(int j=0;j<cc;j++) {
 		string X;
 		X=chaine.substr(j*8+j,8);

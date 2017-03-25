@@ -1,7 +1,7 @@
-#include <fstream>
-
 #ifndef C_PARSE_H
 #define C_PARSE_H
+
+#include <fstream>
 
 using namespace std;
 

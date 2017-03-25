@@ -1,14 +1,13 @@
 #ifndef C_EXCEPTION_H
 #define C_EXCEPTION_H
 
-#include <ostream>
 #include <iostream>
 
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 #define DIMENSIONINEGALE 3
 #define ACTIONHORSPORTEE 4
-#define ECHECFICHIER 5
+#define FORMATFICHIERINCORRECTE 5
 #define MAUVAISTYPE 6
 #define ERREURTAILLE 7
 #define DIVISIONPARZERO 8

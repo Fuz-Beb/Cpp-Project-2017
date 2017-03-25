@@ -2,6 +2,7 @@
 #include "CException.h"
 #include "CMatrice.h"
 #include "CParse.h"
+#include <string>
 
 
 /*****************************
@@ -27,7 +28,7 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
 {
-	uiPAMNbLignes = std::stoi(sChaine);
+	uiPAMNbLignes = stoi(sChaine);
 }
 
 /*****************************
@@ -53,7 +54,7 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
 {
-	uiPAMNbColonnes = std::stoi(sChaine);
+	uiPAMNbLignes = stoi(sChaine);	
 }
 
 /*****************************

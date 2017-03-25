@@ -1,6 +1,8 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
 
+#include <iostream>
+
 
 template <class Type> class CMatrice
 {
@@ -31,6 +33,7 @@ public:
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
 	Type MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne);
+	void MATInit();
 	
 	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
 	void MATAjouterLignesFin(unsigned int uiNbLignes);

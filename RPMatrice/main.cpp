@@ -1,9 +1,11 @@
 #include "CMatrice.h"
 #include "CException.h"
-#include <iostream>
 
 void main()
 {
+	CMatrice<int> test = CMatrice<int>(3,5);
+	test.MATInit();
+	test.MATAfficherMatrice();
 
 	// OK - Test constructeur par défaut
 		//CMatrice<int> * a = new CMatrice<int>();

@@ -7,7 +7,6 @@ private:
 	// Attributs
 	static unsigned int uiPAMNbLignes;
 	static unsigned int uiPAMNbColonnes;
-	
 
 	// Accesseurs
 	static inline unsigned int PAMLireNbLignes();

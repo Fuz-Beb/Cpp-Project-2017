@@ -269,6 +269,25 @@ template <class Type>
 }
 
 /*****************************
+Methode : Initialise l'ensemble des valeurs de la matrice à la valeur 0
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : nénant
+Entraine : Mise à la valeur 0 à l'ensemble des cases de la matrice
+*****************************/
+ template <class Type>
+ void CMatrice<Type>::MATInit()
+ {
+	 unsigned uiNbLignes, uiNbColonnes;
+
+	 for(uiNbLignes = 1 ; uiNbLignes <= uiMATNbLignes ; uiNbLignes++)
+		 for(uiNbColonnes = 1 ; uiNbColonnes <= uiMATNbColonnes ; uiNbColonnes++)
+			 MATModifierElement(uiNbLignes, uiNbColonnes, 0);
+ }
+
+
+/*****************************
 Methode : Ajouter une/des colonnes à la droite de la matrice
 ******************************
 Entrée : unsigned int uiNbColonnes
