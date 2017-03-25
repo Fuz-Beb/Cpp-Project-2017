@@ -1,3 +1,5 @@
+#include <string.h>
+
 #ifndef C_PARSEMATRICE_H
 #define C_PARSEMATRICE_H
 

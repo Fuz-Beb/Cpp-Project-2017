@@ -27,7 +27,7 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
 {
-	uiPAMNbLignes = std::stoi(sChaine);
+	//uiPAMNbLignes = std::stoi(sChaine);
 }
 
 /*****************************
@@ -53,7 +53,7 @@ Entraine : néant
 *****************************/
 void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
 {
-	uiPAMNbColonnes = std::stoi(sChaine);
+	//uiPAMNbColonnes = std::stoi(sChaine);
 }
 
 /*****************************
@@ -82,7 +82,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	char * sBuffer = NULL;
 
 	// Toujours probleme de lien
-	CParse * PAParser = new CParse();
+	CParse * PAParser = new CParse();	
 
 	//PARParser.PAROuvrirFichier(sChemin);
 

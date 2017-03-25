@@ -1,4 +1,5 @@
 #include <fstream>
+#include <string.h>
 
 #ifndef C_PARSE_H
 #define C_PARSE_H
