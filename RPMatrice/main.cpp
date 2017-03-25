@@ -1,8 +1,14 @@
 #include "CMatrice.h"
 #include "CException.h"
+#include "CParseMatrice.h"
+#include "CParse.h"
 
 void main()
 {
+	CParseMatrice PAMParser = CParseMatrice();
+	PAMParser.PAMTraiterFichier("fichier.txt");
+	
+
 	// OK - Test constructeur par défaut
 		//CMatrice<int> * a = new CMatrice<int>();
 
@@ -23,7 +29,7 @@ void main()
 	// Test de modification et de lecture des élements de la matrice
 	
 	// Matrice 1
-		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
+		/*CMatrice<int> Matrice1 = CMatrice<int>(3,3);
 		Matrice1.MATModifierElement(1,1, 1);
 		Matrice1.MATModifierElement(1,2, 2);
 		Matrice1.MATModifierElement(1,3, 3);
@@ -44,10 +50,10 @@ void main()
 		Matrice2.MATModifierElement(2,3, 6);
 		Matrice2.MATModifierElement(3,1, 7);
 		Matrice2.MATModifierElement(3,2, 8);
-		Matrice2.MATModifierElement(3,3, 9);
+		Matrice2.MATModifierElement(3,3, 9);*/
 	// Matrices
 
-		CMatrice<int> Matrice3 = CMatrice<int>(5,5);
+		//CMatrice<int> Matrice3 = CMatrice<int>(5,5);
 
 		//Matrice3.MATModifierElement(1,1, 1);
 		//Matrice3.MATModifierElement(3,1, 1);

@@ -27,8 +27,10 @@ public:
 	void PARModifierChemin(char * sParam);
 	void PAROuvrirFichier(char * sChaine);
 	char * PARLireLigne();
-	void PARConvertirStr2Double(char * sChaine);
-	void PARConvertirMinusc(basic_string<char> & sChaine);
-	void PARFermerFicher(FILE * pFichier);
+	char * PARSubString(char * sParam, unsigned int uiDebut, unsigned int uiTaille);
+	char * CParse::PARConcatenateString(const char * sStr1, const char * sStr2);
+	void PARConvertirMinusc(char * sChaine);
+	char PARConvertirCharMinusc(char cParam);
+	void PARFermerFicher();
 };
 #endif

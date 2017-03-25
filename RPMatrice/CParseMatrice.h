@@ -1,23 +1,24 @@
 #include <string.h>
+#include "CParse.h"
 
 #ifndef C_PARSEMATRICE_H
 #define C_PARSEMATRICE_H
 
-class CParseMatrice
+class CParseMatrice : public CParse
 {
 private:
 	// Attributs
-	static unsigned int uiPAMNbLignes;
-	static unsigned int uiPAMNbColonnes;
-
+	unsigned int uiPAMNbLignes;
+	unsigned int uiPAMNbColonnes;
+	
 	// Accesseurs
-	static inline unsigned int PAMLireNbLignes();
-	static inline void PAMAssignerNbLignes(char * sChaine);
-	static inline unsigned int PAMLireNbColonnes();
-	static inline void PAMAssignerNbColonnes(char * sChaine);
+	inline unsigned int PAMLireNbLignes();
+	inline void PAMAssignerNbLignes(char * sChaine);
+	inline unsigned int PAMLireNbColonnes();
+	inline void PAMAssignerNbColonnes(char * sChaine);
 
 	// Methodes
-	static char * PAMLireType();
+	void PAMVerifierType();
 	
 public:
 	void PAMTraiterFichier(char * sChemin);
