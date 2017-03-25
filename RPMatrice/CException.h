@@ -1,11 +1,8 @@
 #ifndef C_EXCEPTION_H
 #define C_EXCEPTION_H
 
-#include <string>
-#include <vector>
-#include <list>
+#include <ostream>
 #include <iostream>
-#include <assert.h>
 
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2

@@ -1,6 +1,8 @@
 #include "CMatrice.h"
 #include "CException.h"
 
+using namespace std;
+
 
 /*****************************
 Constructeur par défaut
@@ -14,7 +16,7 @@ template <class Type>
 CMatrice<Type>::CMatrice()
 {
 	ppqMATMatrice = (Type**)malloc(0);
-	if (ppqMATMatrice == NULL)
+	if (ppqMATMatrice == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 	uiMATNbLignes = 0;
 	uiMATNbColonnes = 0;
@@ -58,13 +60,13 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 
 	// Allocation mémoire de la matrice
 	ppqMATMatrice = (Type**) malloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
-	if (ppqMATMatrice == NULL)
+	if (ppqMATMatrice == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
-
+	
 	for (uiBoucle = 0; uiBoucle < uiMATNbLignes; uiBoucle++) // Allocation des colonnes
 	{
 		ppqMATMatrice[uiBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
-		if (ppqMATMatrice[uiBoucle] == NULL)
+		if (ppqMATMatrice[uiBoucle] == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 	}
 }
@@ -148,9 +150,19 @@ unsigned int CMatrice<Type>::MATLireNbColonnes()
 }
 
 template <class Type>
- CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
+ CMatrice<Type> & CMatrice<Type>::MATCalculerTransposee()
 {
-	return 0;
+	unsigned int uiBoucle1, uiBoucle2;
+
+	CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbColonnes, uiMATNbLignes);
+		if (MATNewMatrice == nullptr)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		for (uiBoucle2 = 0 ; uiBoucle2 < uiMATNbLignes ; uiBoucle2++)
+			for (uiBoucle1= 0 ; uiBoucle1 < uiMATNbColonnes ; uiBoucle1++)
+				MATNewMatrice->ppqMATMatrice[uiBoucle1][uiBoucle2] = ppqMATMatrice[uiBoucle2][uiBoucle1];
+	
+	return * MATNewMatrice;
 }
 
 
@@ -166,18 +178,10 @@ Entraine : L'affichage à l'écran de la matrice
 void CMatrice<Type>::MATAfficherMatrice()
 {
 	unsigned int uiBoucleLigne, uiBoucleColonne;
-
-	// Verifier si c'est un objet alors ne pas afficher
-
-	/*if(typeid(Type).name() != typeid(double).name() && typeid(Type).name() != typeid(float).name() && typeid(int).name() != typeid(char).name() && typeid(Type).name() != typeid(string).name())
-		cout << "test : " << typeid(Type).name();*/
-	printf("Affichage de la matrice :\n");
- 
  
 	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
-		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
+		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 			cout << ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] << "\t";
-		}
 
 		printf("\n");
 	}
@@ -193,21 +197,30 @@ Sortie : CMatrice<Type>
 Entraine : Mise à la puissance de la matrice
 *****************************/
 template <class Type>
-CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(double dNombre)
+CMatrice<Type> & CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
-		
-		// Test : Si la matrice contient autre chose que des valeurs numériques alors exception
+		int iExposant;
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = pow(ppqMATMatrice[uiBoucleLigne][uiBoucleColonne], dNombre);
-
+		if (uiNombre == 0) {
+			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+					MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
+		}
+		else {
+			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
+					MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+					for (iExposant = uiNombre ; iExposant > 1 ; iExposant--)
+						MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				}
+		}
+					
 		return *MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
@@ -385,7 +398,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
 			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * uiMATNbColonnes);
 			
-			if (ppqMATMatrice[uiBoucleLigne] == NULL)
+			if (ppqMATMatrice[uiBoucleLigne] == nullptr)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
 		}
 
@@ -421,12 +434,12 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 
 		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
 	
-		if (ppqMATMatrice == NULL)
+		if (ppqMATMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
 		ppqMATMatrice[uiMATNbLignes - 1] = (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
 		
-		if (ppqMATMatrice[uiMATNbLignes - 1] == NULL)
+		if (ppqMATMatrice[uiMATNbLignes - 1] == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 
@@ -465,7 +478,7 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
 			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * (uiMATNbColonnes - 1));
 			
-			if (ppqMATMatrice[uiBoucleLigne] == NULL)
+			if (ppqMATMatrice[uiBoucleLigne] == nullptr)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
 		}
 
@@ -499,7 +512,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 
 		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * (uiMATNbLignes - 1));
 	
-		if (ppqMATMatrice == NULL)
+		if (ppqMATMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
 		uiMATNbLignes--;
@@ -557,7 +570,7 @@ CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
@@ -589,7 +602,7 @@ CMatrice<Type> & CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
@@ -619,7 +632,7 @@ CMatrice<Type> & CMatrice<Type>::operator*(Type & qMATparam)
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
@@ -652,7 +665,7 @@ CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 			throw CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
@@ -685,7 +698,7 @@ CMatrice<Type> & CMatrice<Type>::operator/(Type & qMATparam)
 			throw CException(DIVISIONPARZERO, "Divison par zéro impossible");
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
@@ -717,7 +730,7 @@ CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == NULL)
+		if (MATNewMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)

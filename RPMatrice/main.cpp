@@ -1,8 +1,6 @@
 #include "CMatrice.h"
 #include "CException.h"
-#include "CParse.h"
 #include <iostream>
-#include <stdint.h>
 
 void main()
 {
@@ -28,15 +26,15 @@ void main()
 	
 	// Matrice 1
 		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
-		Matrice1.MATModifierElement(1,1, 10);
-		Matrice1.MATModifierElement(1,2, 20);
-		Matrice1.MATModifierElement(1,3, 30);
-		Matrice1.MATModifierElement(2,1, 40);
-		Matrice1.MATModifierElement(2,2, 50);
-		Matrice1.MATModifierElement(2,3, 60);
-		Matrice1.MATModifierElement(3,1, 70);
-		Matrice1.MATModifierElement(3,2, 80);
-		Matrice1.MATModifierElement(3,3, 90);
+		Matrice1.MATModifierElement(1,1, 1);
+		Matrice1.MATModifierElement(1,2, 2);
+		Matrice1.MATModifierElement(1,3, 3);
+		Matrice1.MATModifierElement(2,1, 4);
+		Matrice1.MATModifierElement(2,2, 5);
+		Matrice1.MATModifierElement(2,3, 6);
+		Matrice1.MATModifierElement(3,1, 7);
+		Matrice1.MATModifierElement(3,2, 8);
+		Matrice1.MATModifierElement(3,3, 9);
 
 	// Matrice 2
 		CMatrice<int> Matrice2 = CMatrice<int>(3,3);
@@ -49,10 +47,9 @@ void main()
 		Matrice2.MATModifierElement(3,1, 7);
 		Matrice2.MATModifierElement(3,2, 8);
 		Matrice2.MATModifierElement(3,3, 9);
-
 	// Matrices
-		CMatrice<int> Matrice3 = CMatrice<int>(5,10);
-		//CMatrice<int> Matrice4 = CMatrice<int>(2,2);
+
+		CMatrice<int> Matrice3 = CMatrice<int>(5,5);
 
 		//Matrice3.MATModifierElement(1,1, 1);
 		//Matrice3.MATModifierElement(3,1, 1);
@@ -105,10 +102,9 @@ void main()
 		//Matrice3.MATAfficherMatrice();
 
 	// OK - Test d'affichage + MATSupprimerLignePrecis
-		/*
-		Matrice3.MATSupprimerLignePrecis(1);
-		Matrice3.MATAfficherMatrice();
-		*/
+		
+		//Matrice3.MATSupprimerLignePrecis(1);
+		//Matrice3.MATAfficherMatrice();
 
 	// Test des surcharges
 
@@ -143,19 +139,30 @@ void main()
 		// int a = 5;
 		// Matrice3 = Matrice2 / A;
 		// Matrice3.MATAfficherMatrice();
-		
-		/*printf("Affichage de la surcharge : \n");
-		Matrice4.MATAfficherMatrice();
-		*/
-	
-	// Test de la puissance matrice
-		/* REVOIR LA PUISSANCE !!!
-		Matrice4 = Matrice3.MATPPuissanceMatrice(2);
-		printf("Puissance : \n");
-		Matrice4.MATAfficherMatrice();
-		*/
+
+		// OK - Calcul de la transposé
+
+		//CMatrice<int> Matrice4 = CMatrice<int>(5,2);
+		//Matrice4.MATModifierElement(1,1, 10);
+		//Matrice4.MATModifierElement(1,2, 20);
+		//Matrice4.MATModifierElement(2,1, 30);
+		//Matrice4.MATModifierElement(2,2, 40);
+		//Matrice4.MATModifierElement(3,1, 50);
+		//Matrice4.MATModifierElement(3,2, 60);
+		//Matrice4.MATModifierElement(4,1, 70);
+		//Matrice4.MATModifierElement(4,2, 80);
+		//Matrice4.MATModifierElement(5,1, 90);
+		//Matrice4.MATModifierElement(5,2, 100);
+
+		//Matrice3 = Matrice1.MATCalculerTransposee();
+		//Matrice3.MATAfficherMatrice();
+
+		// Test de la puissance matrice
+		Matrice3 = Matrice1.MATPPuissanceMatrice(2);
+		Matrice3.MATAfficherMatrice();
 	// Affichage Après modification
 
-	/*printf("APRES : \n");*/
+	//printf("APRES : \n");
 	//Matrice3.MATAfficherMatrice();
+
 }

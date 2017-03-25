@@ -12,7 +12,7 @@ Entraine : l'objet en cours est initialisé
 CException::CException()
 {
 	uiEXCCode = 0;
-	psEXCMessage = NULL;
+	psEXCMessage = nullptr;
 }
 
 /*****************************
@@ -41,7 +41,7 @@ Entraine : l'objet en cours est détruit
 *****************************/
 CException::~CException()
 {
-	/*if (psEXCMessage != NULL)
+	/*if (psEXCMessage != nullptr)
 		delete psEXCMessage;*/
 }
 
@@ -94,7 +94,7 @@ Entraine : modification du message d'erreur
 *****************************/
 void CException::EXCEcritureMessage(char * psMessage)
 {
-	if (psEXCMessage == NULL)
+	if (psEXCMessage == nullptr)
 		delete psEXCMessage;
 
 	psEXCMessage = new char[strlen(psMessage) + 1];

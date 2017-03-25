@@ -1,9 +1,6 @@
-#include <iostream>
-#include <math.h>
-using namespace std;
-
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
+
 
 template <class Type> class CMatrice
 {
@@ -27,9 +24,9 @@ public:
 	inline unsigned int MATLireNbColonnes();
 
 	// Calculs mathématiques
-	CMatrice<Type> MATCalculerTransposee();
+	CMatrice<Type> & MATCalculerTransposee();
 	void MATAfficherMatrice();
-	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
+	CMatrice<Type> & MATPPuissanceMatrice(unsigned int uiNombre);
 
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
