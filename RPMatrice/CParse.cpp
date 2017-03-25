@@ -26,7 +26,7 @@ Entraine : L'objet est détruit
 CParse::~CParse()
 {
 	delete(sPARChemin);
-	PARFermerFicher(pPARFichier);
+	PARFermerFicher();
 }
 
 /*****************************
@@ -105,11 +105,6 @@ Entraine : néant
 *****************************/
 char * CParse::PARLireLigne()
 {
-	char * sBuffer = nullptr;
-
-	getline();
-
-	getline(pPARFichier, sBuffer);
 	
 	char * test = nullptr;
 	return test;
@@ -123,9 +118,18 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParse::PARConvertirStr2Double(char * sChaine)
+char * CParse::PARSubString(char * sParam, unsigned int uiDebut, unsigned int uiTaille)
 {
+	char * sRetour = (char *) malloc(sizeof(char *) * uiTaille + 1);
 
+	sParam = PARLireLigne();
+
+	memcpy(sRetour, &sParam[uiDebut], uiTaille);
+	sRetour[uiTaille] = '\0';
+
+	PARConvertirMinusc(sRetour);
+
+	return sRetour;
 }
 
 /*****************************
@@ -136,29 +140,26 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParse::PARConvertirMinusc(basic_string<char> & sChaine)
+char * CParse::PARConcatenateString(const char * sStr1, const char * sStr2) 
 {
-   for (basic_string<char>::iterator p = sChaine.begin();
-        p != sChaine.end(); ++p) {
-      *p = tolower(*p);
-   }
+    size_t lengthStr1 = strlen(sStr1);
+    size_t lengthStr2 = strlen(sStr2);
+    char * sConcatenate = (char*)malloc(strlen(sStr1) + strlen(sStr2) + 1);
+
+    if (sConcatenate != NULL)
+    {
+		strncpy(sConcatenate, sStr1, lengthStr1 + 1);
+		strncpy(sConcatenate + lengthStr1, sStr2, lengthStr2 + 1);
+    }
+
+    else
+    {
+        free(sConcatenate);
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+    }
+
+    return sConcatenate;
 }
-
-
-/*
-void string_to_float(string & chaine, float* tab)
-{
-	int cc=nbre_colonne((char*)chaine.c_str());
-	tab=new float [cc];
-
-	for(int j=0;j<cc;j++) {
-		string X;
-		X=chaine.substr(j*8+j,8);
-		tab[j]=atof(X.c_str());
-		printf("tab[%d]= %f",j,tab[j]) ;
-	}
-}
-*/
 
 /*****************************
 Methode : 
@@ -168,10 +169,54 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParse::PARFermerFicher(FILE * pFichier)
+void CParse::PARConvertirMinusc(char * sChaine)
 {
-	if(pFichier != NULL) {
-		fclose(pFichier);
+    int uiBoucle = 0;
+
+    while(sChaine[uiBoucle] != '\0')
+        {
+            sChaine[uiBoucle] = PARConvertirCharMinusc(sChaine[uiBoucle]);
+            uiBoucle++;
+        }
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+char CParse::PARConvertirCharMinusc(char cParam) 
+{
+    int iTemp = (int)cParam;
+
+    if(iTemp >= 'A' && iTemp <= 'Z')
+        {
+            iTemp = iTemp + ('a' - 'A');
+
+            return (char)iTemp;
+        }
+
+    else
+    {
+        return cParam;
+    }
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void CParse::PARFermerFicher()
+{
+	if(pPARFichier != NULL) {
+		fclose(pPARFichier);
 		delete(pPARFichier);
 	}
 }
