@@ -11,6 +11,7 @@
 #define MAUVAISTYPE 6
 #define ERREURTAILLE 7
 #define DIVISIONPARZERO 8
+#define ECHECOUVERTUREFICHIER 9
 
 class CException
 {

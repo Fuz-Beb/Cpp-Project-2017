@@ -92,7 +92,7 @@ void CParse::PAROuvrirFichier(char * sChaine)
 	pPARFichier = fopen(sChaine, "r");
 
 	if(pPARFichier == nullptr)
-		throw CException(ECHECFICHIER, "Echec d'ouverture du fichier");
+		throw CException(ECHECOUVERTUREFICHIER, "Echec d'ouverture du fichier");
 }
 
 /*****************************
@@ -107,12 +107,14 @@ char * CParse::PARLireLigne()
 {
 	char * sBuffer = nullptr;
 
-	getline();
-
-	getline(pPARFichier, sBuffer);
-	
-	char * test = nullptr;
-	return test;
+	// Récupération de la position de départ
+	unsigned int uiPositionDepart = ftell(pPARFichier);
+	// Avancer jusqu'au prochain saut de ligne
+	// Calcul de la différence d'avancement
+	// Faire le malloc de sBuffer avec cette valeur
+	// Remettre le curseur à la position d'origine
+	// Appeler fgets pour récupérer la chaine
+	// retourner la chaine après le test sur fgets (bien déroulé)
 }
 
 /*****************************
