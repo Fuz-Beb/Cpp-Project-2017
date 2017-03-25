@@ -12,6 +12,7 @@ Entraine : l'objet en cours est initialisé
 CParse::CParse()
 {
 	sPARChemin = nullptr;
+	pPARFichier = nullptr;
 }
 
 /*****************************
@@ -25,6 +26,7 @@ Entraine : L'objet est détruit
 CParse::~CParse()
 {
 	delete(sPARChemin);
+	PARFermerFicher(pPARFichier);
 }
 
 /*****************************
@@ -37,7 +39,34 @@ Entraine : l'objet en cours est initialisé
 *****************************/
 CParse::CParse(char * sChemin)
 {
-	unsigned int uiTaille = strlen(sChemin);
+	PARModifierChemin(sChemin);
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+char * CParse::PARLireChemin()
+{
+	return sPARChemin;
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void CParse::PARModifierChemin(char * sParam)
+{
+	unsigned int uiTaille = strlen(sParam);
+
 	if(sPARChemin != NULL)
 		delete(sPARChemin);
 
@@ -46,7 +75,24 @@ CParse::CParse(char * sChemin)
 	if(sPARChemin == NULL)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-	strncpy_s(sPARChemin, uiTaille + 1, sChemin, uiTaille);
+	strncpy(sPARChemin, sParam, uiTaille);
+}
+
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void CParse::PAROuvrirFichier(char * sChaine)
+{
+	pPARFichier = fopen(sChaine, "r");
+
+	if(pPARFichier == nullptr)
+		throw CException(ECHECFICHIER, "Echec d'ouverture du fichier");
 }
 
 /*****************************
@@ -57,7 +103,27 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void PAROuvrirFichier(char * sChaine)
+char * CParse::PARLireLigne()
+{
+	char * sBuffer = nullptr;
+
+	getline();
+
+	getline(pPARFichier, sBuffer);
+	
+	char * test = nullptr;
+	return test;
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void CParse::PARConvertirStr2Double(char * sChaine)
 {
 
 }
@@ -70,46 +136,7 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void PARLireLigne(unsigned int uiNumLigne)
-{
-
-}
-
-/*****************************
-Methode : 
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
-*****************************/
-void PARConvertirStr2Double(char * sChaine)
-{
-
-}
-
-/*****************************
-Methode : 
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
-*****************************/
-void PARFermerFicher()
-{
-
-}
-
-/*****************************
-Methode : 
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
-*****************************/
-void PARConvertirMinusc(basic_string<char> & sChaine)
+void CParse::PARConvertirMinusc(basic_string<char> & sChaine)
 {
    for (basic_string<char>::iterator p = sChaine.begin();
         p != sChaine.end(); ++p) {
@@ -132,3 +159,19 @@ void string_to_float(string & chaine, float* tab)
 	}
 }
 */
+
+/*****************************
+Methode : 
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : néant
+*****************************/
+void CParse::PARFermerFicher(FILE * pFichier)
+{
+	if(pFichier != NULL) {
+		fclose(pFichier);
+		delete(pPARFichier);
+	}
+}
