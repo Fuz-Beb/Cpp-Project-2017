@@ -799,6 +799,29 @@ CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 	return *this;
 }
 
+/*****************************
+Methode : Surcharge de l'opérateur de différence entre deux matrices
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Recherche de différence entre les deux matrices
+*****************************/
+template <class Type>
+bool CMatrice<Type>::operator!=(CMatrice<Type> & MATMatrice)
+{
+	unsigned int uiNbLignes, uiNbColonnes;
+
+	if (uiMATNbLignes != MATMatrice.uiMATNbLignes || uiMATNbColonnes != MATMatrice.uiMATNbColonnes)
+		return true;
+
+	for (uiNbLignes = 0 ; uiNbLignes < uiMATNbLignes ; uiNbLignes++)
+		for (uiNbColonnes = 0 ; uiNbColonnes < uiMATNbColonnes ; uiNbColonnes++) {
+			if (ppqMATMatrice[uiNbLignes][uiNbColonnes] != MATMatrice.ppqMATMatrice[uiNbLignes][uiNbColonnes])
+				return true;
+		}
+	return false;
+}
 
 /*****************************
 Methode : Surcharge operateur * avec deux arguments
@@ -809,7 +832,7 @@ Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur * (pour avoir la commutativité)
 *****************************/
 template <class Type>
-CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATparam)
+CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATMatrice)
 {
-	return MATparam * qMATparam;
+	return MATMatrice * qMATparam;
 }

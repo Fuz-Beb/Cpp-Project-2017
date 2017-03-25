@@ -3,10 +3,6 @@
 
 void main()
 {
-	CMatrice<int> test = CMatrice<int>(3,5);
-	test.MATInit();
-	test.MATAfficherMatrice();
-
 	// OK - Test constructeur par défaut
 		//CMatrice<int> * a = new CMatrice<int>();
 
@@ -162,8 +158,17 @@ void main()
 		// OK - Test de la puissance matrice
 		// Matrice3 = Matrice1.MATPPuissanceMatrice(2);
 		// Matrice3.MATAfficherMatrice();
-	// Affichage Après modification
 
-	//printf("APRES : \n");
-	//Matrice3.MATAfficherMatrice();
-}
+		// OK - Init
+		// CMatrice<int> testInit = CMatrice<int>(20,1);
+		// testInit.MATInit();
+		// testInit.MATAfficherMatrice();
+
+		// OK - operator!=
+		// bool a = Matrice1 != Matrice3;
+		
+		// if (a == true)
+		// 	printf("Différent");
+		// else
+		//	printf("Identidique");
+}\
