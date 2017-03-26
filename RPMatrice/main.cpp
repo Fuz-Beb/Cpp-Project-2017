@@ -7,7 +7,7 @@ void main()
 {
 	CParseMatrice PAMParser = CParseMatrice();
 	PAMParser.PAMTraiterFichier("fichier.txt");
-	
+
 
 	// OK - Test constructeur par défaut
 		//CMatrice<int> * a = new CMatrice<int>();
@@ -177,4 +177,4 @@ void main()
 		// 	printf("Différent");
 		// else
 		//	printf("Identidique");
-}\
+}
