@@ -138,11 +138,13 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 	// ZONE EN CONSTRUCTION
 	char * sBufferDouble = nullptr;
-	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiCompteurLigne = 0, uiCompteurColonne = 0, uiBoucleBufferDouble = 0;
+	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
 	CMatrice<double> pMATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
 		
-	while(PARLireLigne()) {
+	while(uiIndiceLigne <= uiPAMNbLignes) {
 		uiMaxColonne = uiPAMNbColonnes; // Remise du compteur de colonne à la taille annoncée
+
+		sBuffer = PARLireLigne();
 
 		while(uiBoucleBuffer < uiMaxColonne) { // Parcourir les colonnes de la ligne actuel
 			
@@ -157,8 +159,11 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 				uiBoucleBufferDouble++;
 
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
-					pMATMatrice.MATModifierElement(uiCompteurLigne, uiCompteurColonne, stof(sBufferDouble));
+					pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
+
+					sBufferDouble = nullptr;
 					free(sBufferDouble);
+					uiIndiceColonne++;
 			}
 
 			else
@@ -167,13 +172,17 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 			// Ligne ajouter element matrice
 
 			uiBoucleBuffer++;
+			
 		}
 
-		uiCompteurLigne++;
+		free(sBuffer);
+
+		uiIndiceColonne = 1;
+		uiBoucleBuffer = 0;
+		uiIndiceLigne++;
 	}
 
 	// Fermeture du fichier
 	pMATMatrice.MATAfficherMatrice();
 	PARFermerFicher();
-	
 }

@@ -125,8 +125,6 @@ char * CParse::PARLireLigne()
 	if (sBuffer == nullptr)
 		throw CException(ECHECLECTURELIGNEFICHIER, "Erreur lors de la lecture d'une ligne du fichier");
 
-	printf("%s", sBuffer);
-
 	// Mise à l'échelle de la chaine retournée
 	sBuffer = (char*) realloc(sBuffer, sizeof(char) * (strlen(sBuffer) + 1));
 	if (sBuffer == nullptr)
@@ -232,8 +230,6 @@ Entraine : néant
 *****************************/
 void CParse::PARFermerFicher()
 {
-	if(pPARFichier != NULL) {
+	if(pPARFichier != NULL)
 		fclose(pPARFichier);
-		delete(pPARFichier);
-	}
 }
