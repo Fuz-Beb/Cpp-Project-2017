@@ -5,6 +5,32 @@
 #include <string>
 
 /*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParseMatrice::CParseMatrice()
+{
+	MATMatrice = CMatrice<double>();
+}
+
+/*****************************
+Constructeur de confort
+******************************
+Entrée : char * sChemin
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParseMatrice::CParseMatrice(CMatrice<double> MATParam)
+{
+	MATMatrice = CMatrice<double>(MATParam);
+}
+
+/*****************************
 Methode : 
 ******************************
 Entrée : néant
@@ -109,6 +135,34 @@ void CParseMatrice::PAMVerifierType()
 }
 
 /*****************************
+Methode : 
+******************************
+Entrée : 
+Necessité : néant
+Sortie : néant
+Entraine : 
+*****************************/
+/*CMatrice<double> CParseMatrice::PAMRetournerMatrice()
+{
+	CMatrice<double> * MATRetour = CMatrice<double>(MATMatrice);
+
+	return MATRetour;
+}*/
+
+/*****************************
+Methode : 
+******************************
+Entrée : 
+Necessité : néant
+Sortie : néant
+Entraine : 
+*****************************/
+void CParseMatrice::PAMAjouterMatrice(CMatrice<double> & MATParam)
+{
+	MATMatrice = CMatrice<double>(MATParam);
+}
+
+/*****************************
 Methode : Traiter fichier
 ******************************
 Entrée : 
@@ -149,7 +203,8 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
 	
 	// Création d'une CMatrice selon sa taille lu
-	CMatrice<double> pMATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
+	//CMatrice<double> pMATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
+	MATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
 		
 	// Boucle TQ concernant le nombre de ligne à lire
 	while(uiIndiceLigne <= uiPAMNbLignes) {
@@ -178,7 +233,8 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 				// On vérifie s'il y a une dizaine, centaine... où si on s'arrete et on modifie l'élement dans la CMatrice
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
-					pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
+					//pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
+					MATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 
 					sBufferDouble = nullptr;
 					free(sBufferDouble);

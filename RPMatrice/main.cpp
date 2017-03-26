@@ -5,9 +5,20 @@
 
 void main()
 {
+	/*
 	CParseMatrice PAMParser = CParseMatrice();
 	PAMParser.PAMTraiterFichier("fichier.txt");
+	*/
 
+	CParseMatrice test = CParseMatrice();
+
+	test.PAMTraiterFichier("fichier.txt");
+
+	test.MATMatrice.MATAfficherMatrice();
+
+	//CMatrice<double> test2 = CMatrice<double>((CMatrice<double>)test.PAMRetournerMatrice());
+
+	//test.PAMRetournerMatrice();
 
 	// OK - Test constructeur par défaut
 		//CMatrice<int> * a = new CMatrice<int>();

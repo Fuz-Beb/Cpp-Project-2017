@@ -16,6 +16,19 @@ CParse::CParse()
 }
 
 /*****************************
+Constructeur de confort
+******************************
+Entrée : char * sChemin
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParse::CParse(char * sChemin)
+{
+	PARModifierChemin(sChemin);
+}
+
+/*****************************
 Destructeur par défaut
 ******************************
 Entrée : néant
@@ -27,19 +40,6 @@ CParse::~CParse()
 {
 	delete(sPARChemin);
 	PARFermerFicher();
-}
-
-/*****************************
-Constructeur de confort
-******************************
-Entrée : char * sChemin
-Necessité : néant
-Sortie : néant
-Entraine : l'objet en cours est initialisé
-*****************************/
-CParse::CParse(char * sChemin)
-{
-	PARModifierChemin(sChemin);
 }
 
 /*****************************
