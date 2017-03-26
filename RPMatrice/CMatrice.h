@@ -1,10 +1,8 @@
 #ifndef C_MATRICE_H
 #define C_MATRICE_H
 
-#define ECHECALLOCATION 1
-#define DIMENSIONHORSPORTEE 2
-#define DIMENSIONINEGALE 3
-#define ACTIONHORSPORTEE 4
+#include <iostream>
+
 
 template <class Type> class CMatrice
 {
@@ -28,13 +26,14 @@ public:
 	inline unsigned int MATLireNbColonnes();
 
 	// Calculs mathématiques
-	CMatrice<Type> MATCalculerTransposee();
+	CMatrice<Type> & MATCalculerTransposee();
 	void MATAfficherMatrice();
-	CMatrice<Type> MATPPuissanceMatrice(double dNombre);
+	CMatrice<Type> & MATPPuissanceMatrice(unsigned int uiNombre);
 
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
 	Type MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne);
+	void MATInit();
 	
 	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
 	void MATAjouterLignesFin(unsigned int uiNbLignes);
@@ -51,13 +50,17 @@ public:
 	// Surchage
 	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator-(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator*(Type & MATMatrice);
+	CMatrice<Type> & operator*(Type & qMATparam);
 	CMatrice<Type> & operator*(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator/(Type & MATMatrice);
+	CMatrice<Type> & operator/(Type & qMATparam);
 	CMatrice<Type> & operator/(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
+	bool operator!=(CMatrice<Type> & MATMatrice);
 };
 
+template<class Type>
+CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATMatrice);
+
+#include "CMatrice.cpp"
+
 #endif
-
-
