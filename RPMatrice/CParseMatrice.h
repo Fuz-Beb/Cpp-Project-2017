@@ -4,7 +4,7 @@
 #ifndef C_PARSEMATRICE_H
 #define C_PARSEMATRICE_H
 
-class CParseMatrice : public CParse
+class CParseMatrice : private CParse
 {
 private:
 	// Attributs
