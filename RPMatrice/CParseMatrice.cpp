@@ -61,7 +61,17 @@ Entraine : néant
 void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
 {
 	char * sRetour = nullptr;
-	
+
+	// Verification du préfixe avant le =
+	sRetour = PARSubString(sChaine, 0, 9);
+
+	PARConvertirMinusc(sRetour);
+
+	if(sRetour != "nblignes=")
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes==");
+
+	delete(sRetour);
+
 	sRetour = PARSubString(sChaine, 9, strlen(sChaine) - 9);
 
 	if(sRetour == NULL)
@@ -101,6 +111,16 @@ void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
 {
 	char * sRetour = nullptr;
 	
+	// Verification du préfixe avant le =
+	sRetour = PARSubString(sChaine, 0, 11);
+
+	PARConvertirMinusc(sRetour);
+
+	if(sRetour != "nbcolonnes=")
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBColonnes=");
+
+	delete(sRetour);
+
 	sRetour = PARSubString(sChaine, 11, strlen(sChaine) - 11);
 
 	if(sRetour == NULL)
@@ -127,7 +147,15 @@ void CParseMatrice::PAMVerifierType()
 {
 	char * sBuffer = nullptr, * sRetour = nullptr;
 
-	sBuffer = PARLireLigne();
+	// Verification du préfixe avant le =
+	sRetour = PARSubString(sBuffer, 0, 14);
+
+	PARConvertirMinusc(sRetour);
+
+	if(sRetour != "typematrice=")
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de TypeMatrice=");
+
+	delete(sRetour);
 
 	sRetour = PARSubString(sBuffer, 12, 6);
 
@@ -187,6 +215,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PAROuvrirFichier(sChemin);
 
 	// Vérification qu'on va bien lire une matrice double
+	sBuffer = CParse::PARLireLigne();
 	PAMVerifierType();
 
 	// Lecture et écriture attribut du nombre de ligne
@@ -199,6 +228,12 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	
 	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
+
+	PARConvertirMinusc(sBuffer);
+
+	if(sBuffer != "matrice=[")
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
+
 	delete(sBuffer);
 
 	// Boucles pour lire et créer une CMatrice

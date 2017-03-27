@@ -180,10 +180,10 @@ void main()
 		//	printf("Identidique");
 
 	// OK - Test Parse
-	/*
+	
 	CParseMatrice test = CParseMatrice();
 	test.PAMTraiterFichier("fichier.txt");
 	test.PAMRetournerMatrice()->MATAfficherMatrice();
-	*/
+	
 
 }
