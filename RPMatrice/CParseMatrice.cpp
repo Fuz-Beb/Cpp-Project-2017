@@ -34,8 +34,6 @@ CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
 	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(MATMatrice);
 
-	pMatriceRetourner->MATAfficherMatrice();
-
 	return pMatriceRetourner;
 }
 

@@ -15,11 +15,16 @@ Entraine : l'objet en cours est initialisé
 template <class Type>
 CMatrice<Type>::CMatrice()
 {
-	ppqMATMatrice = (Type**)malloc(0);
+	uiMATNbLignes = 1;
+	uiMATNbColonnes = 1;
+
+	ppqMATMatrice = (Type**) malloc (sizeof(Type*) * uiMATNbLignes); 
 	if (ppqMATMatrice == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
-	uiMATNbLignes = 0;
-	uiMATNbColonnes = 0;
+
+	ppqMATMatrice[0] = (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
+	if (ppqMATMatrice[0] == nullptr)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 }
 
 /*****************************
@@ -30,6 +35,8 @@ Necessité : néant
 Sortie : néant
 Entraine : L'objet est détruit
 *****************************/
+
+// Pré-condition : La libération des pointeurs avant la suppression de la matrice est à la charge de l'utilisateur
 template <class Type>
 CMatrice<Type>::~CMatrice()
 {
@@ -83,13 +90,27 @@ Entraine : l'objet en cours est initialisé/recopié
 template <class Type>
 CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 {
-	unsigned int uiBoucleLigne, uiBoucleColonne;
-	
-	CMatrice<Type> * ppqMATMatriceRetour = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
+	unsigned int uiBoucleLigne, uiBoucleColonne, uiBoucle;
 
-	for (uiBoucleLigne = 0; uiBoucleLigne < ppqMATMatriceRetour->uiMATNbLignes; uiBoucleLigne++)
-		for (uiBoucleColonne = 0; uiBoucleColonne < ppqMATMatriceRetour->uiMATNbColonnes; uiBoucleColonne++)
-			ppqMATMatriceRetour->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+	uiMATNbLignes = MATMatrice.uiMATNbLignes;
+	uiMATNbColonnes = MATMatrice.uiMATNbColonnes;
+
+	// Allocation mémoire de la matrice
+	ppqMATMatrice = (Type**) malloc(sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
+	if (ppqMATMatrice == nullptr)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	
+	for (uiBoucle = 0; uiBoucle < uiMATNbLignes; uiBoucle++) // Allocation des colonnes
+	{
+		ppqMATMatrice[uiBoucle] =  (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
+		if (ppqMATMatrice[uiBoucle] == nullptr)
+			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	}
+
+	// Affectation des valeurs
+	for (uiBoucleLigne = 0; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
+		for (uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
+			ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 }
 
 /*****************************
@@ -480,6 +501,8 @@ Necessité : néant
 Sortie : néant
 Entraine : Réallocation et suppression d'une colonne
 *****************************/
+
+// Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
@@ -516,6 +539,8 @@ Necessité : néant
 Sortie : néant
 Entraine : Réallocation et suppression d'une ligne
 *****************************/
+
+// Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 template <class Type>
 void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 {
@@ -579,6 +604,8 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+
+// Pré-condition : Nécessite la présence de la surcharge de l'opérateur + pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
@@ -611,6 +638,8 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+
+// Pré-condition : Nécessite la présence de la surcharge de l'opérateur - pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
@@ -643,6 +672,8 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+
+// Pré-condition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator*(Type & qMATparam)
 {
@@ -673,6 +704,7 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+// Pré-condition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
@@ -706,6 +738,8 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+
+// Pré-condition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator/(Type & qMATparam)
 {
@@ -739,6 +773,8 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+
+// Pré-condition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 {
@@ -774,6 +810,8 @@ Necessité : néant
 Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
+
+// Pré-condition : La libération des pointeurs sur la matrice de destination est à la charge de l'utilisateur
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {
