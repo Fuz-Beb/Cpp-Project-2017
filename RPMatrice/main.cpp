@@ -6,11 +6,19 @@
 
 void main()
 {
-	//CParseMatrice PAMParser = CParseMatrice();
-	//PAMParser.PAMTraiterFichier("fichier.txt");
+
+	CParseMatrice test = CParseMatrice();
+
+	test.PAMTraiterFichier("fichier.txt");
+
+	test.PAMRetournerMatrice()->MATAfficherMatrice();
 
 
-	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur par défaut
+	//CMatrice<double> test2 = CMatrice<double>((CMatrice<double>)test.PAMRetournerMatrice());
+
+	//test.PAMRetournerMatrice();
+
+	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur par dÃ©faut
 		// CMatrice<int> * a = new CMatrice<int>();
 		// delete a;
 
@@ -19,7 +27,7 @@ void main()
 		// delete a;
 		// delete b;
 
-	// OK - Test méthode MATAfficherMatrice
+	// OK - Test mÃ©thode MATAfficherMatrice
 		/*CMatrice<int> c = CMatrice<int>(2, 2);
 		c.MATModifierElement(1,1, 1);
 		c.MATModifierElement(1,2, 2);
@@ -27,7 +35,7 @@ void main()
 		c.MATModifierElement(2,2, 4);
 		c.MATAfficherMatrice();*/
 
-	// Test de modification et de lecture des élements de la matrice
+	// Test de modification et de lecture des Ã©lements de la matrice
 	
 	// Matrice 1
 		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
@@ -146,7 +154,7 @@ void main()
 		// Matrice3 = Matrice2 / A;
 		// Matrice3.MATAfficherMatrice();
 
-		// OK - Calcul de la transposé
+		// OK - Calcul de la transposÃ©
 
 		//CMatrice<int> Matrice4 = CMatrice<int>(5,2);
 		//Matrice4.MATModifierElement(1,1, 10);
@@ -176,7 +184,7 @@ void main()
 		// bool a = Matrice1 != Matrice3;
 		
 		// if (a == true)
-		// 	printf("Différent");
+		// 	printf("DiffÃ©rent");
 		// else
 		//	printf("Identidique");
 }
