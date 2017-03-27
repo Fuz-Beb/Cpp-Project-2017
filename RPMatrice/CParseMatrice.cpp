@@ -58,32 +58,38 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
+void CParseMatrice::PAMAssignerNbLignes()
 {
-	char * sRetour = nullptr;
+	char * sBuffer = nullptr, * sRetour = nullptr;
+
+	sBuffer = CParse::PARLireLigne();
 
 	// Verification du préfixe avant le =
-	sRetour = PARSubString(sChaine, 0, 9);
+	sRetour = PARSubString(sBuffer, 0, 8);
 
-	PARConvertirMinusc(sRetour);
-
-	if(sRetour != "nblignes=")
+	if(strcmp(sRetour, "nblignes") == 1) {
+		delete(sBuffer);
+		delete(sRetour);
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes==");
+	}
 
 	delete(sRetour);
 
-	sRetour = PARSubString(sChaine, 9, strlen(sChaine) - 9);
+	sRetour = PARSubString(sBuffer, 9, strlen(sBuffer) - 9);
 
-	if(sRetour == NULL)
+	if(sRetour == NULL) {
+		delete(sBuffer);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	}
 
 	uiPAMNbLignes = atoi(sRetour);
 
+	delete(sBuffer);
+	delete(sRetour);
+
 	if(uiPAMNbLignes < 1)
 		throw CException(ERREURTAILLE, "Erreur de la taille");
-	
-	delete(sChaine);
-	delete(sRetour);
+
 }
 
 /*****************************
@@ -107,32 +113,39 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
+void CParseMatrice::PAMAssignerNbColonnes()
 {
-	char * sRetour = nullptr;
+	char *sBuffer = nullptr, * sRetour = nullptr;
 	
+	sBuffer = CParse::PARLireLigne();
+
 	// Verification du préfixe avant le =
-	sRetour = PARSubString(sChaine, 0, 11);
+	sRetour = PARSubString(sBuffer, 1, 11);
 
-	PARConvertirMinusc(sRetour);
-
-	if(sRetour != "nbcolonnes=")
+	if(strcmp(sRetour, "nbcolonnes=") == 1) {
+		delete(sBuffer);
+		delete(sRetour);
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBColonnes=");
+	}
 
 	delete(sRetour);
 
-	sRetour = PARSubString(sChaine, 11, strlen(sChaine) - 11);
+	sRetour = PARSubString(sBuffer, 11, strlen(sBuffer) - 11);
 
-	if(sRetour == NULL)
+	if(sRetour == NULL) {
+		delete(sBuffer);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	}
 
 	uiPAMNbColonnes = atoi(sRetour);
+
+	delete(sBuffer);
+	delete(sRetour);
 
 	if(uiPAMNbColonnes < 1)
 		throw CException(ERREURTAILLE, "Erreur de la taille");
 	
-	delete(sChaine);
-	delete(sRetour);
+
 }
 
 /*****************************
@@ -147,13 +160,16 @@ void CParseMatrice::PAMVerifierType()
 {
 	char * sBuffer = nullptr, * sRetour = nullptr;
 
+	sBuffer = CParse::PARLireLigne();
+
 	// Verification du préfixe avant le =
-	sRetour = PARSubString(sBuffer, 0, 14);
+	sRetour = PARSubString(sBuffer, 0, 11);
 
-	PARConvertirMinusc(sRetour);
-
-	if(sRetour != "typematrice=")
+	if(strcmp(sRetour, "typematrice") == 1) {
+		delete(sBuffer);
+		delete(sRetour);
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de TypeMatrice=");
+	}
 
 	delete(sRetour);
 
@@ -215,23 +231,20 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PAROuvrirFichier(sChemin);
 
 	// Vérification qu'on va bien lire une matrice double
-	sBuffer = CParse::PARLireLigne();
 	PAMVerifierType();
 
 	// Lecture et écriture attribut du nombre de ligne
-	sBuffer = CParse::PARLireLigne();
-	PAMAssignerNbLignes(sBuffer);
+	PAMAssignerNbLignes();
 
 	// Lecture et écriture attribut du nombre de colonne
-	sBuffer = CParse::PARLireLigne();
-	PAMAssignerNbColonnes(sBuffer);
+	PAMAssignerNbColonnes();
 	
 	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
 
 	PARConvertirMinusc(sBuffer);
 
-	if(sBuffer != "matrice=[")
+	if(strcmp(sBuffer, "matrice=[\n") == 1)
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
 
 	delete(sBuffer);

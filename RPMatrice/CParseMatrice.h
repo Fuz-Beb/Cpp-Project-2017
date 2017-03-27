@@ -15,9 +15,9 @@ private:
 	
 	// Accesseurs
 	inline unsigned int PAMLireNbLignes();
-	inline void PAMAssignerNbLignes(char * sChaine);
+	inline void PAMAssignerNbLignes();
 	inline unsigned int PAMLireNbColonnes();
-	inline void PAMAssignerNbColonnes(char * sChaine);
+	inline void PAMAssignerNbColonnes();
 	
 	// Methodes
 	void PAMVerifierType();
