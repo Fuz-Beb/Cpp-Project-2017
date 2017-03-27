@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class CParse 
+class CParse
 {
 private:
 	// Attributs

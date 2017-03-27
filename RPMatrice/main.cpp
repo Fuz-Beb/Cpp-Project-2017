@@ -2,15 +2,14 @@
 #include "CException.h"
 #include "CParseMatrice.h"
 #include "CParse.h"
-#include <vld.h>
 
 void main()
 {
-	//CParseMatrice PAMParser = CParseMatrice();
-	//PAMParser.PAMTraiterFichier("fichier.txt");
+	//CMatrice<double> test2 = CMatrice<double>((CMatrice<double>)test.PAMRetournerMatrice());
 
+	//test.PAMRetournerMatrice();
 
-	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur par défaut
+	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur par dÃ©faut
 		// CMatrice<int> * a = new CMatrice<int>();
 		// delete a;
 
@@ -19,7 +18,7 @@ void main()
 		// delete a;
 		// delete b;
 
-	// FONCTIONNEMENT OK - VALGRIND OK - Test des méthodes qui manipule la matrice
+	// FONCTIONNEMENT OK - VALGRIND OK - Test des mÃ©thodes qui manipule la matrice
 
 	// Matrice 1
 		/*CMatrice<int> Matrice1 = CMatrice<int>(10,10);
@@ -60,14 +59,14 @@ void main()
 
 
 
-	// OK - Test méthode MATAfficherMatrice
+	// OK - Test mÃ©thode MATAfficherMatrice
 		/*CMatrice<int> c = CMatrice<int>(2, 2);
 		c.MATModifierElement(1,1, 1);
 		c.MATModifierElement(1,2, 2);
 		c.MATModifierElement(2,1, 3);
 		c.MATModifierElement(2,2, 4);
 		c.MATAfficherMatrice();*/
-
+	
 	
 	// OK - Test d'affichage + MATAjouterColonnesFin
 		//Matrice1.MATAjouterColonnesFin(2);
@@ -148,7 +147,7 @@ void main()
 		// Matrice3 = Matrice2 / A;
 		// Matrice3.MATAfficherMatrice();
 
-		// OK - Calcul de la transposé
+		// OK - Calcul de la transposÃ©
 
 		//CMatrice<int> Matrice4 = CMatrice<int>(5,2);
 		//Matrice4.MATModifierElement(1,1, 10);
@@ -178,7 +177,15 @@ void main()
 		// bool a = Matrice1 != Matrice3;
 		
 		// if (a == true)
-		// 	printf("Différent");
+		// 	printf("DiffÃ©rent");
 		// else
 		//	printf("Identidique");
+
+	// OK - Test Parse
+	/*
+	CParseMatrice test = CParseMatrice();
+	test.PAMTraiterFichier("fichier.txt");
+	test.PAMRetournerMatrice()->MATAfficherMatrice();
+	*/
+
 }
