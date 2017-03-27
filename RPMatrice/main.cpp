@@ -19,18 +19,10 @@ void main()
 		// delete a;
 		// delete b;
 
-	// OK - Test méthode MATAfficherMatrice
-		/*CMatrice<int> c = CMatrice<int>(2, 2);
-		c.MATModifierElement(1,1, 1);
-		c.MATModifierElement(1,2, 2);
-		c.MATModifierElement(2,1, 3);
-		c.MATModifierElement(2,2, 4);
-		c.MATAfficherMatrice();*/
+	// FONCTIONNEMENT OK - VALGRIND OK - Test des méthodes qui manipule la matrice
 
-	// Test de modification et de lecture des élements de la matrice
-	
 	// Matrice 1
-		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
+		/*CMatrice<int> Matrice1 = CMatrice<int>(10,10);
 		Matrice1.MATModifierElement(1,1, 1);
 		Matrice1.MATModifierElement(1,2, 2);
 		Matrice1.MATModifierElement(1,3, 3);
@@ -42,7 +34,7 @@ void main()
 		Matrice1.MATModifierElement(3,3, 9);
 
 	// Matrice 2
-		CMatrice<int> Matrice2 = CMatrice<int>(3,3);
+		CMatrice<int> Matrice2 = CMatrice<int>(10,10);
 		Matrice2.MATModifierElement(1,1, 1);
 		Matrice2.MATModifierElement(1,2, 2);
 		Matrice2.MATModifierElement(1,3, 3);
@@ -51,65 +43,75 @@ void main()
 		Matrice2.MATModifierElement(2,3, 6);
 		Matrice2.MATModifierElement(3,1, 7);
 		Matrice2.MATModifierElement(3,2, 8);
-		Matrice2.MATModifierElement(3,3, 9);
-	// Matrices
+		Matrice2.MATModifierElement(3,3, 9);*/
 
-		//CMatrice<int> Matrice3 = CMatrice<int>(5,5);
+		//Matrice1.MATAjouterColonnesFin(2);
+		//Matrice1.MATAjouterColonnePrecis(1);
+		//Matrice1.MATAjouterLignesFin(3);
+		//Matrice1.MATAjouterLignePrecis(3);
+		//Matrice1.MATSupprimerColonneFin(1);
+		//Matrice1.MATSupprimerColonnePrecis(2);
+		//Matrice1.MATSupprimerLignePrecis(4);
+		//Matrice1.MATSupprimerLigneFin(4);
+		//Matrice2.MATModifierElement(2, 3, 1);
+		//Matrice1.MATModifierElement(1, 3, 1);
+		//Matrice2.MATModifierElement(2, 4, 9);
+		//Matrice2.MATModifierElement(1, 4, 8);
 
-		//Matrice3.MATModifierElement(1,1, 1);
-		//Matrice3.MATModifierElement(3,1, 1);
-		//Matrice3.MATModifierElement(3,2, 2);
-		//Matrice3.MATModifierElement(1,1, 1);
 
-		//printf("Element : %d", Matrice3.MATLireElement(3,1));
-		//printf("Element : %d", Matrice3.MATLireElement(3,2));
-		//Matrice3.MATModifierElement(2,1, 1);
-		//Matrice3.MATModifierElement(2,2, 1);
+
+	// OK - Test méthode MATAfficherMatrice
+		/*CMatrice<int> c = CMatrice<int>(2, 2);
+		c.MATModifierElement(1,1, 1);
+		c.MATModifierElement(1,2, 2);
+		c.MATModifierElement(2,1, 3);
+		c.MATModifierElement(2,2, 4);
+		c.MATAfficherMatrice();*/
 
 	
-	// Test d'affichage :
-	
-		//printf("AVANT : \n");
-		//Matrice3.MATAfficherMatrice();
-
 	// OK - Test d'affichage + MATAjouterColonnesFin
-		Matrice1.MATAjouterColonnesFin(1);
-		Matrice2.MATAjouterColonnesFin(10);
-		//Matrice3.MATModifierElement(2, 3, 1);
-		//Matrice3.MATModifierElement(1, 3, 1);
-		//Matrice3.MATAjouterColonnesFin(1);
-		//Matrice3.MATModifierElement(2, 4, 9);
-		//Matrice3.MATModifierElement(1, 4, 8);
+		//Matrice1.MATAjouterColonnesFin(2);
+		//Matrice1.MATAjouterColonnePrecis(1);
+		//Matrice1.MATAjouterLignesFin(3);
+		//Matrice1.MATAjouterLignePrecis(3);
+		//Matrice1.MATSupprimerColonneFin(1);
+		//Matrice1.MATSupprimerColonnePrecis(2);
+		//Matrice1.MATSupprimerLignePrecis(4);
+		//Matrice1.MATSupprimerLigneFin(4);
+		//Matrice2.MATModifierElement(2, 3, 1);
+		//Matrice1.MATModifierElement(1, 3, 1);
+		//Matrice2.MATModifierElement(2, 4, 9);
+		//Matrice2.MATModifierElement(1, 4, 8);
 
 	// OK - Test d'affichage + MATAjouterColonnePrecis
-		//Matrice3.MATAjouterColonnePrecis(2);
-		//Matrice3.MATModifierElement(1, 2, 7);
-		//Matrice3.MATModifierElement(2, 2, 6);
-		//Matrice3.MATAjouterColonnePrecis(2);
-		//Matrice3.MATModifierElement(1, 2, 9);
-		//Matrice3.MATModifierElement(2, 2, 8);
-		//Matrice3.MATAjouterColonnePrecis(5);
-		//Matrice3.MATModifierElement(1, 5, 10);
-		//Matrice3.MATModifierElement(2, 5, 12);
-		//Matrice3.MATAjouterColonnePrecis(12);
+		//Matrice1.MATAjouterColonnePrecis(2);
+		//Matrice2.MATModifierElement(1, 2, 7);
+		//Matrice2.MATModifierElement(2, 2, 6);
+		//Matrice2.MATAjouterColonnePrecis(2);
+		//Matrice1.MATModifierElement(1, 2, 9);
+		//Matrice2.MATModifierElement(2, 2, 8);
+		//Matrice1.MATAjouterColonnePrecis(5);
+		//Matrice1.MATModifierElement(1, 5, 10);
+		//Matrice1.MATModifierElement(2, 5, 12);
+		//Matrice1.MATAjouterColonnePrecis(12);
 
 	// OK - Test d'affichage + MATSupprimerColonnePrecis
-		//Matrice3.MATSupprimerColonnePrecis(3);
+		//Matrice1.MATSupprimerColonnePrecis(3);
 		// Matrice3.MATAfficherMatrice();
 
 	// Test d'affichage + MATSupprimerColonneFin & MATSupprimerLigneFin
-		//Matrice3.MATSupprimerLigneFin(2);
-		//Matrice3.MATSupprimerColonneFin(1);
+		//Matrice2.MATSupprimerLigneFin(2);
+		//Matrice1.MATSupprimerColonneFin(1);
 		//Matrice3.MATAfficherMatrice();
 
 	// OK - Test d'affichage + MATAjouterLignePrecis
-		//Matrice3.MATAjouterLignePrecis(4);
+		//Matrice2.MATAjouterLignePrecis(4);
 		//Matrice3.MATModifierElement(3, 2, 17);
 		//Matrice3.MATAfficherMatrice();
 
 	// OK - Test d'affichage + MATSupprimerLignePrecis
 		
-		//Matrice3.MATSupprimerLignePrecis(1);
+		//Matrice2.MATSupprimerLignePrecis(1);
 		//Matrice3.MATAfficherMatrice();
 
 	// Test des surcharges
