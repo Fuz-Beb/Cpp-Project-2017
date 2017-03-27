@@ -2,6 +2,7 @@
 #include "CException.h"
 #include "CParseMatrice.h"
 #include "CParse.h"
+#include <vld.h>
 
 void main()
 {

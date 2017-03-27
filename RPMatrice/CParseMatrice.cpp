@@ -220,7 +220,7 @@ Entraine :
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
 	// Initialisation du buffer ligne par ligne
-	char * sBuffer = NULL;
+	char * sBuffer = nullptr, * sChaineBuffer = nullptr, * sBufferDoubleTemp = nullptr;
 
 	// Mise en place de l'ouverture du fichier
 	PARModifierChemin(sChemin);
@@ -271,7 +271,12 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 				// Permet de gérer le cas où l'élement à une dizaine, centaine...
 				if(sBufferDouble != nullptr) {
-					sBufferDouble = PARConcatenateString(sBufferDouble, PARSubString(sBuffer, uiBoucleBuffer, 1)); // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
+					sBufferDoubleTemp = PARSubString(sBufferDouble, 0, strlen(sBufferDouble));
+					sChaineBuffer = PARSubString(sBuffer, uiBoucleBuffer, 1);
+					delete(sBufferDouble);
+					sBufferDouble = PARConcatenateString(sBufferDoubleTemp, sChaineBuffer); // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
+					delete(sChaineBuffer);	
+					delete(sBufferDoubleTemp);
 				}
 
 				// Dans le cas où le second buffer d'élèment est vide, alors j'en créer un.
@@ -296,7 +301,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 				else {
 					uiMaxColonne++;
 				}
-					
+
 			}
 
 			// En cas d'espace en trop ex : 2    4 5 ; Je continue à parcourir en ignorant
