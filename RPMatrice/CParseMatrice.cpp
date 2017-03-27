@@ -1,8 +1,4 @@
 #include "CParseMatrice.h"
-#include "CException.h"
-#include "CMatrice.h"
-#include "CParse.h"
-#include <string>
 
 /*****************************
 Constructeur par défaut

@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-
 template <class Type> class CMatrice
 {
 	// Attributs
