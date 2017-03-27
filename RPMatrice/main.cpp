@@ -14,7 +14,8 @@ void main()
 
 	test.PAMTraiterFichier("fichier.txt");
 
-	test.MATMatrice.MATAfficherMatrice();
+	test.PAMRetournerMatrice()->MATAfficherMatrice();
+
 
 	//CMatrice<double> test2 = CMatrice<double>((CMatrice<double>)test.PAMRetournerMatrice());
 

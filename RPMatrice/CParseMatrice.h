@@ -11,7 +11,7 @@ private:
 	// Attributs
 	unsigned int uiPAMNbLignes;
 	unsigned int uiPAMNbColonnes;
-	//CMatrice<double> MATMatrice;
+	CMatrice<double> MATMatrice;
 	
 	// Accesseurs
 	inline unsigned int PAMLireNbLignes();
@@ -25,7 +25,8 @@ private:
 public:
 	CParseMatrice();
 	CParseMatrice(CMatrice<double> MATParam);
-	CMatrice<double> MATMatrice;
+
+	CMatrice<double> * PAMRetournerMatrice();
 	//CMatrice<double> PAMRetournerMatrice();
 	//CMatrice<double> PAMRetournerMatrice();
 	void PAMAjouterMatrice(CMatrice<double> & MATParam);

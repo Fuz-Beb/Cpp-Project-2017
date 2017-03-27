@@ -30,6 +30,15 @@ CParseMatrice::CParseMatrice(CMatrice<double> MATParam)
 	MATMatrice = CMatrice<double>(MATParam);
 }
 
+CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
+{
+	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(MATMatrice);
+
+	pMatriceRetourner->MATAfficherMatrice();
+
+	return pMatriceRetourner;
+}
+
 /*****************************
 Methode : 
 ******************************
