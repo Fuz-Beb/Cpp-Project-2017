@@ -407,7 +407,7 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 		{
 			MATSupprimerLignePrecis(uiMATNbLignes);
 			uiBoucle++;
-}
+		}
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -553,12 +553,14 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 				for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
 				ppqMATMatrice[uiBoucleLigne - 1][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * (uiMATNbLignes - 1));
+		uiMATNbLignes--;
+
+		delete ppqMATMatrice[uiMATNbLignes];
+
+		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes);
 	
 		if (ppqMATMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
-
-		uiMATNbLignes--;
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
