@@ -2,18 +2,9 @@
 #include "CException.h"
 #include "CParseMatrice.h"
 #include "CParse.h"
-#include <vld.h>
 
 void main()
 {
-
-	CParseMatrice test = CParseMatrice();
-
-	test.PAMTraiterFichier("fichier.txt");
-
-	test.PAMRetournerMatrice()->MATAfficherMatrice();
-
-
 	//CMatrice<double> test2 = CMatrice<double>((CMatrice<double>)test.PAMRetournerMatrice());
 
 	//test.PAMRetournerMatrice();
@@ -187,4 +178,12 @@ void main()
 		// 	printf("Différent");
 		// else
 		//	printf("Identidique");
+
+	// OK - Test Parse
+	/*
+	CParseMatrice test = CParseMatrice();
+	test.PAMTraiterFichier("fichier.txt");
+	test.PAMRetournerMatrice()->MATAfficherMatrice();
+	*/
+
 }
