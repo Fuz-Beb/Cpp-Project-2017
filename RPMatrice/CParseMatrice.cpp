@@ -118,62 +118,99 @@ Entraine :
 *****************************/
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
+	// Initialisation du buffer ligne par ligne
 	char * sBuffer = NULL;
 
-	//CParseMatrice PAMParser = CParseMatrice();
-
+	// Mise en place de l'ouverture du fichier
 	PARModifierChemin(sChemin);
 	PAROuvrirFichier(sChemin);
 
+	// Vérification qu'on va bien lire une matrice double
 	PAMVerifierType();
 
+	// Lecture et écriture attribut du nombre de ligne
 	sBuffer = CParse::PARLireLigne();
 	PAMAssignerNbLignes(sBuffer);
 
+	// Lecture et écriture attribut du nombre de colonne
 	sBuffer = CParse::PARLireLigne();
 	PAMAssignerNbColonnes(sBuffer);
 	
+	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
 	delete(sBuffer);
 
-	// ZONE EN CONSTRUCTION
+	// Boucles pour lire et créer une CMatrice
+
+	// Buffer d'un élément spécifique ex : ligne 1 colonne 1
 	char * sBufferDouble = nullptr;
-	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiCompteurLigne = 0, uiCompteurColonne = 0, uiBoucleBufferDouble = 0;
+
+	// Variables d'indice de boucles
+	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
+	
+	// Création d'une CMatrice selon sa taille lu
 	CMatrice<double> pMATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
 		
-	while(PARLireLigne()) {
-		uiMaxColonne = uiPAMNbColonnes; // Remise du compteur de colonne à la taille annoncée
+	// Boucle TQ concernant le nombre de ligne à lire
+	while(uiIndiceLigne <= uiPAMNbLignes) {
+		uiMaxColonne = uiPAMNbColonnes; // Remise du compteur de colonne à la taille par souhaité (utile dans le cas d'espace)
 
-		while(uiBoucleBuffer < uiMaxColonne) { // Parcourir les colonnes de la ligne actuel
+		sBuffer = PARLireLigne(); // Remplissage du buffer par rapport à la ligne actuel
+
+		// Boucle TQ concernant le nombre de colonne à lire (gère les espaces en trop)
+		while(uiBoucleBuffer < uiMaxColonne) {
 			
-			if(sBuffer[uiBoucleBuffer] != ' ') // Verifier si espace
-				//sBufferDouble[uiBoucleBufferDouble] = sBuffer[uiBoucleBuffer]; // A FREE ET A STRDUP
-				if(sBufferDouble != nullptr)
+			// Permet de vérifier si il y a des espaces entre les éléments
+			if(sBuffer[uiBoucleBuffer] != ' ') { 
+
+				// Permet de gérer le cas où l'élement à une dizaine, centaine...
+				if(sBufferDouble != nullptr) {
 					sBufferDouble = PARConcatenateString(sBufferDouble, PARSubString(sBuffer, uiBoucleBuffer, 1)); // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
-				
-				else
+				}
+
+				// Dans le cas où le second buffer d'élèment est vide, alors j'en créer un.
+				else {
 					sBufferDouble = PARSubString(sBuffer, uiBoucleBuffer, 1);
+				}
 				
+				// Incrémentation de l'indice du second buffer (dans le cas où dizaine, centaine...)
 				uiBoucleBufferDouble++;
 
+				// On vérifie s'il y a une dizaine, centaine... où si on s'arrete et on modifie l'élement dans la CMatrice
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
-					pMATMatrice.MATModifierElement(uiCompteurLigne, uiCompteurColonne, stof(sBufferDouble));
+					pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
+
+					sBufferDouble = nullptr;
 					free(sBufferDouble);
+					uiIndiceColonne++;
+				}
+
+				// Sinon on recommence une boucle pour aller concatener la dizaine, centaine...
+				else {
+					uiMaxColonne++;
+				}
+					
 			}
 
-			else
+			// En cas d'espace en trop ex : 2    4 5 ; Je continue à parcourir en ignorant
+			else {
 				uiMaxColonne++;
+			}
 
-			// Ligne ajouter element matrice
-
+			// Permet de naviguer dans les colonnes du buffer
 			uiBoucleBuffer++;
+			
 		}
 
-		uiCompteurLigne++;
+		// Libérer le buffer général pour éviter les fuites
+		free(sBuffer);
+
+		// Remise par défaut des variables pour recommencer une boucle
+		uiIndiceColonne = 1;
+		uiBoucleBuffer = 0;
+		uiIndiceLigne++;
 	}
 
-	// Fermeture du fichier
-	pMATMatrice.MATAfficherMatrice();
+	// Fermer le fichier
 	PARFermerFicher();
-	
 }
