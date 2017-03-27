@@ -2,21 +2,22 @@
 #include "CException.h"
 #include "CParseMatrice.h"
 #include "CParse.h"
+#include <vld.h>
 
 void main()
 {
-	CParseMatrice PAMParser = CParseMatrice();
-	PAMParser.PAMTraiterFichier("fichier.txt");
+	//CParseMatrice PAMParser = CParseMatrice();
+	//PAMParser.PAMTraiterFichier("fichier.txt");
 
 
-	// OK - Test constructeur par défaut
-		//CMatrice<int> * a = new CMatrice<int>();
+	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur par défaut
+		// CMatrice<int> * a = new CMatrice<int>();
+		// delete a;
 
-	// OK - Test constructeur de recopie
-		//CMatrice<int> * b = new CMatrice<int>(* a);
-
-	// OK - Test destructeur par défaut
-		//delete(a);
+	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur de recopie
+		// CMatrice<int> * b = new CMatrice<int>(*a);
+		// delete a;
+		// delete b;
 
 	// OK - Test méthode MATAfficherMatrice
 		/*CMatrice<int> c = CMatrice<int>(2, 2);
@@ -29,7 +30,7 @@ void main()
 	// Test de modification et de lecture des élements de la matrice
 	
 	// Matrice 1
-		/*CMatrice<int> Matrice1 = CMatrice<int>(3,3);
+		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
 		Matrice1.MATModifierElement(1,1, 1);
 		Matrice1.MATModifierElement(1,2, 2);
 		Matrice1.MATModifierElement(1,3, 3);
@@ -50,7 +51,7 @@ void main()
 		Matrice2.MATModifierElement(2,3, 6);
 		Matrice2.MATModifierElement(3,1, 7);
 		Matrice2.MATModifierElement(3,2, 8);
-		Matrice2.MATModifierElement(3,3, 9);*/
+		Matrice2.MATModifierElement(3,3, 9);
 	// Matrices
 
 		//CMatrice<int> Matrice3 = CMatrice<int>(5,5);
@@ -72,7 +73,8 @@ void main()
 		//Matrice3.MATAfficherMatrice();
 
 	// OK - Test d'affichage + MATAjouterColonnesFin
-		//Matrice3.MATAjouterColonnesFin(1);
+		Matrice1.MATAjouterColonnesFin(1);
+		Matrice2.MATAjouterColonnesFin(10);
 		//Matrice3.MATModifierElement(2, 3, 1);
 		//Matrice3.MATModifierElement(1, 3, 1);
 		//Matrice3.MATAjouterColonnesFin(1);
