@@ -5,6 +5,39 @@
 #include <string>
 
 /*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParseMatrice::CParseMatrice()
+{
+	MATMatrice = CMatrice<double>();
+}
+
+/*****************************
+Constructeur de confort
+******************************
+Entrée : char * sChemin
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
+CParseMatrice::CParseMatrice(CMatrice<double> MATParam)
+{
+	MATMatrice = CMatrice<double>(MATParam);
+}
+
+CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
+{
+	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(MATMatrice);
+
+	return pMatriceRetourner;
+}
+
+/*****************************
 Methode : 
 ******************************
 Entrée : néant
@@ -25,22 +58,38 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParseMatrice::PAMAssignerNbLignes(char * sChaine)
+void CParseMatrice::PAMAssignerNbLignes()
 {
-	char * sRetour = nullptr;
-	
-	sRetour = PARSubString(sChaine, 9, strlen(sChaine) - 9);
+	char * sBuffer = nullptr, * sRetour = nullptr;
 
-	if(sRetour == NULL)
+	sBuffer = CParse::PARLireLigne();
+
+	// Verification du préfixe avant le =
+	sRetour = PARSubString(sBuffer, 0, 8);
+
+	if(strcmp(sRetour, "nblignes") == 1) {
+		delete(sBuffer);
+		delete(sRetour);
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes==");
+	}
+
+	delete(sRetour);
+
+	sRetour = PARSubString(sBuffer, 9, strlen(sBuffer) - 9);
+
+	if(sRetour == NULL) {
+		delete(sBuffer);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	}
 
 	uiPAMNbLignes = atoi(sRetour);
 
+	delete(sBuffer);
+	delete(sRetour);
+
 	if(uiPAMNbLignes < 1)
 		throw CException(ERREURTAILLE, "Erreur de la taille");
-	
-	delete(sChaine);
-	delete(sRetour);
+
 }
 
 /*****************************
@@ -64,22 +113,39 @@ Necessité : néant
 Sortie : néant
 Entraine : néant
 *****************************/
-void CParseMatrice::PAMAssignerNbColonnes(char * sChaine)
+void CParseMatrice::PAMAssignerNbColonnes()
 {
-	char * sRetour = nullptr;
+	char *sBuffer = nullptr, * sRetour = nullptr;
 	
-	sRetour = PARSubString(sChaine, 11, strlen(sChaine) - 11);
+	sBuffer = CParse::PARLireLigne();
 
-	if(sRetour == NULL)
+	// Verification du préfixe avant le =
+	sRetour = PARSubString(sBuffer, 1, 11);
+
+	if(strcmp(sRetour, "nbcolonnes=") == 1) {
+		delete(sBuffer);
+		delete(sRetour);
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBColonnes=");
+	}
+
+	delete(sRetour);
+
+	sRetour = PARSubString(sBuffer, 11, strlen(sBuffer) - 11);
+
+	if(sRetour == NULL) {
+		delete(sBuffer);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	}
 
 	uiPAMNbColonnes = atoi(sRetour);
+
+	delete(sBuffer);
+	delete(sRetour);
 
 	if(uiPAMNbColonnes < 1)
 		throw CException(ERREURTAILLE, "Erreur de la taille");
 	
-	delete(sChaine);
-	delete(sRetour);
+
 }
 
 /*****************************
@@ -94,7 +160,18 @@ void CParseMatrice::PAMVerifierType()
 {
 	char * sBuffer = nullptr, * sRetour = nullptr;
 
-	sBuffer = PARLireLigne();
+	sBuffer = CParse::PARLireLigne();
+
+	// Verification du préfixe avant le =
+	sRetour = PARSubString(sBuffer, 0, 11);
+
+	if(strcmp(sRetour, "typematrice") == 1) {
+		delete(sBuffer);
+		delete(sRetour);
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de TypeMatrice=");
+	}
+
+	delete(sRetour);
 
 	sRetour = PARSubString(sBuffer, 12, 6);
 
@@ -106,6 +183,34 @@ void CParseMatrice::PAMVerifierType()
 	}
 
 	delete(sRetour);
+}
+
+/*****************************
+Methode : 
+******************************
+Entrée : 
+Necessité : néant
+Sortie : néant
+Entraine : 
+*****************************/
+/*CMatrice<double> CParseMatrice::PAMRetournerMatrice()
+{
+	CMatrice<double> * MATRetour = CMatrice<double>(MATMatrice);
+
+	return MATRetour;
+}*/
+
+/*****************************
+Methode : 
+******************************
+Entrée : 
+Necessité : néant
+Sortie : néant
+Entraine : 
+*****************************/
+void CParseMatrice::PAMAjouterMatrice(CMatrice<double> & MATParam)
+{
+	MATMatrice = CMatrice<double>(MATParam);
 }
 
 /*****************************
@@ -129,15 +234,19 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PAMVerifierType();
 
 	// Lecture et écriture attribut du nombre de ligne
-	sBuffer = CParse::PARLireLigne();
-	PAMAssignerNbLignes(sBuffer);
+	PAMAssignerNbLignes();
 
 	// Lecture et écriture attribut du nombre de colonne
-	sBuffer = CParse::PARLireLigne();
-	PAMAssignerNbColonnes(sBuffer);
+	PAMAssignerNbColonnes();
 	
 	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
+
+	PARConvertirMinusc(sBuffer);
+
+	if(strcmp(sBuffer, "matrice=[\n") == 1)
+		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
+
 	delete(sBuffer);
 
 	// Boucles pour lire et créer une CMatrice
@@ -149,7 +258,8 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
 	
 	// Création d'une CMatrice selon sa taille lu
-	CMatrice<double> pMATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
+	//CMatrice<double> pMATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
+	MATMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
 		
 	// Boucle TQ concernant le nombre de ligne à lire
 	while(uiIndiceLigne <= uiPAMNbLignes) {
@@ -178,7 +288,8 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 				// On vérifie s'il y a une dizaine, centaine... où si on s'arrete et on modifie l'élement dans la CMatrice
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
-					pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
+					//pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
+					MATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 
 					sBufferDouble = nullptr;
 					free(sBufferDouble);

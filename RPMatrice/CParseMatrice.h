@@ -1,5 +1,6 @@
 #include <string.h>
 #include "CParse.h"
+#include "CMatrice.h"
 
 #ifndef C_PARSEMATRICE_H
 #define C_PARSEMATRICE_H
@@ -10,17 +11,25 @@ private:
 	// Attributs
 	unsigned int uiPAMNbLignes;
 	unsigned int uiPAMNbColonnes;
+	CMatrice<double> MATMatrice;
 	
 	// Accesseurs
 	inline unsigned int PAMLireNbLignes();
-	inline void PAMAssignerNbLignes(char * sChaine);
+	inline void PAMAssignerNbLignes();
 	inline unsigned int PAMLireNbColonnes();
-	inline void PAMAssignerNbColonnes(char * sChaine);
-
+	inline void PAMAssignerNbColonnes();
+	
 	// Methodes
 	void PAMVerifierType();
 	
 public:
+	CParseMatrice();
+	CParseMatrice(CMatrice<double> MATParam);
+
+	CMatrice<double> * PAMRetournerMatrice();
+	//CMatrice<double> PAMRetournerMatrice();
+	//CMatrice<double> PAMRetournerMatrice();
+	void PAMAjouterMatrice(CMatrice<double> & MATParam);
 	void PAMTraiterFichier(char * sChemin);
 };
 
