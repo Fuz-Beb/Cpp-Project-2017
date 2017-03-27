@@ -1,9 +1,9 @@
-#include <string.h>
-#include "CParse.h"
-#include "CMatrice.h"
-
 #ifndef C_PARSEMATRICE_H
 #define C_PARSEMATRICE_H
+
+#include "CParse.h"
+#include "CMatrice.h"
+#include <string>
 
 class CParseMatrice : public CParse
 {
