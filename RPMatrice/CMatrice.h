@@ -25,14 +25,15 @@ public:
 	inline unsigned int MATLireNbColonnes();
 
 	// Calculs mathématiques
-	CMatrice<Type> MATCalculerTransposee();
+	CMatrice<Type> & MATCalculerTransposee();
+	virtual void MATAfficherMatrice();
 	CMatrice<Type> MATPPuissanceMatrice(unsigned int uiNombre);
 
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
 	Type MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne);
-	void MATAfficherMatrice();
 	void MATInit();
+	void MATAfficherMatrice();
 	
 	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
 	void MATAjouterLignesFin(unsigned int uiNbLignes);

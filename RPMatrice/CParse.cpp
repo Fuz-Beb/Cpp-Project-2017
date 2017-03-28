@@ -27,6 +27,7 @@ Entraine : l'objet en cours est initialisé
 *****************************/
 CParse::CParse(char * psChemin)
 {
+	CParse();
 	PARModifierChemin(psChemin);
 }
 
