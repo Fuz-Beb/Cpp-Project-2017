@@ -174,7 +174,7 @@ char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2)
 
     else
 	{
-		delete(sConcatenate);
+		delete(psConcatenate);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
     }
 

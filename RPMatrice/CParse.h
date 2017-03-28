@@ -18,7 +18,7 @@ public:
 	CParse(char * psChemin);
 	~CParse();
 
-	// Méthode
+	// Méthodes
 	char * PARLireChemin();
 	void PARModifierChemin(char * psParam);
 	void PAROuvrirFichier(char * psParam);
