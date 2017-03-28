@@ -25,6 +25,8 @@ CMatrice<Type>::CMatrice()
 	ppqMATMatrice[0] = (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
 	if (ppqMATMatrice[0] == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+	MATModifierElement(1,1,0);
 }
 
 /*****************************
