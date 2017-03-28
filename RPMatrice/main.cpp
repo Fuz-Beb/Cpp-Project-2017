@@ -186,7 +186,10 @@ void main()
 	
 	CParseMatrice test = CParseMatrice();
 	test.PAMTraiterFichier("fichier.txt");
-	test.PAMRetournerMatrice()->MATAfficherMatrice();
-	
+	CMatrice<double> * testPointeur = test.PAMRetournerMatrice();
+
+	testPointeur->MATAfficherMatrice();
+
+	delete(testPointeur);
 
 }

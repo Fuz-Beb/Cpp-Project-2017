@@ -189,21 +189,6 @@ Necessité : néant
 Sortie : néant
 Entraine : 
 *****************************/
-/*CMatrice<double> CParseMatrice::PAMRetournerMatrice()
-{
-	CMatrice<double> * MATRetour = CMatrice<double>(MATMatrice);
-
-	return MATRetour;
-}*/
-
-/*****************************
-Methode : 
-******************************
-Entrée : 
-Necessité : néant
-Sortie : néant
-Entraine : 
-*****************************/
 void CParseMatrice::PAMAjouterMatrice(CMatrice<double> & MATParam)
 {
 	MATMatrice = CMatrice<double>(MATParam);
@@ -259,6 +244,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		
 	// Boucle TQ concernant le nombre de ligne à lire
 	while(uiIndiceLigne <= uiPAMNbLignes) {
+
 		uiMaxColonne = uiPAMNbColonnes; // Remise du compteur de colonne à la taille par souhaité (utile dans le cas d'espace)
 
 		sBuffer = PARLireLigne(); // Remplissage du buffer par rapport à la ligne actuel
@@ -274,9 +260,12 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 					sBufferDoubleTemp = PARSubString(sBufferDouble, 0, strlen(sBufferDouble));
 					sChaineBuffer = PARSubString(sBuffer, uiBoucleBuffer, 1);
 					delete(sBufferDouble);
+					sBufferDouble = nullptr;
 					sBufferDouble = PARConcatenateString(sBufferDoubleTemp, sChaineBuffer); // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
-					delete(sChaineBuffer);	
+					delete(sChaineBuffer);
+					sChaineBuffer = nullptr;
 					delete(sBufferDoubleTemp);
+					sBufferDoubleTemp = nullptr;
 				}
 
 				// Dans le cas où le second buffer d'élèment est vide, alors j'en créer un.
@@ -289,13 +278,13 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 				// On vérifie s'il y a une dizaine, centaine... où si on s'arrete et on modifie l'élement dans la CMatrice
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
-					//pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 					MATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 
+					delete(sBufferDouble);
 					sBufferDouble = nullptr;
-					free(sBufferDouble);
 					uiIndiceColonne++;
 				}
+
 
 				// Sinon on recommence une boucle pour aller concatener la dizaine, centaine...
 				else {
@@ -315,7 +304,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		}
 
 		// Libérer le buffer général pour éviter les fuites
-		free(sBuffer);
+		delete(sBuffer);
 
 		// Remise par défaut des variables pour recommencer une boucle
 		uiIndiceColonne = 1;
@@ -324,5 +313,6 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	}
 
 	// Fermer le fichier
+
 	PARFermerFicher();
 }
