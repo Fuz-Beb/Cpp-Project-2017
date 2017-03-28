@@ -22,7 +22,7 @@ void main()
 	// FONCTIONNEMENT OK - VALGRIND OK - Test des méthodes qui manipule la matrice
 
 	// Matrice 1
-		/*CMatrice<int> Matrice1 = CMatrice<int>(10,10);
+		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
 		Matrice1.MATModifierElement(1,1, 1);
 		Matrice1.MATModifierElement(1,2, 2);
 		Matrice1.MATModifierElement(1,3, 3);
@@ -34,16 +34,16 @@ void main()
 		Matrice1.MATModifierElement(3,3, 9);
 
 	// Matrice 2
-		CMatrice<int> Matrice2 = CMatrice<int>(10,10);
-		Matrice2.MATModifierElement(1,1, 1);
+		CMatrice<int> Matrice2 = CMatrice<int>(3,3);
+		Matrice2.MATModifierElement(1,1, 7);
 		Matrice2.MATModifierElement(1,2, 2);
 		Matrice2.MATModifierElement(1,3, 3);
-		Matrice2.MATModifierElement(2,1, 4);
+		Matrice2.MATModifierElement(2,1, 22);
 		Matrice2.MATModifierElement(2,2, 5);
-		Matrice2.MATModifierElement(2,3, 6);
-		Matrice2.MATModifierElement(3,1, 7);
+		Matrice2.MATModifierElement(2,3, -1);
+		Matrice2.MATModifierElement(3,1, 1);
 		Matrice2.MATModifierElement(3,2, 8);
-		Matrice2.MATModifierElement(3,3, 9);*/
+		Matrice2.MATModifierElement(3,3, 10);
 
 		//Matrice1.MATAjouterColonnesFin(2);
 		//Matrice1.MATAjouterColonnePrecis(1);
@@ -61,13 +61,11 @@ void main()
 
 
 	// OK - Test méthode MATAfficherMatrice
-		/*CMatrice<int> c = CMatrice<int>(2, 2);
-		c.MATModifierElement(1,1, 1);
-		c.MATModifierElement(1,2, 2);
-		c.MATModifierElement(2,1, 3);
-		c.MATModifierElement(2,2, 4);
-		c.MATAfficherMatrice();*/
-	
+		CMatrice<int> Matrice3 = CMatrice<int>(4, 4);
+		Matrice3.MATModifierElement(1,1, 1);
+		Matrice3.MATModifierElement(1,2, 2);
+		Matrice3.MATModifierElement(2,1, 3);
+		Matrice3.MATModifierElement(2,2, 4);
 	
 	// OK - Test d'affichage + MATAjouterColonnesFin
 		//Matrice1.MATAjouterColonnesFin(2);
@@ -121,49 +119,52 @@ void main()
 		//Matrice3.MATAfficherMatrice();
 
 		// OK - operator-
-		// Matrice3 = Matrice2 + Matrice1;
-		// Matrice3.MATAfficherMatrice();
+		//Matrice3 = Matrice1 + Matrice2;
+		//Matrice3.MATAfficherMatrice();
 
 		// OK - operator* CMatrice
-		// Matrice3 = Matrice2 * Matrice1;
-		// Matrice3.MATAfficherMatrice();
+		//Matrice3 = Matrice2 * Matrice1;
+		//Matrice3.MATAfficherMatrice();
+
+		//Matrice3 = Matrice1 * Matrice2;
+		//Matrice3.MATAfficherMatrice();
 
 		// OK - operator* Type OK
-		// int a = 5;
-		// Matrice3 = Matrice2 * A;
-		// Matrice3.MATAfficherMatrice();
+		//int a = 5;
+		//Matrice3 = Matrice2 * a;
+		//Matrice3.MATAfficherMatrice();
 		
 		// OK - operator* Type, CMatrice
-		// int a = 5;
-		// Matrice3 = A * Matrice2;
-		// Matrice3.MATAfficherMatrice();
+		//Matrice3 = a * Matrice2;
+		//Matrice3.MATAfficherMatrice();
 
 		// OK - operator/ CMatrice
-		// int a = 5;
-		// Matrice3 = Matrice1 / Matrice2;
-		// Matrice3.MATAfficherMatrice();
+		//Matrice3 = Matrice1 / Matrice2;
+		//Matrice3.MATAfficherMatrice();
 
 		// OK - operator/ Type
-		// int a = 5;
-		// Matrice3 = Matrice2 / A;
-		// Matrice3.MATAfficherMatrice();
+		//Matrice3 = Matrice2 / a;
+		//Matrice3.MATAfficherMatrice();
 
 		// OK - Calcul de la transposé
 
-		//CMatrice<int> Matrice4 = CMatrice<int>(5,2);
-		//Matrice4.MATModifierElement(1,1, 10);
-		//Matrice4.MATModifierElement(1,2, 20);
-		//Matrice4.MATModifierElement(2,1, 30);
-		//Matrice4.MATModifierElement(2,2, 40);
-		//Matrice4.MATModifierElement(3,1, 50);
-		//Matrice4.MATModifierElement(3,2, 60);
-		//Matrice4.MATModifierElement(4,1, 70);
-		//Matrice4.MATModifierElement(4,2, 80);
-		//Matrice4.MATModifierElement(5,1, 90);
-		//Matrice4.MATModifierElement(5,2, 100);
+		CMatrice<int> Matrice4 = CMatrice<int>(5,2);
+		Matrice4.MATModifierElement(1,1, 10);
+		Matrice4.MATModifierElement(1,2, 20);
+		Matrice4.MATModifierElement(2,1, 30);
+		Matrice4.MATModifierElement(2,2, 40);
+		Matrice4.MATModifierElement(3,1, 50);
+		Matrice4.MATModifierElement(3,2, 60);
+		Matrice4.MATModifierElement(4,1, 70);
+		Matrice4.MATModifierElement(4,2, 80);
+		Matrice4.MATModifierElement(5,1, 90);
+		Matrice4.MATModifierElement(5,2, 100);
+		
+		Matrice3 = Matrice1.MATCalculerTransposee();
+		Matrice3.MATAfficherMatrice();
 
-		//Matrice3 = Matrice1.MATCalculerTransposee();
-		//Matrice3.MATAfficherMatrice();
+		Matrice1 = Matrice3.MATPPuissanceMatrice(4);
+		Matrice1.MATAfficherMatrice();
 
 		// OK - Test de la puissance matrice
 		// Matrice3 = Matrice1.MATPPuissanceMatrice(2);
@@ -184,12 +185,11 @@ void main()
 
 	// OK - Test Parse
 	
-	CParseMatrice test = CParseMatrice();
+	/*CParseMatrice test = CParseMatrice();
 	test.PAMTraiterFichier("fichier.txt");
 	CMatrice<double> * testPointeur = test.PAMRetournerMatrice();
 
 	testPointeur->MATAfficherMatrice();
 	
-	delete(testPointeur);
-
+	delete(testPointeur);*/
 }

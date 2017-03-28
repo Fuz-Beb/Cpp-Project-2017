@@ -25,13 +25,13 @@ public:
 	inline unsigned int MATLireNbColonnes();
 
 	// Calculs mathématiques
-	CMatrice<Type> & MATCalculerTransposee();
-	virtual void MATAfficherMatrice();
-	CMatrice<Type> & MATPPuissanceMatrice(unsigned int uiNombre);
+	CMatrice<Type> MATCalculerTransposee();
+	CMatrice<Type> MATPPuissanceMatrice(unsigned int uiNombre);
 
 	// Gérer les éléments de la matrice
 	void MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement);
 	Type MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne);
+	void MATAfficherMatrice();
 	void MATInit();
 	
 	void MATAjouterColonnesFin(unsigned int uiNbColonnes);
@@ -47,18 +47,18 @@ public:
 	void MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
 	// Surchage
-	CMatrice<Type> & operator+(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator-(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator*(Type & qMATparam);
-	CMatrice<Type> & operator*(CMatrice<Type> & MATMatrice);
-	CMatrice<Type> & operator/(Type & qMATparam);
-	CMatrice<Type> & operator/(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> operator+(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> operator-(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> operator*(Type & qMATparam);
+	CMatrice<Type> operator*(CMatrice<Type> & MATMatrice);
+	CMatrice<Type> operator/(Type & qMATparam);
+	CMatrice<Type> operator/(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 	bool operator!=(CMatrice<Type> & MATMatrice);
 };
 
 template<class Type>
-CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATMatrice);
+CMatrice<Type> operator*(Type qMATparam, CMatrice<Type> & MATMatrice);
 
 #include "CMatrice.cpp"
 
