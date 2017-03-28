@@ -19,15 +19,18 @@ public:
 	CParse(char * psChemin);
 	~CParse();
 
-	// Méthodes
-	char * PARLireChemin();
-	void PARModifierChemin(char * psParam);
+	// Accesseurs
+	inline char * PARLireChemin();
+	inline void PARModifierChemin(char * psParam);
 	void PAROuvrirFichier(char * psParam);
+	inline void PARFermerFicher();
+
+	// Méthodes
 	char * PARLireLigne();
 	char * PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille);
 	char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2);
 	void PARConvertirMinusc(char * psParam);
 	char PARConvertirCharMinusc(char cParam);
-	void PARFermerFicher();
+	
 };
 #endif
