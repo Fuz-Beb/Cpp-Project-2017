@@ -34,12 +34,12 @@ CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 }
 
 /*****************************
-Methode : 
+Methode : Lire Nombre Lignes
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de lignes précédemment lu
 *****************************/
 unsigned int CParseMatrice::PAMLireNbLignes()
 {
@@ -47,12 +47,12 @@ unsigned int CParseMatrice::PAMLireNbLignes()
 }
 
 /*****************************
-Methode : 
+Methode : Assigner Nombre Lignes
 ******************************
 Entrée : néant
-Necessité : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : néant
-Entraine : néant
+Entraine : Assigner le nombre de colonnes lu
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes()
 {
@@ -89,12 +89,12 @@ void CParseMatrice::PAMAssignerNbLignes()
 }
 
 /*****************************
-Methode : 
+Methode : Lire Nombre Colonnes
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de colonnes qui a été précédemment lu
 *****************************/
 unsigned int CParseMatrice::PAMLireNbColonnes()
 {
@@ -102,12 +102,12 @@ unsigned int CParseMatrice::PAMLireNbColonnes()
 }
 
 /*****************************
-Methode : 
+Methode : Assigner nombre colonnes
 ******************************
 Entrée : néant
-Necessité : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : néant
-Entraine : néant
+Entraine : Assigner le nombre de colonne lu
 *****************************/
 void CParseMatrice::PAMAssignerNbColonnes()
 {
@@ -145,12 +145,12 @@ void CParseMatrice::PAMAssignerNbColonnes()
 }
 
 /*****************************
-Methode : 
+Methode : Vérifier le type
 ******************************
 Entrée : néant
-Necessité : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : néant
-Entraine : néant
+Entraine : La vérification du type double sur la lecture du fichier
 *****************************/
 void CParseMatrice::PAMVerifierType() 
 {
@@ -182,25 +182,12 @@ void CParseMatrice::PAMVerifierType()
 }
 
 /*****************************
-Methode : 
-******************************
-Entrée : 
-Necessité : néant
-Sortie : néant
-Entraine : 
-*****************************/
-void CParseMatrice::PAMAjouterMatrice(CMatrice<double> & MATParam)
-{
-	MATMatrice = CMatrice<double>(MATParam);
-}
-
-/*****************************
 Methode : Traiter fichier
 ******************************
-Entrée : 
+Entrée : char * sChemin
 Necessité : néant
 Sortie : néant
-Entraine : 
+Entraine : La lecture du fichier et création de la matrice associée
 *****************************/
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
@@ -313,6 +300,5 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	}
 
 	// Fermer le fichier
-
 	PARFermerFicher();
 }

@@ -2,7 +2,7 @@ TypeMatrice=douBle
 NBLignes=3
 NBColonnes=3
 Matrice=[
- 1.2 2324   53222222222222222222  
+ 1.2 2324   5322  
 232.32   43.42 343.4
   43   34 34.53
 ]
