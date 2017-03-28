@@ -30,7 +30,7 @@ public:
 	//CMatrice<double> PAMRetournerMatrice();
 	//CMatrice<double> PAMRetournerMatrice();
 	void PAMAjouterMatrice(CMatrice<double> & MATParam);
-	void PAMTraiterFichier(char * sChemin);
+	void PAMTraiterFichier(char * psParam);
 };
 
 #endif

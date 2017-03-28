@@ -51,7 +51,7 @@ CMatrice<Type>::~CMatrice()
 /*****************************
 Constructeur à deux arguments
 ******************************
-Entrée : unsigned int - code d'erreur, char * - message d'erreur
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes
 Necessité : néant
 Sortie : néant
 Entraine : l'objet en cours est initialisé

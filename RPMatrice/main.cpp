@@ -117,8 +117,8 @@ void main()
 	// Test des surcharges
 
 		// OK - operator+
-		// Matrice3 = Matrice2 + Matrice1;
-		// Matrice3.MATAfficherMatrice();
+		//Matrice3 = Matrice2 + Matrice1;
+		//Matrice3.MATAfficherMatrice();
 
 		// OK - operator-
 		// Matrice3 = Matrice2 + Matrice1;
@@ -184,9 +184,9 @@ void main()
 
 	// OK - Test Parse
 	
-	CParseMatrice test = CParseMatrice();
-	test.PAMTraiterFichier("fichier.txt");
-	test.PAMRetournerMatrice()->MATAfficherMatrice();
+	//CParseMatrice test = CParseMatrice();
+	//test.PAMTraiterFichier("fichier.txt");
+	//test.PAMRetournerMatrice()->MATAfficherMatrice();
 	
 
 }
