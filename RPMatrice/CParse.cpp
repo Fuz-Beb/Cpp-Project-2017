@@ -43,12 +43,12 @@ CParse::~CParse()
 }
 
 /*****************************
-Methode : 
+Methode : Lire Chemin
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : char *
+Entraine : Retourne le chemin de l'attribut
 *****************************/
 char * CParse::PARLireChemin()
 {
@@ -56,12 +56,12 @@ char * CParse::PARLireChemin()
 }
 
 /*****************************
-Methode : 
+Methode : Modifier Chemin
 ******************************
-Entrée : néant
+Entrée : char * sParam
 Necessité : néant
 Sortie : néant
-Entraine : néant
+Entraine : Modification de l'attribut sPARChemin
 *****************************/
 void CParse::PARModifierChemin(char * psParam)
 {
@@ -81,12 +81,12 @@ void CParse::PARModifierChemin(char * psParam)
 
 
 /*****************************
-Methode : 
+Methode : Ouvrir Fichier
 ******************************
-Entrée : néant
-Necessité : néant
+Entrée : char * sChaine
+Necessité : Fichier
 Sortie : néant
-Entraine : néant
+Entraine : Ouverture un fichier
 *****************************/
 void CParse::PAROuvrirFichier(char * psParam)
 {
@@ -97,12 +97,12 @@ void CParse::PAROuvrirFichier(char * psParam)
 }
 
 /*****************************
-Methode : 
+Methode : Lire Ligne
 ******************************
 Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
+Sortie : char *
+Entraine : Lecture d'une ligne du fichier et retourne sur le tas une chaîne
 *****************************/
 char * CParse::PARLireLigne()
 {
@@ -133,12 +133,12 @@ char * CParse::PARLireLigne()
 }
 
 /*****************************
-Methode : 
+Methode : SubString
 ******************************
-Entrée : néant
+Entrée : char * sParam, unsigned int uiDebut, unsigned int uiTaille
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : char *
+Entraine : Permet d'extraire une chaîne d'une position à une autre
 *****************************/
 char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille)
 {
@@ -153,12 +153,12 @@ char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int u
 }
 
 /*****************************
-Methode : 
+Methode : Concatener deux chaines
 ******************************
-Entrée : néant
+Entrée : const char * sStr1, const char * sStr2
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : char *
+Entraine : Retourne sur le tas la concatenation des deux chaînes
 *****************************/
 char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2) 
 {
@@ -174,9 +174,7 @@ char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2)
 
     else
 	{
-        free(psConcatenate);
-		delete(psStr1);
-		delete(psStr2);
+		delete(sConcatenate);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
     }
 
@@ -184,12 +182,12 @@ char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2)
 }
 
 /*****************************
-Methode : 
+Methode : Convertir Chaine Minuscule
 ******************************
-Entrée : néant
+Entrée : char * sChaine
 Necessité : néant
 Sortie : néant
-Entraine : néant
+Entraine : Convertir la chaine en paramètre en minuscule
 *****************************/
 void CParse::PARConvertirMinusc(char * psParam)
 {
@@ -202,12 +200,12 @@ void CParse::PARConvertirMinusc(char * psParam)
 }
 
 /*****************************
-Methode : 
+Methode : Convertir un char en minuscule
 ******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
+Entrée : char cParam
+Necessité : Méthode Ouvrir fichier
+Sortie : char
+Entraine : Conversion d'un char en char minuscule
 *****************************/
 char CParse::PARConvertirCharMinusc(char cParam) 
 {
@@ -222,12 +220,12 @@ char CParse::PARConvertirCharMinusc(char cParam)
 }
 
 /*****************************
-Methode : 
+Methode : Fermer Fichier
 ******************************
 Entrée : néant
 Necessité : néant
 Sortie : néant
-Entraine : néant
+Entraine : Fermeture du fichier
 *****************************/
 void CParse::PARFermerFicher()
 {

@@ -184,9 +184,12 @@ void main()
 
 	// OK - Test Parse
 	
-	//CParseMatrice test = CParseMatrice();
-	//test.PAMTraiterFichier("fichier.txt");
-	//test.PAMRetournerMatrice()->MATAfficherMatrice();
+	CParseMatrice test = CParseMatrice();
+	test.PAMTraiterFichier("fichier.txt");
+	CMatrice<double> * testPointeur = test.PAMRetournerMatrice();
+
+	testPointeur->MATAfficherMatrice();
 	
+	delete(testPointeur);
 
 }

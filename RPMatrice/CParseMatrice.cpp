@@ -34,12 +34,12 @@ CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 }
 
 /*****************************
-Methode : 
+Methode : Lire Nombre Lignes
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de lignes précédemment lu
 *****************************/
 unsigned int CParseMatrice::PAMLireNbLignes()
 {
@@ -47,12 +47,12 @@ unsigned int CParseMatrice::PAMLireNbLignes()
 }
 
 /*****************************
-Methode : 
+Methode : Assigner Nombre Lignes
 ******************************
 Entrée : néant
-Necessité : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : néant
-Entraine : néant
+Entraine : Assigner le nombre de colonnes lu
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes()
 {
@@ -89,12 +89,12 @@ void CParseMatrice::PAMAssignerNbLignes()
 }
 
 /*****************************
-Methode : 
+Methode : Lire Nombre Colonnes
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de colonnes qui a été précédemment lu
 *****************************/
 unsigned int CParseMatrice::PAMLireNbColonnes()
 {
@@ -102,12 +102,12 @@ unsigned int CParseMatrice::PAMLireNbColonnes()
 }
 
 /*****************************
-Methode : 
+Methode : Assigner nombre colonnes
 ******************************
 Entrée : néant
-Necessité : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : néant
-Entraine : néant
+Entraine : Assigner le nombre de colonne lu
 *****************************/
 void CParseMatrice::PAMAssignerNbColonnes()
 {
@@ -145,12 +145,12 @@ void CParseMatrice::PAMAssignerNbColonnes()
 }
 
 /*****************************
-Methode : 
+Methode : Vérifier le type
 ******************************
 Entrée : néant
-Necessité : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : néant
-Entraine : néant
+Entraine : La vérification du type double sur la lecture du fichier
 *****************************/
 void CParseMatrice::PAMVerifierType() 
 {
@@ -182,40 +182,12 @@ void CParseMatrice::PAMVerifierType()
 }
 
 /*****************************
-Methode : 
-******************************
-Entrée : 
-Necessité : néant
-Sortie : néant
-Entraine : 
-*****************************/
-/*CMatrice<double> CParseMatrice::PAMRetournerMatrice()
-{
-	CMatrice<double> * MATRetour = CMatrice<double>(MATMatrice);
-
-	return MATRetour;
-}*/
-
-/*****************************
-Methode : 
-******************************
-Entrée : 
-Necessité : néant
-Sortie : néant
-Entraine : 
-*****************************/
-void CParseMatrice::PAMAjouterMatrice(CMatrice<double> & MATParam)
-{
-	MATMatrice = CMatrice<double>(MATParam);
-}
-
-/*****************************
 Methode : Traiter fichier
 ******************************
-Entrée : 
+Entrée : char * sChemin
 Necessité : néant
 Sortie : néant
-Entraine : 
+Entraine : La lecture du fichier et création de la matrice associée
 *****************************/
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
@@ -259,6 +231,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		
 	// Boucle TQ concernant le nombre de ligne à lire
 	while(uiIndiceLigne <= uiPAMNbLignes) {
+
 		uiMaxColonne = uiPAMNbColonnes; // Remise du compteur de colonne à la taille par souhaité (utile dans le cas d'espace)
 
 		sBuffer = PARLireLigne(); // Remplissage du buffer par rapport à la ligne actuel
@@ -274,9 +247,12 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 					sBufferDoubleTemp = PARSubString(sBufferDouble, 0, strlen(sBufferDouble));
 					sChaineBuffer = PARSubString(sBuffer, uiBoucleBuffer, 1);
 					delete(sBufferDouble);
+					sBufferDouble = nullptr;
 					sBufferDouble = PARConcatenateString(sBufferDoubleTemp, sChaineBuffer); // Verifier si il y a quelques choses dans le buffer, si oui alors concatenate et agrandir buffer
-					delete(sChaineBuffer);	
+					delete(sChaineBuffer);
+					sChaineBuffer = nullptr;
 					delete(sBufferDoubleTemp);
+					sBufferDoubleTemp = nullptr;
 				}
 
 				// Dans le cas où le second buffer d'élèment est vide, alors j'en créer un.
@@ -289,13 +265,13 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 				// On vérifie s'il y a une dizaine, centaine... où si on s'arrete et on modifie l'élement dans la CMatrice
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
-					//pMATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 					MATMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 
+					delete(sBufferDouble);
 					sBufferDouble = nullptr;
-					free(sBufferDouble);
 					uiIndiceColonne++;
 				}
+
 
 				// Sinon on recommence une boucle pour aller concatener la dizaine, centaine...
 				else {
@@ -315,7 +291,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		}
 
 		// Libérer le buffer général pour éviter les fuites
-		free(sBuffer);
+		delete(sBuffer);
 
 		// Remise par défaut des variables pour recommencer une boucle
 		uiIndiceColonne = 1;

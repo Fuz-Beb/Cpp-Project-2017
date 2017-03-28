@@ -27,10 +27,7 @@ public:
 	CParseMatrice(CMatrice<double> MATParam);
 
 	CMatrice<double> * PAMRetournerMatrice();
-	//CMatrice<double> PAMRetournerMatrice();
-	//CMatrice<double> PAMRetournerMatrice();
-	void PAMAjouterMatrice(CMatrice<double> & MATParam);
-	void PAMTraiterFichier(char * psParam);
+	void PAMTraiterFichier(char * sChemin);
 };
 
 #endif
