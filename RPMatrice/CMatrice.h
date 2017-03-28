@@ -25,8 +25,7 @@ public:
 	inline unsigned int MATLireNbColonnes();
 
 	// Calculs mathématiques
-	CMatrice<Type> & MATCalculerTransposee();
-	virtual void MATAfficherMatrice();
+	CMatrice<Type> MATCalculerTransposee();
 	CMatrice<Type> MATPPuissanceMatrice(unsigned int uiNombre);
 
 	// Gérer les éléments de la matrice
