@@ -2,194 +2,84 @@
 #include "CException.h"
 #include "CParseMatrice.h"
 #include "CParse.h"
-#include <vld.h>
+#include <iostream>
+//#include <vld.h>
 
-void main()
+void main(unsigned int argc, char *argv[])
 {
-	//CMatrice<double> test2 = CMatrice<double>((CMatrice<double>)test.PAMRetournerMatrice());
+	unsigned int uiBoucleTableau = 0, uiBoucleArgs = 1;
+	double eValeurC = 0;
+	bool bAdditionOuSoustraction = false;
+	CMatrice<double> CMAResultOperation = CMatrice<double>();
 
-	//test.PAMRetournerMatrice();
+	// Allocation des ressources
+	CParseMatrice ** CPAMonParseur = (CParseMatrice **) malloc(sizeof(CParseMatrice*) * argc);
+	CMatrice<double> ** CMAMesMatrices = (CMatrice<double> **) malloc(sizeof(CMatrice<double> *) * argc);
 
-	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur par défaut
-		// CMatrice<int> * a = new CMatrice<int>();
-		// delete a;
+	// Traitement des fichiers
+	for (uiBoucleArgs = 1 ; uiBoucleArgs < argc ; uiBoucleArgs++)
+	{
+		CPAMonParseur[uiBoucleTableau] = new CParseMatrice();
+		CMAMesMatrices[uiBoucleTableau] = new CMatrice<double>();
+		CPAMonParseur[uiBoucleTableau]->PAMTraiterFichier(argv[uiBoucleArgs]);
+		CMAMesMatrices[uiBoucleTableau] = CPAMonParseur[uiBoucleTableau]->PAMRetournerMatrice();
+		uiBoucleTableau++;
+	}
 
-	// FONCTIONNEMENT OK - VALGRIND OK - Test constructeur de recopie
-		// CMatrice<int> * b = new CMatrice<int>(*a);
-		// delete a;
-		// delete b;
+	// Demande de saisie utilisateur
+	cin >> eValeurC;
 
-	// FONCTIONNEMENT OK - VALGRIND OK - Test des méthodes qui manipule la matrice
-
-	// Matrice 1
-		CMatrice<int> Matrice1 = CMatrice<int>(3,3);
-		Matrice1.MATModifierElement(1,1, 1);
-		Matrice1.MATModifierElement(1,2, 2);
-		Matrice1.MATModifierElement(1,3, 3);
-		Matrice1.MATModifierElement(2,1, 4);
-		Matrice1.MATModifierElement(2,2, 5);
-		Matrice1.MATModifierElement(2,3, 6);
-		Matrice1.MATModifierElement(3,1, 7);
-		Matrice1.MATModifierElement(3,2, 8);
-		Matrice1.MATModifierElement(3,3, 9);
-
-	// Matrice 2
-		CMatrice<int> Matrice2 = CMatrice<int>(3,3);
-		Matrice2.MATModifierElement(1,1, 7);
-		Matrice2.MATModifierElement(1,2, 2);
-		Matrice2.MATModifierElement(1,3, 3);
-		Matrice2.MATModifierElement(2,1, 22);
-		Matrice2.MATModifierElement(2,2, 5);
-		Matrice2.MATModifierElement(2,3, -1);
-		Matrice2.MATModifierElement(3,1, 1);
-		Matrice2.MATModifierElement(3,2, 8);
-		Matrice2.MATModifierElement(3,3, 10);
-
-		//Matrice1.MATAjouterColonnesFin(2);
-		//Matrice1.MATAjouterColonnePrecis(1);
-		//Matrice1.MATAjouterLignesFin(3);
-		//Matrice1.MATAjouterLignePrecis(3);
-		//Matrice1.MATSupprimerColonneFin(1);
-		//Matrice1.MATSupprimerColonnePrecis(2);
-		//Matrice1.MATSupprimerLignePrecis(4);
-		//Matrice1.MATSupprimerLigneFin(4);
-		//Matrice2.MATModifierElement(2, 3, 1);
-		//Matrice1.MATModifierElement(1, 3, 1);
-		//Matrice2.MATModifierElement(2, 4, 9);
-		//Matrice2.MATModifierElement(1, 4, 8);
+	// Multiplication et affichage du résultat
+	printf("Division des matrices \n\n");
+	for (uiBoucleTableau = 0; uiBoucleTableau < argc - 1 ; uiBoucleTableau++)
+	{
+		printf("Matrice %d * %0.2f. Resultat = \n", uiBoucleTableau+1, eValeurC);
+		CMAResultOperation = *CMAMesMatrices[uiBoucleTableau] * eValeurC;
+		CMAResultOperation.MATAfficherMatrice();
+	}
 
 
+	// Division et affichage du résultat
+	printf("Multiplication des matrices \n\n");
+	for (uiBoucleTableau = 0; uiBoucleTableau < argc - 1 ; uiBoucleTableau++)
+	{
+		printf("Matrice %d / %0.2f. Resultat = \n", uiBoucleTableau+1, eValeurC);
+		CMAResultOperation = *CMAMesMatrices[uiBoucleTableau] / eValeurC;
+		CMAResultOperation.MATAfficherMatrice();
+	}
 
-	// OK - Test méthode MATAfficherMatrice
-		CMatrice<int> Matrice3 = CMatrice<int>(4, 4);
-		Matrice3.MATModifierElement(1,1, 1);
-		Matrice3.MATModifierElement(1,2, 2);
-		Matrice3.MATModifierElement(2,1, 3);
-		Matrice3.MATModifierElement(2,2, 4);
+
+	// Additions des matrices
+	printf("Addition des matrices \n\n");
+	CMAResultOperation = *CMAMesMatrices[0];
+	printf("Resultat = \n");
+
+	for (uiBoucleTableau = 1; uiBoucleTableau < argc - 1; uiBoucleTableau++)
+		CMAResultOperation = CMAResultOperation + *CMAMesMatrices[uiBoucleTableau];
 	
-	// OK - Test d'affichage + MATAjouterColonnesFin
-		//Matrice1.MATAjouterColonnesFin(2);
-		//Matrice1.MATAjouterColonnePrecis(1);
-		//Matrice1.MATAjouterLignesFin(3);
-		//Matrice1.MATAjouterLignePrecis(3);
-		//Matrice1.MATSupprimerColonneFin(1);
-		//Matrice1.MATSupprimerColonnePrecis(2);
-		//Matrice1.MATSupprimerLignePrecis(4);
-		//Matrice1.MATSupprimerLigneFin(4);
-		//Matrice2.MATModifierElement(2, 3, 1);
-		//Matrice1.MATModifierElement(1, 3, 1);
-		//Matrice2.MATModifierElement(2, 4, 9);
-		//Matrice2.MATModifierElement(1, 4, 8);
+	CMAResultOperation.MATAfficherMatrice();
 
-	// OK - Test d'affichage + MATAjouterColonnePrecis
-		//Matrice1.MATAjouterColonnePrecis(2);
-		//Matrice2.MATModifierElement(1, 2, 7);
-		//Matrice2.MATModifierElement(2, 2, 6);
-		//Matrice2.MATAjouterColonnePrecis(2);
-		//Matrice1.MATModifierElement(1, 2, 9);
-		//Matrice2.MATModifierElement(2, 2, 8);
-		//Matrice1.MATAjouterColonnePrecis(5);
-		//Matrice1.MATModifierElement(1, 5, 10);
-		//Matrice1.MATModifierElement(2, 5, 12);
-		//Matrice1.MATAjouterColonnePrecis(12);
 
-	// OK - Test d'affichage + MATSupprimerColonnePrecis
-		//Matrice1.MATSupprimerColonnePrecis(3);
-		// Matrice3.MATAfficherMatrice();
+	// Additions et soustractions des matrices
+	printf("Additions et soustractions des matrices \n\n");
+	CMAResultOperation = *CMAMesMatrices[0];
+	printf("Resultat = \n");
 
-	// Test d'affichage + MATSupprimerColonneFin & MATSupprimerLigneFin
-		//Matrice2.MATSupprimerLigneFin(2);
-		//Matrice1.MATSupprimerColonneFin(1);
-		//Matrice3.MATAfficherMatrice();
+	for (uiBoucleTableau = 1; uiBoucleTableau < argc - 1; uiBoucleTableau++)
+	{
+		if (bAdditionOuSoustraction == true) {
+			CMAResultOperation = CMAResultOperation + *CMAMesMatrices[uiBoucleTableau];
+			bAdditionOuSoustraction = false;
+		} else {
+			CMAResultOperation = CMAResultOperation - *CMAMesMatrices[uiBoucleTableau];
+			bAdditionOuSoustraction = true;
+		}
+	}
+	CMAResultOperation.MATAfficherMatrice();
 
-	// OK - Test d'affichage + MATAjouterLignePrecis
-		//Matrice2.MATAjouterLignePrecis(4);
-		//Matrice3.MATModifierElement(3, 2, 17);
-		//Matrice3.MATAfficherMatrice();
 
-	// OK - Test d'affichage + MATSupprimerLignePrecis
-		
-		//Matrice2.MATSupprimerLignePrecis(1);
-		//Matrice3.MATAfficherMatrice();
-
-	// Test des surcharges
-
-		// OK - operator+
-		//Matrice3 = Matrice2 + Matrice1;
-		//Matrice3.MATAfficherMatrice();
-
-		// OK - operator-
-		//Matrice3 = Matrice1 + Matrice2;
-		//Matrice3.MATAfficherMatrice();
-
-		// OK - operator* CMatrice
-		//Matrice3 = Matrice2 * Matrice1;
-		//Matrice3.MATAfficherMatrice();
-
-		//Matrice3 = Matrice1 * Matrice2;
-		//Matrice3.MATAfficherMatrice();
-
-		// OK - operator* Type OK
-		//int a = 5;
-		//Matrice3 = Matrice2 * a;
-		//Matrice3.MATAfficherMatrice();
-		
-		// OK - operator* Type, CMatrice
-		//Matrice3 = a * Matrice2;
-		//Matrice3.MATAfficherMatrice();
-
-		// OK - operator/ CMatrice
-		//Matrice3 = Matrice1 / Matrice2;
-		//Matrice3.MATAfficherMatrice();
-
-		// OK - operator/ Type
-		//Matrice3 = Matrice2 / a;
-		//Matrice3.MATAfficherMatrice();
-
-		// OK - Calcul de la transposé
-
-		CMatrice<int> Matrice4 = CMatrice<int>(5,2);
-		Matrice4.MATModifierElement(1,1, 10);
-		Matrice4.MATModifierElement(1,2, 20);
-		Matrice4.MATModifierElement(2,1, 30);
-		Matrice4.MATModifierElement(2,2, 40);
-		Matrice4.MATModifierElement(3,1, 50);
-		Matrice4.MATModifierElement(3,2, 60);
-		Matrice4.MATModifierElement(4,1, 70);
-		Matrice4.MATModifierElement(4,2, 80);
-		Matrice4.MATModifierElement(5,1, 90);
-		Matrice4.MATModifierElement(5,2, 100);
-		
-		Matrice3 = Matrice1.MATCalculerTransposee();
-		Matrice3.MATAfficherMatrice();
-
-		Matrice1 = Matrice3.MATPPuissanceMatrice(4);
-		Matrice1.MATAfficherMatrice();
-
-		// OK - Test de la puissance matrice
-		// Matrice3 = Matrice1.MATPPuissanceMatrice(2);
-		// Matrice3.MATAfficherMatrice();
-
-		// OK - Init
-		// CMatrice<int> testInit = CMatrice<int>(20,1);
-		// testInit.MATInit();
-		// testInit.MATAfficherMatrice();
-
-		// OK - operator!=
-		// bool a = Matrice1 != Matrice3;
-		
-		// if (a == true)
-		// 	printf("Différent");
-		// else
-		//	printf("Identidique");
-
-	// OK - Test Parse
+	// Faire la multiplication de matrice (le dernier point)
 	
-	/*CParseMatrice test = CParseMatrice();
-	test.PAMTraiterFichier("fichier.txt");
-	CMatrice<double> * testPointeur = test.PAMRetournerMatrice();
 
-	testPointeur->MATAfficherMatrice();
-	
-	delete(testPointeur);*/
+	// Faire du VALGRIND !!!
 }
