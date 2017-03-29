@@ -1,6 +1,7 @@
 #ifndef C_PARSE_H
 #define C_PARSE_H
-#define _CRT_SECURE_NO_WARNINGS
+
+//#define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
 

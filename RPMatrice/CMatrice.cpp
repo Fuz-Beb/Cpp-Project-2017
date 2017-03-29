@@ -26,7 +26,7 @@ CMatrice<Type>::CMatrice()
 	if (ppqMATMatrice[0] == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-	MATModifierElement(1,1,0);
+	MATInit();
 }
 
 /*****************************
@@ -77,6 +77,7 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 		if (ppqMATMatrice[uiBoucle] == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 	}
+	MATInit();
 }
 
 
@@ -703,16 +704,20 @@ template <class Type>
 CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
 	try {
-		unsigned int uiBoucleLigne, uiBoucleColonne;
+		unsigned int uiBoucleLigne, uiBoucleColonne, uiBoucleResult;
 
 		if (uiMATNbColonnes != MATMatrice.uiMATNbLignes)
 			throw CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
-		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < MATMatrice.uiMATNbColonnes ; uiBoucleColonne++) {
+				for (uiBoucleResult = 0 ; uiBoucleResult < uiMATNbColonnes ; uiBoucleResult++) {
+					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] += ppqMATMatrice[uiBoucleLigne][uiBoucleResult] * MATMatrice.ppqMATMatrice[uiBoucleResult][uiBoucleColonne];
+				}
+			}
+		}
 
 		return MATNewMatrice;
 

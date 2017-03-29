@@ -27,7 +27,8 @@ void main(unsigned int argc, char *argv[])
 	}
 
 	// Demande de saisie utilisateur
-	cin >> eValeurC;
+		cin >> eValeurC;
+
 
 	// Multiplication et affichage du résultat
 	printf("Division des matrices \n\n");
@@ -78,8 +79,13 @@ void main(unsigned int argc, char *argv[])
 	CMAResultOperation.MATAfficherMatrice();
 
 
-	// Faire la multiplication de matrice (le dernier point)
-	
+	// Multiplication des matrices
+	printf("Multiplication des matrices \n\n");
+	CMAResultOperation = *CMAMesMatrices[0];
+	printf("Resultat = \n");
 
-	// Faire du VALGRIND !!!
+	for (uiBoucleTableau = 1 ; uiBoucleTableau < argc -1 ; uiBoucleTableau++)
+		CMAResultOperation = CMAResultOperation * *CMAMesMatrices[uiBoucleTableau];
+
+	CMAResultOperation.MATAfficherMatrice();
 }
