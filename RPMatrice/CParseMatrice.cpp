@@ -222,6 +222,9 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 		sBuffer = PARLireLigne(); // Remplissage du buffer par rapport à la ligne actuel
 
+		/*if(strcmp(sBuffer, "]"))
+			throw CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");*/
+
 		// Boucle TQ concernant le nombre de colonne à lire (gère les espaces en trop)
 		while(uiBoucleBuffer < uiMaxColonne) {
 			
