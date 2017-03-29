@@ -25,6 +25,8 @@ CMatrice<Type>::CMatrice()
 	ppqMATMatrice[0] = (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
 	if (ppqMATMatrice[0] == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+	MATModifierElement(1,1,0);
 }
 
 /*****************************
@@ -51,7 +53,7 @@ CMatrice<Type>::~CMatrice()
 /*****************************
 Constructeur à deux arguments
 ******************************
-Entrée : unsigned int - code d'erreur, char * - message d'erreur
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes
 Necessité : néant
 Sortie : néant
 Entraine : l'objet en cours est initialisé
@@ -170,41 +172,17 @@ unsigned int CMatrice<Type>::MATLireNbColonnes()
 }
 
 template <class Type>
- CMatrice<Type> & CMatrice<Type>::MATCalculerTransposee()
+CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 {
 	unsigned int uiBoucle1, uiBoucle2;
 
-	CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbColonnes, uiMATNbLignes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbColonnes, uiMATNbLignes);
 
-		for (uiBoucle2 = 0 ; uiBoucle2 < uiMATNbLignes ; uiBoucle2++)
-			for (uiBoucle1= 0 ; uiBoucle1 < uiMATNbColonnes ; uiBoucle1++)
-				MATNewMatrice->ppqMATMatrice[uiBoucle1][uiBoucle2] = ppqMATMatrice[uiBoucle2][uiBoucle1];
+	for (uiBoucle2 = 0 ; uiBoucle2 < uiMATNbLignes ; uiBoucle2++)
+		for (uiBoucle1= 0 ; uiBoucle1 < uiMATNbColonnes ; uiBoucle1++)
+			MATNewMatrice.ppqMATMatrice[uiBoucle1][uiBoucle2] = ppqMATMatrice[uiBoucle2][uiBoucle1];
 	
-	return * MATNewMatrice;
-}
-
-
-/*****************************
-Methode : Afficher la matrice à l'écran
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : L'affichage à l'écran de la matrice
-*****************************/
- template <class Type>
-void CMatrice<Type>::MATAfficherMatrice()
-{
-	unsigned int uiBoucleLigne, uiBoucleColonne;
- 
-	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
-		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-			cout << ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] << "\t";
-
-		printf("\n");
-	}
+	return MATNewMatrice;
 }
 
 
@@ -217,31 +195,29 @@ Sortie : CMatrice<Type>
 Entraine : Mise à la puissance de la matrice
 *****************************/
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
+CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 		int iExposant;
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
 		if (uiNombre == 0) {
 			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-					MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
+					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
 		}
 		else {
 			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
-					MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 					for (iExposant = uiNombre ; iExposant > 1 ; iExposant--)
-						MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+						MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 				}
 		}
-					
-		return *MATNewMatrice;
+
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -306,6 +282,28 @@ Entraine : Mise à la valeur 0 à l'ensemble des cases de la matrice
 		 for(uiNbColonnes = 1 ; uiNbColonnes <= uiMATNbColonnes ; uiNbColonnes++)
 			 MATModifierElement(uiNbLignes, uiNbColonnes, 0);
  }
+
+
+ /*****************************
+Methode : Afficher la matrice à l'écran
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : L'affichage à l'écran de la matrice
+*****************************/
+ template <class Type>
+void CMatrice<Type>::MATAfficherMatrice()
+{
+	unsigned int uiBoucleLigne, uiBoucleColonne;
+ 
+	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
+		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+			cout << ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] << "\t";
+
+		printf("\n");
+	}
+}
 
 
 /*****************************
@@ -609,22 +607,20 @@ Entraine : Surchage de l'operateur en question membre à membre
 
 // Pré-condition : Nécessite la présence de la surcharge de l'opérateur + pour une matrice contenant des objets
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
+CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] + MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] + MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-		return *MATNewMatrice;
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -643,22 +639,20 @@ Entraine : Surchage de l'operateur en question membre à membre
 
 // Pré-condition : Nécessite la présence de la surcharge de l'opérateur - pour une matrice contenant des objets
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
+CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] - MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] - MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-		return *MATNewMatrice;
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -677,20 +671,18 @@ Entraine : Surchage de l'operateur en question membre à membre
 
 // Pré-condition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator*(Type & qMATparam)
+CMatrice<Type> CMatrice<Type>::operator*(Type & qMATparam)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * qMATparam;
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * qMATparam;
 
-		return *MATNewMatrice;
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -708,7 +700,7 @@ Entraine : Surchage de l'operateur en question membre à membre
 *****************************/
 // Pré-condition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
+CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
@@ -716,15 +708,13 @@ CMatrice<Type> & CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 		if (uiMATNbColonnes != MATMatrice.uiMATNbLignes)
 			throw CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
-		return *MATNewMatrice;
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -743,7 +733,7 @@ Entraine : Surchage de l'operateur en question membre à membre
 
 // Pré-condition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator/(Type & qMATparam)
+CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
@@ -751,15 +741,13 @@ CMatrice<Type> & CMatrice<Type>::operator/(Type & qMATparam)
 		if (qMATparam == 0)
 			throw CException(DIVISIONPARZERO, "Divison par zéro impossible");
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / qMATparam;
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / qMATparam;
 
-		return *MATNewMatrice;
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -778,25 +766,23 @@ Entraine : Surchage de l'operateur en question membre à membre
 
 // Pré-condition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 template <class Type>
-CMatrice<Type> & CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
+CMatrice<Type> CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
 {
 	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
-		CMatrice<Type> * MATNewMatrice = new CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-		if (MATNewMatrice == nullptr)
-			throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
 				if (MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] == 0)
 					throw CException(DIVISIONPARZERO, "Divison par zéro impossible");
-				MATNewMatrice->ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 			}
 
-		return *MATNewMatrice;
+		return MATNewMatrice;
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -872,7 +858,7 @@ Sortie : CMatrice<Type>
 Entraine : Surchage de l'operateur * (pour avoir la commutativité)
 *****************************/
 template <class Type>
-CMatrice<Type> & operator*(Type qMATparam, CMatrice<Type> & MATMatrice)
+CMatrice<Type> operator*(Type qMATparam, CMatrice<Type> & MATMatrice)
 {
 	return MATMatrice * qMATparam;
 }

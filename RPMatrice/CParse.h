@@ -1,5 +1,6 @@
 #ifndef C_PARSE_H
 #define C_PARSE_H
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
 
@@ -9,24 +10,27 @@ class CParse
 {
 private:
 	// Attributs
-	char * sPARChemin;
+	char * psPARChemin;
 	FILE * pPARFichier;
 
 public:
 	// Constructeurs / Descructeurs
 	CParse();
-	CParse(char * sChemin);
+	CParse(char * psChemin);
 	~CParse();
 
-	// Méthode
-	char * PARLireChemin();
-	void PARModifierChemin(char * sParam);
-	void PAROuvrirFichier(char * sChaine);
+	// Accesseurs
+	inline char * PARLireChemin();
+	inline void PARModifierChemin(char * psParam);
+	void PAROuvrirFichier(char * psParam);
+	inline void PARFermerFicher();
+
+	// Méthodes
 	char * PARLireLigne();
-	char * PARSubString(char * sParam, unsigned int uiDebut, unsigned int uiTaille);
-	char * CParse::PARConcatenateString(const char * sStr1, const char * sStr2);
-	void PARConvertirMinusc(char * sChaine);
+	char * PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille);
+	char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2);
+	void PARConvertirMinusc(char * psParam);
 	char PARConvertirCharMinusc(char cParam);
-	void PARFermerFicher();
+	
 };
 #endif

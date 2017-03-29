@@ -1,6 +1,8 @@
 #include "CParse.h"
 #include "CException.h"
 
+
+
 /*****************************
 Constructeur par défaut
 ******************************
@@ -11,21 +13,22 @@ Entraine : l'objet en cours est initialisé
 *****************************/
 CParse::CParse()
 {
-	sPARChemin = nullptr;
+	psPARChemin = nullptr;
 	pPARFichier = nullptr;
 }
 
 /*****************************
 Constructeur de confort
 ******************************
-Entrée : char * sChemin
+Entrée : char * psChemin
 Necessité : néant
 Sortie : néant
 Entraine : l'objet en cours est initialisé
 *****************************/
-CParse::CParse(char * sChemin)
+CParse::CParse(char * psChemin)
 {
-	PARModifierChemin(sChemin);
+	CParse();
+	PARModifierChemin(psChemin);
 }
 
 /*****************************
@@ -38,71 +41,71 @@ Entraine : L'objet est détruit
 *****************************/
 CParse::~CParse()
 {
-	delete(sPARChemin);
+	delete(psPARChemin);
 	PARFermerFicher();
 }
 
 /*****************************
-Methode : 
+Methode : Lire Chemin
 ******************************
 Entrée : néant
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : char *
+Entraine : Retourne le chemin de l'attribut
 *****************************/
 char * CParse::PARLireChemin()
 {
-	return sPARChemin;
+	return psPARChemin;
 }
 
 /*****************************
-Methode : 
+Methode : Modifier Chemin
 ******************************
-Entrée : néant
+Entrée : char * sParam
 Necessité : néant
 Sortie : néant
-Entraine : néant
+Entraine : Modification de l'attribut sPARChemin
 *****************************/
-void CParse::PARModifierChemin(char * sParam)
+void CParse::PARModifierChemin(char * psParam)
 {
-	unsigned int uiTaille = strlen(sParam);
+	unsigned int uiTaille = strlen(psParam);
 
-	if(sPARChemin != NULL)
-		delete(sPARChemin);
+	if(psPARChemin != NULL)
+		delete(psPARChemin);
 
-	sPARChemin = (char*) calloc(uiTaille + 1, sizeof(char));
+	psPARChemin = (char*) calloc(uiTaille + 1, sizeof(char));
 	//sPARChemin = (char *) malloc(sizeof(char) * uiTaille + 1);
 
-	if(sPARChemin == NULL)
+	if(psPARChemin == NULL)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-	strncpy(sPARChemin, sParam, uiTaille);
+	strncpy(psPARChemin, psParam, uiTaille);
 }
 
 
 /*****************************
-Methode : 
+Methode : Ouvrir Fichier
 ******************************
-Entrée : néant
-Necessité : néant
+Entrée : char * sChaine
+Necessité : Fichier
 Sortie : néant
-Entraine : néant
+Entraine : Ouverture un fichier
 *****************************/
-void CParse::PAROuvrirFichier(char * sChaine)
+void CParse::PAROuvrirFichier(char * psParam)
 {
-	pPARFichier = fopen(sChaine, "r");
+	pPARFichier = fopen(psParam, "r");
 
 	if(pPARFichier == nullptr)
 		throw CException(ECHECOUVERTUREFICHIER, "Echec d'ouverture du fichier");
 }
 
 /*****************************
-Methode : 
+Methode : Lire Ligne
 ******************************
 Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
+Sortie : char *
+Entraine : Lecture d'une ligne du fichier et retourne sur le tas une chaîne
 *****************************/
 char * CParse::PARLireLigne()
 {
@@ -113,100 +116,99 @@ char * CParse::PARLireLigne()
 	fseek(pPARFichier, 0, SEEK_END);
 	
 	// Allocation de la chaine avec la "bonne taille"
-	char * sBuffer = (char*) malloc (sizeof(char) * (ftell(pPARFichier) - uiCurseurInitial + 1));
-	if(sBuffer == NULL)
+	char * psBuffer = (char*) malloc (sizeof(char) * (ftell(pPARFichier) - uiCurseurInitial + 1));
+	if(psBuffer == NULL)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 	fseek(pPARFichier, uiCurseurInitial, SEEK_SET);
-	//fseek(pPARFichier, -uiCurseurInitial, SEEK_CUR);
 
 	// Récupération de la ligne
-	sBuffer = fgets(sBuffer, strlen(sBuffer), pPARFichier);
-	if (sBuffer == nullptr)
+	psBuffer = fgets(psBuffer, strlen(psBuffer), pPARFichier);
+	if (psBuffer == nullptr)
 		throw CException(ECHECLECTURELIGNEFICHIER, "Erreur lors de la lecture d'une ligne du fichier");
 
 	// Mise à l'échelle de la chaine retournée
-	sBuffer = (char*) realloc(sBuffer, sizeof(char) * (strlen(sBuffer) + 1));
-	if (sBuffer == nullptr)
+	psBuffer = (char*) realloc(psBuffer, sizeof(char) * (strlen(psBuffer) + 1));
+	if (psBuffer == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
-	return sBuffer;
+	return psBuffer;
 }
 
 /*****************************
-Methode : 
+Methode : SubString
 ******************************
-Entrée : néant
+Entrée : char * sParam, unsigned int uiDebut, unsigned int uiTaille
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : char *
+Entraine : Permet d'extraire une chaîne d'une position à une autre
 *****************************/
-char * CParse::PARSubString(char * sParam, unsigned int uiDebut, unsigned int uiTaille)
+char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille)
 {
-	char * sRetour = (char *) malloc(sizeof(char) * uiTaille + 1);
+	char * psRetour = (char *) malloc(sizeof(char) * uiTaille + 1);
 
-	memcpy(sRetour, &sParam[uiDebut], uiTaille);
-	sRetour[uiTaille] = '\0';
+	memcpy(psRetour, &psParam[uiDebut], uiTaille);
+	psRetour[uiTaille] = '\0';
 
-	PARConvertirMinusc(sRetour);
+	PARConvertirMinusc(psRetour);
 
-	return sRetour;
+	return psRetour;
 }
 
 /*****************************
-Methode : 
+Methode : Concatener deux chaines
 ******************************
-Entrée : néant
+Entrée : const char * sStr1, const char * sStr2
 Necessité : néant
-Sortie : néant
-Entraine : néant
+Sortie : char *
+Entraine : Retourne sur le tas la concatenation des deux chaînes
 *****************************/
-char * CParse::PARConcatenateString(const char * sStr1, const char * sStr2) 
+char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2) 
 {
-    size_t lengthStr1 = strlen(sStr1);
-    size_t lengthStr2 = strlen(sStr2);
-    char * sConcatenate = (char*)malloc(strlen(sStr1) + strlen(sStr2) + 1);
+    size_t lengthStr1 = strlen(psStr1);
+    size_t lengthStr2 = strlen(psStr2);
+    char * psConcatenate = (char*)malloc(strlen(psStr1) + strlen(psStr2) + 1);
 
-    if (sConcatenate != NULL)
+    if (psConcatenate != NULL)
     {
-		strncpy(sConcatenate, sStr1, lengthStr1 + 1);
-		strncpy(sConcatenate + lengthStr1, sStr2, lengthStr2 + 1);
+		strncpy(psConcatenate, psStr1, lengthStr1 + 1);
+		strncpy(psConcatenate + lengthStr1, psStr2, lengthStr2 + 1);
     }
 
     else
 	{
-        free(sConcatenate);
+		delete(psConcatenate);
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
     }
 
-    return sConcatenate;
+    return psConcatenate;
 }
 
 /*****************************
-Methode : 
+Methode : Convertir Chaine Minuscule
 ******************************
-Entrée : néant
+Entrée : char * sChaine
 Necessité : néant
 Sortie : néant
-Entraine : néant
+Entraine : Convertir la chaine en paramètre en minuscule
 *****************************/
-void CParse::PARConvertirMinusc(char * sChaine)
+void CParse::PARConvertirMinusc(char * psParam)
 {
     int uiBoucle = 0;
 
-    while(sChaine[uiBoucle] != '\0') {
-        sChaine[uiBoucle] = PARConvertirCharMinusc(sChaine[uiBoucle]);
+    while(psParam[uiBoucle] != '\0') {
+        psParam[uiBoucle] = PARConvertirCharMinusc(psParam[uiBoucle]);
 		uiBoucle++;
 	}
 }
 
 /*****************************
-Methode : 
+Methode : Convertir un char en minuscule
 ******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : néant
+Entrée : char cParam
+Necessité : Méthode Ouvrir fichier
+Sortie : char
+Entraine : Conversion d'un char en char minuscule
 *****************************/
 char CParse::PARConvertirCharMinusc(char cParam) 
 {
@@ -221,12 +223,12 @@ char CParse::PARConvertirCharMinusc(char cParam)
 }
 
 /*****************************
-Methode : 
+Methode : Fermer Fichier
 ******************************
 Entrée : néant
 Necessité : néant
 Sortie : néant
-Entraine : néant
+Entraine : Fermeture du fichier
 *****************************/
 void CParse::PARFermerFicher()
 {
