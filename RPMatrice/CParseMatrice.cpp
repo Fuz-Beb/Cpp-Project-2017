@@ -222,8 +222,9 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 		sBuffer = PARLireLigne(); // Remplissage du buffer par rapport à la ligne actuel
 
-		/*if(strcmp(sBuffer, "]"))
-			throw CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");*/
+		// Verification du fichier
+		if(strcmp(sBuffer, "]") == 0)
+			throw CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
 
 		// Boucle TQ concernant le nombre de colonne à lire (gère les espaces en trop)
 		while(uiBoucleBuffer < uiMaxColonne) {
@@ -254,6 +255,11 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 				// On vérifie s'il y a une dizaine, centaine... où si on s'arrete et on modifie l'élement dans la CMatrice
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
+					
+					// Verification du fichier
+					if(sBuffer[0] == '\n')
+						throw CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
+					
 					matPAMMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 
 					delete(sBufferDouble);

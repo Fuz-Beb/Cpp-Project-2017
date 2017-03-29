@@ -2,7 +2,7 @@ TypeMatrice=douBle
 NBLignes=3
 NBColonnes=3
 Matrice=[
-0.3 -7 0
 -18 48 5
-7.5 -69 1
+-18 48 5
+-18 48 5
 ]
