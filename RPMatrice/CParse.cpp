@@ -147,7 +147,7 @@ char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int u
 	memcpy(psRetour, &psParam[uiDebut], uiTaille);
 	psRetour[uiTaille] = '\0';
 
-	PARConvertirMinusc(psRetour);
+	PARConvertirStrMinusc(psRetour);
 
 	return psRetour;
 }

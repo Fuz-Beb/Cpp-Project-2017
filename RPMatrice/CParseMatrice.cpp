@@ -206,7 +206,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
 
-	PARConvertirMinusc(sBuffer);
+	PARConvertirStrMinusc(sBuffer);
 
 	if(strcmp(sBuffer, "matrice=[\n") == 1)
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
