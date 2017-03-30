@@ -52,7 +52,6 @@ public:
 	CMatrice<Type> operator*(Type & qMATparam);
 	CMatrice<Type> operator*(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> operator/(Type & qMATparam);
-	CMatrice<Type> operator/(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 	bool operator!=(CMatrice<Type> & MATMatrice);
 };

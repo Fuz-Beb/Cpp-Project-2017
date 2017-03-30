@@ -760,40 +760,6 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 	}
 }
 
-/*****************************
-Methode : Surcharge operateur /
-******************************
-Entrée : CMatrice<Type> & MATMatrice
-Necessité : néant
-Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
-*****************************/
-
-// Pré-condition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
-template <class Type>
-CMatrice<Type> CMatrice<Type>::operator/(CMatrice<Type> & MATMatrice)
-{
-	try {
-		unsigned int uiBoucleLigne, uiBoucleColonne;
-
-		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-
-		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
-
-		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
-				if (MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] == 0)
-					throw CException(DIVISIONPARZERO, "Divison par zéro impossible");
-				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
-			}
-
-		return MATNewMatrice;
-
-	} catch (CException & EXCObjet) {
-		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::terminate();
-	}
-}
 
 /*****************************
 Methode : Surcharge operateur =

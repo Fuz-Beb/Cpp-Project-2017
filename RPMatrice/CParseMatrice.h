@@ -5,7 +5,7 @@
 #include "CMatrice.h"
 #include <string>
 
-class CParseMatrice : public CParse
+class CParseMatrice : private CParse
 {
 private:
 	// Attributs

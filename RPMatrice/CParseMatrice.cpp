@@ -16,7 +16,6 @@ CParseMatrice::CParseMatrice()
 CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
 	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(matPAMMatrice);
-
 	return pMatriceRetourner;
 }
 

@@ -3,30 +3,29 @@
 #include "CParseMatrice.h"
 #include "CParse.h"
 #include <iostream>
-//#include <vld.h>
+#include <vld.h>
 
 void main(unsigned int argc, char *argv[])
 {
 	// Délarations des variables
-	unsigned int uiBoucleTableau = 0, uiBoucleArgs = 1;
+	unsigned int uiBoucleTableau = 0;
 	double eValeurC = 0;
 	bool bAdditionOuSoustraction = false, bCorrectValue = false;
 	CMatrice<double> CMAResultOperation = CMatrice<double>();
 
-	CParseMatrice ** CPAMonParseur = (CParseMatrice **) malloc(sizeof(CParseMatrice*) * argc);
-	CMatrice<double> ** CMAMesMatrices = (CMatrice<double> **) malloc(sizeof(CMatrice<double> *) * argc);
+	CParseMatrice ** CPAMonParseur = (CParseMatrice **) malloc(sizeof(CParseMatrice*) * argc - 1);
+	CMatrice<double> ** CMAMesMatrices = (CMatrice<double> **) malloc(sizeof(CMatrice<double> *) * argc - 1);
 
 
 	// Traitement des fichiers - Création des matrices
-	for (uiBoucleArgs = 1 ; uiBoucleArgs < argc ; uiBoucleArgs++)
+	for (uiBoucleTableau = 0 ; uiBoucleTableau < argc - 1; uiBoucleTableau++)
 	{
 		CPAMonParseur[uiBoucleTableau] = new CParseMatrice();
-		CMAMesMatrices[uiBoucleTableau] = new CMatrice<double>();
-		CPAMonParseur[uiBoucleTableau]->PAMTraiterFichier(argv[uiBoucleArgs]);
+		CPAMonParseur[uiBoucleTableau]->PAMTraiterFichier(argv[uiBoucleTableau + 1]);
 		CMAMesMatrices[uiBoucleTableau] = CPAMonParseur[uiBoucleTableau]->PAMRetournerMatrice();
-		uiBoucleTableau++;
 	}
 
+	
 	// Demande de saisie utilisateur
 	cin >> eValeurC;
 	while (!bCorrectValue)
@@ -99,4 +98,12 @@ void main(unsigned int argc, char *argv[])
 		CMAResultOperation = CMAResultOperation * *CMAMesMatrices[uiBoucleTableau];
 
 	CMAResultOperation.MATAfficherMatrice();
+
+	// Désallocation mémoire
+	for (uiBoucleTableau = 0 ; uiBoucleTableau < argc -1 ; uiBoucleTableau++) {
+		delete CPAMonParseur[uiBoucleTableau];
+		delete CMAMesMatrices[uiBoucleTableau];
+	}
+	delete CPAMonParseur;
+	delete CMAMesMatrices;
 }
