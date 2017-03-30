@@ -1,5 +1,6 @@
 #include "CParseMatrice.h"
 
+
 /*****************************
 Constructeur par défaut
 ******************************
@@ -13,6 +14,14 @@ CParseMatrice::CParseMatrice()
 	matPAMMatrice = CMatrice<double>();
 }
 
+/*****************************
+Methode : Retourner Matrice
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : Retourne un pointeur sur l'attribut de matPAMMatrice
+Entraine : Création d'un objet/pointeur en appellant le constructeur de recopie de CMatrice
+*****************************/
 CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
 	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(matPAMMatrice);
@@ -196,7 +205,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
 
-	PARConvertirMinusc(sBuffer);
+	PARConvertirStrMinusc(sBuffer);
 
 	if(strcmp(sBuffer, "matrice=[\n") == 1)
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");

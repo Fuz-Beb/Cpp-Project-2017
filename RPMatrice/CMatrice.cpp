@@ -1,8 +1,6 @@
 #include "CMatrice.h"
 #include "CException.h"
 
-using namespace std;
-
 
 /*****************************
 Constructeur par défaut
@@ -35,7 +33,7 @@ Destructeur par défaut
 Entrée : néant
 Necessité : néant
 Sortie : néant
-Entraine : L'objet est détruit
+Entraine : l'objet est détruit
 *****************************/
 
 // Pré-condition : La libération des pointeurs avant la suppression de la matrice est à la charge de l'utilisateur
@@ -79,8 +77,6 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 	}
 	MATInit();
 }
-
-
 
 /*****************************
 Constructeur de recopie
@@ -172,6 +168,14 @@ unsigned int CMatrice<Type>::MATLireNbColonnes()
 	return uiMATNbColonnes;
 }
 
+/*****************************
+Methode : Calculer la transposée d'une matrice
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en calculant la transposée
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 {
@@ -186,14 +190,13 @@ CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 	return MATNewMatrice;
 }
 
-
 /*****************************
 Methode : Mettre une matrice à la puissance
 ******************************
-Entrée : double dNombre
+Entrée : unsigned int uiNombre
 Necessité : néant
 Sortie : CMatrice<Type>
-Entraine : Mise à la puissance de la matrice
+Entraine : retourne une nouvelle matrice en mettant la puissance de la matrice
 *****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
@@ -232,7 +235,7 @@ Methode : Modifier l'élèment à l'endroit de la matrice
 Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement
 Necessité : néant
 Sortie : néant
-Entraine : Modification de l'élèment
+Entraine : modification de l'élèment
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement)
@@ -272,7 +275,7 @@ Methode : Initialise l'ensemble des valeurs de la matrice à la valeur 0
 Entrée : néant
 Necessité : néant
 Sortie : nénant
-Entraine : Mise à la valeur 0 à l'ensemble des cases de la matrice
+Entraine : mise à la valeur 0 à l'ensemble des cases de la matrice
 *****************************/
  template <class Type>
  void CMatrice<Type>::MATInit()
@@ -284,14 +287,13 @@ Entraine : Mise à la valeur 0 à l'ensemble des cases de la matrice
 			 MATModifierElement(uiNbLignes, uiNbColonnes, 0);
  }
 
-
  /*****************************
 Methode : Afficher la matrice à l'écran
 ******************************
 Entrée : néant
 Necessité : néant
 Sortie : néant
-Entraine : L'affichage à l'écran de la matrice
+Entraine : Afficher la matrice de l'objet à l'écran
 *****************************/
  template <class Type>
 void CMatrice<Type>::MATAfficherMatrice()
@@ -306,14 +308,13 @@ void CMatrice<Type>::MATAfficherMatrice()
 	}
 }
 
-
 /*****************************
 Methode : Ajouter une/des colonnes à la droite de la matrice
 ******************************
 Entrée : unsigned int uiNbColonnes
 Necessité : néant
 Sortie : néant
-Entraine : Réallocation selon ajout nb colonnes
+Entraine : réallouer selon ajout nb colonnes
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
@@ -338,7 +339,7 @@ Methode : Ajouter une/des lignes en bas de la matrice
 Entrée : unsigned int uiNbLignes
 Necessité : néant
 Sortie : néant
-Entraine : Réallocation selon ajout nb lignes
+Entraine : réallouer selon ajout nb lignes
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
@@ -357,14 +358,13 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 	}
 }
 
-
 /*****************************
 Methode : Supprimer une/des colonnes à droite de la matrice
 ******************************
 Entrée : unsigned int uiNbColonnes
 Necessité : néant
 Sortie : néant
-Entraine : Réallocation selon suppression nb colonnes
+Entraine : réallouer selon suppression nb colonnes
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
@@ -392,7 +392,7 @@ Methode : Supprimer une/des ligne en bas de la matrice
 Entrée : unsigned int uiNbLignes
 Necessité : néant
 Sortie : néant
-Entraine : Réallocation selon suppression nb lignes
+Entraine : réallouer selon suppression nb lignes
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
@@ -420,7 +420,7 @@ Methode : Ajouter une colonne à un endroit précis de la matrice
 Entrée : unsigned int uiNumColonnes
 Necessité : néant
 Sortie : néant
-Entraine : Réallocation et ajout d'une colonne
+Entraine : réallouer et ajout d'une colonne
 *****************************/
  template <class Type>
 void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
@@ -457,7 +457,7 @@ Methode : Ajouter une ligne à un endroit précis de la matrice
 Entrée : unsigned int uiNumLignes
 Necessité : néant
 Sortie : néant
-Entraine : Réallocation et ajout d'une ligne
+Entraine : réallouer et ajout d'une ligne
 *****************************/
  template <class Type>
 void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
@@ -496,12 +496,10 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 Methode : Supprimer une colonne à un endroit précis de la matrice
 ******************************
 Entrée : unsigned int uiNumColonnes
-Necessité : néant
+Necessité / Précondition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 Sortie : néant
-Entraine : Réallocation et suppression d'une colonne
+Entraine : réallouer et suppression d'une colonne
 *****************************/
-
-// Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
@@ -534,12 +532,10 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 Methode : Supprimer unes ligne à un endroit précis de la matrice
 ******************************
 Entrée : unsigned int uiNumLignes
-Necessité : néant
+Necessité / Précondition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 Sortie : néant
 Entraine : Réallocation et suppression d'une ligne
 *****************************/
-
-// Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 template <class Type>
 void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 {
@@ -588,7 +584,7 @@ Methode : Vérifier la dimension de la matrice
 Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
 Necessité : néant
 Sortie : néant
-Entraine : (néant) ou (Exception DIMENSIONINEGALE : les dimensions fournis ne correspondent pas à la matrice)
+Entraine : (néant) ou (Exception DIMENSIONINEGALE : les dimensions fournies ne correspondent pas à la matrice)
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes)
@@ -601,12 +597,10 @@ void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int 
 Methode : Surcharge operateur +
 ******************************
 Entrée : CMatrice<Type> & MATMatrice
-Necessité : néant
+Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur + pour une matrice contenant des objets
 Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
-
-// Pré-condition : Nécessite la présence de la surcharge de l'opérateur + pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
@@ -633,12 +627,10 @@ CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 Methode : Surcharge operateur -
 ******************************
 Entrée : CMatrice<Type> & MATMatrice
-Necessité : néant
+Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur - pour une matrice contenant des objets
 Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
-
-// Pré-condition : Nécessite la présence de la surcharge de l'opérateur - pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
@@ -665,12 +657,10 @@ CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 Methode : Surcharge operateur / par constante
 ******************************
 Entrée : Type & MATMatrice
-Necessité : néant
+Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
-
-// Pré-condition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator*(Type & qMATparam)
 {
@@ -695,11 +685,10 @@ CMatrice<Type> CMatrice<Type>::operator*(Type & qMATparam)
 Methode : Surcharge operateur *
 ******************************
 Entrée : CMatrice<Type> & MATMatrice
-Necessité : néant
+Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
-// Pré-condition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
@@ -731,12 +720,10 @@ CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 Methode : Surcharge operateur / par constante
 ******************************
 Entrée : Type & MATMatrice
-Necessité : néant
+Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
-
-// Pré-condition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 {
@@ -760,17 +747,16 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 	}
 }
 
+/*****************************
 
 /*****************************
 Methode : Surcharge operateur =
 ******************************
 Entrée : CMatrice<Type> & MATMatrice
-Necessité : néant
+Necessité / Précondtion : La libération des pointeurs sur la matrice de destination est à la charge de l'utilisateur
 Sortie : CMatrice<Type>
-Entraine : Surchage de l'operateur en question membre à membre
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
-
-// Pré-condition : La libération des pointeurs sur la matrice de destination est à la charge de l'utilisateur
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {

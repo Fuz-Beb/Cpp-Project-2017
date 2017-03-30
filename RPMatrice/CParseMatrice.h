@@ -23,8 +23,10 @@ private:
 	void PAMVerifierType();
 	
 public:
-	CParseMatrice();
+	// Constructeur
+	explicit CParseMatrice();
 
+	// Methodes
 	CMatrice<double> * PAMRetournerMatrice();
 	void PAMTraiterFichier(char * sChemin);
 };

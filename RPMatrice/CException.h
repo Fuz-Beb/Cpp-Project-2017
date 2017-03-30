@@ -21,9 +21,9 @@ private:
 	char * psEXCMessage;
 
 public:
-	// Constructeur et destructeur
-	CException();
-	CException(unsigned int uiCodeErreur, char * psMessageErreur);
+	// Constructeurs et destructeur
+	explicit CException();
+	explicit CException(unsigned int uiCodeErreur, char * psMessageErreur);
 	~CException();
 
 	// Accesseurs

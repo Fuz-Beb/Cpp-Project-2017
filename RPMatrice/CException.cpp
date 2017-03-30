@@ -21,7 +21,7 @@ Constructeur à deux arguments
 Entrée : unsigned int uiCodeErreur, char * psMessageErreur
 Necessité : néant
 Sortie : néant
-Entraine : l'objet en cours est initialisé
+Entraine : le paramètre est recopié et ainsi l'objet en cours est initialisé
 *****************************/
 CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 {

@@ -2,7 +2,6 @@
 #include "CException.h"
 
 
-
 /*****************************
 Constructeur par défaut
 ******************************
@@ -37,7 +36,7 @@ Destructeur par défaut
 Entrée : néant
 Necessité : néant
 Sortie : néant
-Entraine : L'objet est détruit
+Entraine : l'objet est détruit
 *****************************/
 CParse::~CParse()
 {
@@ -51,7 +50,7 @@ Methode : Lire Chemin
 Entrée : néant
 Necessité : néant
 Sortie : char *
-Entraine : Retourne le chemin de l'attribut
+Entraine : retourne le chemin de l'attribut
 *****************************/
 char * CParse::PARLireChemin()
 {
@@ -64,7 +63,7 @@ Methode : Modifier Chemin
 Entrée : char * sParam
 Necessité : néant
 Sortie : néant
-Entraine : Modification de l'attribut sPARChemin
+Entraine : modification de l'attribut sPARChemin
 *****************************/
 void CParse::PARModifierChemin(char * psParam)
 {
@@ -74,7 +73,6 @@ void CParse::PARModifierChemin(char * psParam)
 		delete(psPARChemin);
 
 	psPARChemin = (char*) calloc(uiTaille + 1, sizeof(char));
-	//sPARChemin = (char *) malloc(sizeof(char) * uiTaille + 1);
 
 	if(psPARChemin == NULL)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
@@ -82,14 +80,13 @@ void CParse::PARModifierChemin(char * psParam)
 	strncpy(psPARChemin, psParam, uiTaille);
 }
 
-
 /*****************************
 Methode : Ouvrir Fichier
 ******************************
 Entrée : char * sChaine
 Necessité : Fichier
 Sortie : néant
-Entraine : Ouverture un fichier
+Entraine : ouverture un fichier
 *****************************/
 void CParse::PAROuvrirFichier(char * psParam)
 {
@@ -105,7 +102,7 @@ Methode : Lire Ligne
 Entrée : néant
 Necessité : Méthode Traiter fichier / Ouvrir fichier
 Sortie : char *
-Entraine : Lecture d'une ligne du fichier et retourne sur le tas une chaîne
+Entraine : lecture d'une ligne du fichier et retourne sur le tas une chaîne
 *****************************/
 char * CParse::PARLireLigne()
 {
@@ -141,7 +138,7 @@ Methode : SubString
 Entrée : char * sParam, unsigned int uiDebut, unsigned int uiTaille
 Necessité : néant
 Sortie : char *
-Entraine : Permet d'extraire une chaîne d'une position à une autre
+Entraine : permet d'extraire une chaîne d'une position à une autre
 *****************************/
 char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille)
 {
@@ -150,7 +147,7 @@ char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int u
 	memcpy(psRetour, &psParam[uiDebut], uiTaille);
 	psRetour[uiTaille] = '\0';
 
-	PARConvertirMinusc(psRetour);
+	PARConvertirStrMinusc(psRetour);
 
 	return psRetour;
 }
@@ -161,7 +158,7 @@ Methode : Concatener deux chaines
 Entrée : const char * sStr1, const char * sStr2
 Necessité : néant
 Sortie : char *
-Entraine : Retourne sur le tas la concatenation des deux chaînes
+Entraine : retourne sur le tas la concatenation des deux chaînes
 *****************************/
 char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2) 
 {
@@ -190,9 +187,9 @@ Methode : Convertir Chaine Minuscule
 Entrée : char * sChaine
 Necessité : néant
 Sortie : néant
-Entraine : Convertir la chaine en paramètre en minuscule
+Entraine : convertir la chaine en paramètre en minuscule
 *****************************/
-void CParse::PARConvertirMinusc(char * psParam)
+void CParse::PARConvertirStrMinusc(char * psParam)
 {
     int uiBoucle = 0;
 
