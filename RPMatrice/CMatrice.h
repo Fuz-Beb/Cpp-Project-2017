@@ -12,7 +12,7 @@ private:
 	unsigned int uiMATNbColonnes;
 
 public:
-	// Constructeur et destructeur
+	// Constructeurs et destructeur
 	CMatrice();
 	~CMatrice();
 	CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes);
@@ -46,7 +46,7 @@ public:
 	void MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne);
 	void MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 
-	// Surchage
+	// Surchages
 	CMatrice<Type> operator+(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> operator-(CMatrice<Type> & MATMatrice);
 	CMatrice<Type> operator*(Type & qMATparam);

@@ -23,7 +23,7 @@ private:
 	char * psEXCMessage;
 
 public:
-	// Constructeur et destructeur
+	// Constructeurs et destructeur
 	CException();
 	CException(unsigned int uiCodeErreur, char * psMessageErreur);
 	~CException();
