@@ -20,7 +20,7 @@ Methode : Retourner Matrice
 Entrée : néant
 Necessité : néant
 Sortie : Retourne un pointeur sur l'attribut de matPAMMatrice
-Entraine : Création d'un pointeur en appellant le constructeur de recopie de CMatrice
+Entraine : Création d'un objet/pointeur en appellant le constructeur de recopie de CMatrice
 *****************************/
 CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
