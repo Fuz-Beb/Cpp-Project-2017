@@ -1,0 +1,8 @@
+TypeMatrice=douBle
+NBLignes=3
+NBColonnes=3
+Matrice=[
+19 20 21
+22 23 24
+25 26 27
+]

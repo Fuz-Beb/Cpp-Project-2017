@@ -7,16 +7,17 @@
 
 void main(unsigned int argc, char *argv[])
 {
+	// Délarations des variables
 	unsigned int uiBoucleTableau = 0, uiBoucleArgs = 1;
 	double eValeurC = 0;
-	bool bAdditionOuSoustraction = false;
+	bool bAdditionOuSoustraction = false, bCorrectValue = false;
 	CMatrice<double> CMAResultOperation = CMatrice<double>();
 
-	// Allocation des ressources
 	CParseMatrice ** CPAMonParseur = (CParseMatrice **) malloc(sizeof(CParseMatrice*) * argc);
 	CMatrice<double> ** CMAMesMatrices = (CMatrice<double> **) malloc(sizeof(CMatrice<double> *) * argc);
 
-	// Traitement des fichiers
+
+	// Traitement des fichiers - Création des matrices
 	for (uiBoucleArgs = 1 ; uiBoucleArgs < argc ; uiBoucleArgs++)
 	{
 		CPAMonParseur[uiBoucleTableau] = new CParseMatrice();
@@ -28,6 +29,17 @@ void main(unsigned int argc, char *argv[])
 
 	// Demande de saisie utilisateur
 	cin >> eValeurC;
+	while (!bCorrectValue)
+	{
+        if(cin.fail()) {
+            cout << "Ce n'est pas un nombre. Recommencez !" << endl;
+			cin.clear();
+			cin.ignore();
+			cin >> eValeurC;
+		}
+		else
+			bCorrectValue = true;
+	}
 
 	// Multiplication et affichage du résultat
 	printf("Division des matrices \n\n");
@@ -78,8 +90,13 @@ void main(unsigned int argc, char *argv[])
 	CMAResultOperation.MATAfficherMatrice();
 
 
-	// Faire la multiplication de matrice (le dernier point)
-	
+	// Multiplication des matrices
+	printf("Multiplication des matrices \n\n");
+	CMAResultOperation = *CMAMesMatrices[0];
+	printf("Resultat = \n");
 
-	// Faire du VALGRIND !!!
+	for (uiBoucleTableau = 1 ; uiBoucleTableau < argc -1 ; uiBoucleTableau++)
+		CMAResultOperation = CMAResultOperation * *CMAMesMatrices[uiBoucleTableau];
+
+	CMAResultOperation.MATAfficherMatrice();
 }
