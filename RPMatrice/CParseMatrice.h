@@ -24,7 +24,7 @@ private:
 	
 public:
 	// Constructeur
-	CParseMatrice();
+	explicit CParseMatrice();
 
 	// Methodes
 	CMatrice<double> * PAMRetournerMatrice();

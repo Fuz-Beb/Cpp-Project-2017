@@ -16,8 +16,8 @@ private:
 
 public:
 	// Constructeurs / Descructeurs
-	CParse();
-	CParse(char * psChemin);
+	explicit CParse();
+	explicit CParse(char * psChemin);
 	~CParse();
 
 	// Accesseurs

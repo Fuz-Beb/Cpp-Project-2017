@@ -13,9 +13,9 @@ private:
 
 public:
 	// Constructeurs et destructeur
-	CMatrice();
+	explicit CMatrice();
 	~CMatrice();
-	CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes);
+	explicit CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes);
 	CMatrice(CMatrice & MATMatrice);
 
 	// Accesseurs
