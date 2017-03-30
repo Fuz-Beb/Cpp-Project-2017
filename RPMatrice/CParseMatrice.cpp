@@ -1,5 +1,6 @@
 #include "CParseMatrice.h"
 
+
 /*****************************
 Constructeur par défaut
 ******************************
@@ -13,6 +14,14 @@ CParseMatrice::CParseMatrice()
 	matPAMMatrice = CMatrice<double>();
 }
 
+/*****************************
+Methode : Retourner Matrice
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : Retourne un pointeur sur l'attribut de matPAMMatrice
+Entraine : Création d'un pointeur en appellant le constructeur de recopie de CMatrice
+*****************************/
 CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
 	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(matPAMMatrice);

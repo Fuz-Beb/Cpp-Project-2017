@@ -2,7 +2,6 @@
 #include "CException.h"
 
 
-
 /*****************************
 Constructeur par défaut
 ******************************
