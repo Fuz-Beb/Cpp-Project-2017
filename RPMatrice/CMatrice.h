@@ -328,6 +328,7 @@ public:
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
+	// Pré-condition : La libération des pointeurs avant l'affectation est à la charge de l'utilisateur
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 
 	/*****************************

@@ -9,7 +9,7 @@
 
 void main(unsigned int argc, char *argv[])
 {
-	// Délarations des variables
+	// Déclarations des variables
 	unsigned int uiBoucleTableau = 0;
 	double eValeurC = 0;
 	bool bAdditionOuSoustraction = false, bCorrectValue = false;

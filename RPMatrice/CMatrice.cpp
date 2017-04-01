@@ -16,6 +16,7 @@ CMatrice<Type>::CMatrice()
 	if (ppqMATMatrice[0] == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
+	// Initalisation de la matrice avec la valeur 0
 	MATInit();
 }
 
@@ -26,6 +27,7 @@ CMatrice<Type>::~CMatrice()
 {
 	unsigned int uiBoucle;
 
+	// Désallocation mémoire de la matrice
 	for(uiBoucle = 0; uiBoucle < uiMATNbLignes; uiBoucle++)
 		delete[] ppqMATMatrice[uiBoucle];
 
@@ -52,6 +54,8 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 		if (ppqMATMatrice[uiBoucle] == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 	}
+
+	// Initalisation de la matrice avec la valeur 0
 	MATInit();
 }
 
@@ -118,6 +122,7 @@ CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 
 	CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbColonnes, uiMATNbLignes);
 
+	// Affectation des nouvelles valeurs à la nouvelle matrice
 	for (uiBoucle2 = 0 ; uiBoucle2 < uiMATNbLignes ; uiBoucle2++)
 		for (uiBoucle1= 0 ; uiBoucle1 < uiMATNbColonnes ; uiBoucle1++)
 			MATNewMatrice.ppqMATMatrice[uiBoucle1][uiBoucle2] = ppqMATMatrice[uiBoucle2][uiBoucle1];
@@ -135,11 +140,12 @@ CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
+		// Dans le cas ou la puissance vaut 0
 		if (uiNombre == 0) {
 			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
-		}
+		} // Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
 		else {
 			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
@@ -189,6 +195,7 @@ template <class Type>
  {
 	 unsigned uiNbLignes, uiNbColonnes;
 
+	 // Initialisation de l'ensemble des valeurs de la matrice à 0
 	 for(uiNbLignes = 1 ; uiNbLignes <= uiMATNbLignes ; uiNbLignes++)
 		 for(uiNbColonnes = 1 ; uiNbColonnes <= uiMATNbColonnes ; uiNbColonnes++)
 			 MATModifierElement(uiNbLignes, uiNbColonnes, 0);
@@ -221,6 +228,7 @@ void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
 {
 	try {
 		unsigned int uiBoucle = 1;
+		// Tant que le nombre de colonne à rajouter n'est pas atteint
 		while(uiBoucle <= uiNbColonnes)
 		{
 			MATAjouterColonnePrecis(uiMATNbColonnes + 1);
@@ -239,6 +247,7 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 {
 	try {
 		unsigned int uiBoucle = 1;
+		// Tant que le nombre de ligne à rajouter n'est pas atteint
 		while(uiBoucle <= uiNbLignes)
 		{
 			MATAjouterLignePrecis(uiMATNbLignes + 1);
@@ -260,7 +269,7 @@ void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 		unsigned int uiBoucle = 1;
 
 		MATVerifierPortee(uiMATNbLignes, uiNbColonnes + 1);
-
+		// Tant que le nombre de colonne à supprimer n'est pas atteint
 		while(uiBoucle <= uiNbColonnes)
 		{
 			MATSupprimerColonnePrecis(uiMATNbColonnes);
@@ -282,7 +291,7 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 		unsigned int uiBoucle = 1;
 
 		MATVerifierPortee(uiNbLignes + 1, uiMATNbColonnes);
-
+		// Tant que le nombre de ligne à supprimer n'est pas atteint
 		while(uiBoucle <= uiNbLignes)
 		{
 			MATSupprimerLignePrecis(uiMATNbLignes);
@@ -302,11 +311,13 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 	try	{
 		unsigned int uiBoucleColonne = 0, uiBoucleLigne = 0;
 
+		// Si la valeur fournie en paramètre n'est pas comprise dans les dimensions de la matrice
 		if(uiNumColonne > uiMATNbColonnes + 1)
 			throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 
 		uiMATNbColonnes++;
 
+		// Réallocation mémoire de la matrice
 		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
 			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * uiMATNbColonnes);
 			
@@ -314,6 +325,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 				throw CException(ECHECALLOCATION, "Echec de la reallocation");
 		}
 
+		// Changement de position des valeurs de la matrice
 		if(uiNumColonne < uiMATNbColonnes)
 			for(uiBoucleColonne = uiMATNbColonnes ; uiBoucleColonne > uiNumColonne ; uiBoucleColonne--)
 				for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
@@ -332,22 +344,25 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 	try	{
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
+		// Si la valeur fournie en paramètre n'est pas comprise dans les dimensions de la matrice
 		if (uiNumLigne > uiMATNbLignes + 1)
 			throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 
 		uiMATNbLignes++;
 
-		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes); // Allocation des lignes
+		// Réallocation des lignes
+		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes);
 	
 		if (ppqMATMatrice == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de la reallocation");
 
+		// Allocation des colonnes
 		ppqMATMatrice[uiMATNbLignes - 1] = (Type*) malloc(sizeof(Type) * uiMATNbColonnes);
 		
 		if (ppqMATMatrice[uiMATNbLignes - 1] == nullptr)
 			throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-
+		// Changement de position des valeurs de la matrice
 		if (uiNumLigne < uiMATNbLignes)
 			for(uiBoucleLigne = uiMATNbLignes ; uiBoucleLigne > uiNumLigne ; uiBoucleLigne--)
 				for(uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
@@ -370,10 +385,12 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 
 		MATVerifierPortee(uiMATNbLignes, uiNumColonne);
 
+		// Changement de position des valeurs de la matrice
 		for(uiBoucleColonne = uiNumColonne ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 			for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 				ppqMATMatrice[uiBoucleLigne][uiBoucleColonne - 1] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
+		// Réallocation des colonnes
 		for(uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
 			ppqMATMatrice[uiBoucleLigne] =  (Type*) realloc(ppqMATMatrice[uiBoucleLigne], sizeof(Type) * (uiMATNbColonnes - 1));
 			
@@ -399,14 +416,16 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 
 		MATVerifierPortee(uiNumLigne, uiMATNbColonnes);
 
+		// Changement de position des valeurs de la matrice
 		for(uiBoucleLigne = uiNumLigne; uiBoucleLigne < uiMATNbLignes; uiBoucleLigne++)
-				for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
+			for(uiBoucleColonne = 0; uiBoucleColonne < uiMATNbColonnes; uiBoucleColonne++)
 				ppqMATMatrice[uiBoucleLigne - 1][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
 		uiMATNbLignes--;
 
 		delete ppqMATMatrice[uiMATNbLignes];
 
+		// Réallocation des lignes
 		ppqMATMatrice = (Type**) realloc(ppqMATMatrice, sizeof(Type*) * uiMATNbLignes);
 	
 		if (ppqMATMatrice == nullptr)
@@ -422,6 +441,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 template <class Type>
 void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
+	// Si les paramètres founies sont supérieurs à la dimension de la matrice
 	if (uiMATNbLignes < uiNumLigne || uiNumLigne == 0 || uiMATNbColonnes < uiNumColonne || uiNumColonne == 0)
 		throw CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 }
@@ -429,7 +449,9 @@ void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiN
 
 template <class Type>
 void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes)
+
 {
+	// Si les matrices ont la même dimension
 	if (uiMATNbLignes != uiNbLignes || uiMATNbColonnes != uiNbColonnes)
 		throw CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 }
@@ -446,6 +468,7 @@ CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
+		// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] + MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
@@ -470,6 +493,7 @@ CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
+		// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] - MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
@@ -491,6 +515,7 @@ CMatrice<Type> CMatrice<Type>::operator*(Type & qMATparam)
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
+		// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * qMATparam;
@@ -516,6 +541,7 @@ CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
 
+		// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++) {
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < MATMatrice.uiMATNbColonnes ; uiBoucleColonne++) {
 				for (uiBoucleResult = 0 ; uiBoucleResult < uiMATNbColonnes ; uiBoucleResult++) {
@@ -544,6 +570,7 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 
 		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
+		// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
 		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] / qMATparam;
@@ -557,24 +584,29 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 }
 
 
+// Pré-condition : La libération des pointeurs avant l'affectation est à la charge de l'utilisateur
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {
-	// Prendre en compte que si c'est un objet, il faut vider la matrice avant pour liberer la mémoire
 	unsigned int uiBoucleLigne, uiBoucleColonne;
 
+	// Si la matrice de destination n'a pas assez de ligne
 	if (uiMATNbLignes < MATMatrice.uiMATNbLignes)
 		MATAjouterLignesFin(MATMatrice.uiMATNbLignes - uiMATNbLignes);
-		
+	
+	// Si la matrice de destination a trop de ligne
 	else if (uiMATNbLignes > MATMatrice.uiMATNbLignes)
 		MATSupprimerLigneFin(uiMATNbLignes - MATMatrice.uiMATNbLignes);
 	
+	// Si la matrice de destination n'a pas assez de colonne
 	if (uiMATNbColonnes < MATMatrice.uiMATNbColonnes)
 		MATAjouterColonnesFin(MATMatrice.uiMATNbColonnes - uiMATNbColonnes);
 
+	// Si la matrice de destination a trop de colonne
 	else if (uiMATNbColonnes > MATMatrice.uiMATNbColonnes)
 		MATSupprimerColonneFin(uiMATNbColonnes - MATMatrice.uiMATNbColonnes);
 	
+	// Affectation des nouvelles valeurs dans la nouvelle matrice
 	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
 		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
 			ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
@@ -587,10 +619,12 @@ template <class Type>
 bool CMatrice<Type>::operator!=(CMatrice<Type> & MATMatrice)
 {
 	unsigned int uiNbLignes, uiNbColonnes;
-
+	
+	// Si le nombre de lignes et de colonnes des deux matrices sont différents
 	if (uiMATNbLignes != MATMatrice.uiMATNbLignes || uiMATNbColonnes != MATMatrice.uiMATNbColonnes)
 		return true;
 
+	// Test l'égalité des valeurs
 	for (uiNbLignes = 0 ; uiNbLignes < uiMATNbLignes ; uiNbLignes++)
 		for (uiNbColonnes = 0 ; uiNbColonnes < uiMATNbColonnes ; uiNbColonnes++) {
 			if (ppqMATMatrice[uiNbLignes][uiNbColonnes] != MATMatrice.ppqMATMatrice[uiNbLignes][uiNbColonnes])
@@ -603,5 +637,6 @@ bool CMatrice<Type>::operator!=(CMatrice<Type> & MATMatrice)
 template <class Type>
 CMatrice<Type> operator*(Type qMATparam, CMatrice<Type> & MATMatrice)
 {
+	// Appel de l'opérateur de surcharge * présent de la classe CMatrice
 	return MATMatrice * qMATparam;
 }

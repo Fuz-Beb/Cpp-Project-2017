@@ -12,6 +12,9 @@ CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 {
 	uiEXCCode = uiCodeErreur;
 	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
+		if (psEXCMessage == nullptr)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
 	strcpy_s(psEXCMessage, strlen(psMessageErreur) + 1, psMessageErreur);
 }
 
