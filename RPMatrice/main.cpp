@@ -9,6 +9,12 @@
 
 void main(unsigned int argc, char *argv[])
 {
+	// Execption si l'utilisateur n'a pas renseigné de nom de fichier
+	if (argc < 2) {
+		cout << "Aucun fichier trouve en parametre\n";
+		exit(-1);
+	}
+
 	// Déclarations des variables
 	unsigned int uiBoucleTableau = 0;
 	double eValeurC = 0;
