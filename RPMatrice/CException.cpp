@@ -11,11 +11,13 @@ CException::CException()
 CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 {
 	uiEXCCode = uiCodeErreur;
+
 	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
-		if (psEXCMessage == nullptr)
+	
+	if (psEXCMessage == nullptr)
 		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-	strcpy_s(psEXCMessage, strlen(psMessageErreur) + 1, psMessageErreur);
+	strncpy(psEXCMessage, psMessageErreur, strlen(psMessageErreur) + 1);
 }
 
 
@@ -38,9 +40,9 @@ void CException::EXCEcritureCode(unsigned int uiCodeErreur)
 }
 
 
-char * CException::EXCLectureMessage()
+void CException::EXCLectureMessage()
 {
-	return psEXCMessage;
+	std::cout << psEXCMessage;
 }
 
 
@@ -49,6 +51,6 @@ void CException::EXCEcritureMessage(char * psMessage)
 	if (psEXCMessage == nullptr)
 		delete psEXCMessage;
 
-	psEXCMessage = new char[strlen(psMessage) + 1];
-	strcpy_s(psEXCMessage, strlen(psMessage) + 1, psMessage);
+	psEXCMessage = (char *) malloc(sizeof(char) * strlen(psMessage) + 1);
+	strncpy(psEXCMessage, psMessage, strlen(psMessage) + 1);
 }

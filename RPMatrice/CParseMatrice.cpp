@@ -127,11 +127,12 @@ void CParseMatrice::PAMVerifierType()
 
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
-	// Initialisation des buffers
+	// Initialisation du buffer ligne par ligne
 	char * sBuffer = nullptr, * sChaineBuffer = nullptr, * sBufferDoubleTemp = nullptr, * sBufferDouble = nullptr;
 
-	// Initialisation des Variables d'indice de boucles
+	// Initialisation Variables d'indice de boucles
 	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
+	
 
 	// Mise en place de l'ouverture du fichier
 
@@ -156,7 +157,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
 
 	delete(sBuffer);
-	
+
 	// Création d'une CMatrice selon sa taille lu
 	matPAMMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
 		
