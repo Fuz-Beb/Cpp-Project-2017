@@ -28,14 +28,14 @@ void CParseMatrice::PAMAssignerNbLignes()
 	sBuffer = CParse::PARLireLigne();
 
 	// Verification du préfixe avant le =
-	sRetour = PARSubString(sBuffer, 0, 8);
+	sRetour = PARSubString(sBuffer, 0, 9);
 
-	if(strcmp(sRetour, "nblignes") == 1) {
+	if(strcmp(sRetour, "nblignes=") == 1) {
 		delete(sBuffer);
 		delete(sRetour);
 
-			CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes==");
-			throw *CEXObject;
+		CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes=");
+		throw *CEXObject;
 	}
 
 	delete(sRetour);
@@ -46,8 +46,8 @@ void CParseMatrice::PAMAssignerNbLignes()
 	if(sRetour == NULL) {
 		delete(sBuffer);
 
-			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
-			throw *CEXObject;
+		CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+		throw *CEXObject;
 	}
 
 	uiPAMNbLignes = atoi(sRetour);
@@ -80,9 +80,9 @@ void CParseMatrice::PAMAssignerNbColonnes()
 	sBuffer = CParse::PARLireLigne();
 
 	// Verification du préfixe nbcolonnes
-	sRetour = PARSubString(sBuffer, 0, 12);
+	sRetour = PARSubString(sBuffer, 0, 11);
 
-	if(strcmp(sRetour, "nbcolonnes") == 1) {
+	if(strcmp(sRetour, "nbcolonnes=") == 1) {
 		delete(sBuffer);
 		delete(sRetour);
 

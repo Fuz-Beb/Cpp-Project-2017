@@ -1,8 +1,8 @@
 typematrice=double
-NBLignes =3
-NBColonnes=3
+NBLignes=3
+NBColonnes=4
 Matrice=[
--18 48 5
--18 48 5
--18 48 5
+-18 48 5 1
+-18 48 5 1
+-18 48 5 1
 ]

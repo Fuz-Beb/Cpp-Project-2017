@@ -34,8 +34,8 @@ void main(unsigned int argc, char *argv[])
 			CMAMesMatrices[uiBoucleTableau] = CPAMonParseur[uiBoucleTableau]->PAMRetournerMatrice();
 		}
 
-	
 		// Demande de saisie utilisateur
+		printf("Merci de renseigner la constante : ");
 		cin >> eValeurC;
 		while (!bCorrectValue)
 		{
