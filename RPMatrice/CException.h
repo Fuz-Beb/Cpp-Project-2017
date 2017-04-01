@@ -86,7 +86,7 @@ public:
 	Sortie : néant
 	Entraine : affiche le message d'erreur
 	*****************************/
-	void EXCLectureMessage();
+	char * EXCLectureMessage();
 
 	/*****************************
 	Methode : Modification du message d'erreur

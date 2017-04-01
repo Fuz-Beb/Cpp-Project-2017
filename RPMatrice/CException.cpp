@@ -19,8 +19,6 @@ CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 	}
 
 	strncpy(psEXCMessage, psMessageErreur, strlen(psMessageErreur) + 1);
-
-	strcpy_s(psEXCMessage, strlen(psMessageErreur) + 1, psMessageErreur);
 }
 
 
