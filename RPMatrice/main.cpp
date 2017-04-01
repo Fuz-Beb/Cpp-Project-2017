@@ -3,6 +3,7 @@
 #include "CParseMatrice.h"
 #include "CParse.h"
 #include <iostream>
+#include <windows.h>
 #include <vld.h>
 
 
@@ -31,7 +32,7 @@ void main(unsigned int argc, char *argv[])
 	cin >> eValeurC;
 	while (!bCorrectValue)
 	{
-        if(cin.fail()) {
+       if(cin.fail()) {
             cout << "Ce n'est pas un nombre. Recommencez !" << endl;
 			cin.clear();
 			cin.ignore();

@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+// Utilisé en cas d'exception
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 #define DIMENSIONINEGALE 3
@@ -22,14 +23,77 @@ private:
 
 public:
 	// Constructeurs et destructeur
+
+	/*****************************
+	Constructeur par défaut
+	******************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : néant
+	Entraine : l'objet en cours est initialisé
+	*****************************/
 	explicit CException();
+
+	/*****************************
+	Constructeur à deux arguments
+	******************************
+	Entrée : unsigned int uiCodeErreur, char * psMessageErreur
+	Necessité : néant
+	Sortie : néant
+	Entraine : le paramètre est recopié et ainsi l'objet en cours est initialisé
+	*****************************/
 	explicit CException(unsigned int uiCodeErreur, char * psMessageErreur);
+
+	/*****************************
+	Destructeur par défaut
+	******************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : néant
+	Entraine : l'objet en cours est détruit
+	*****************************/
 	~CException();
 
 	// Accesseurs
+
+	/*****************************
+	Methode : Lecture du code d'erreur
+	*****************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : unsigned int
+	Entraine : retourne le code d'erreur
+	*****************************/
 	unsigned int EXCLectureCode();
+
+	/*****************************
+	Methode : Modification du code d'erreur
+	******************************
+	Entrée : unsigned int uiCodeErreur
+	Necessité : néant
+	Sortie : néant
+	Entraine : modification du code d'erreur
+	*****************************/
 	void EXCEcritureCode(unsigned int uiCodeErreur);
+
+	/*****************************
+	Methode : Lecture du message d'erreur
+	******************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : char *
+	Entraine : retourne le message d'erreur
+	*****************************/
 	char * EXCLectureMessage();
+
+	/*****************************
+	Methode : Modification du message d'erreur
+	******************************
+	Entrée : char * psMessage
+	Necessité : néant
+	Sortie : néant
+	Entraine : modification du message d'erreur
+	*****************************/
 	void EXCEcritureMessage(char * psMessage);
 };
 #endif
