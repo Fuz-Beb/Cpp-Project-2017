@@ -1,7 +1,9 @@
 #ifndef C_EXCEPTION_H
 #define C_EXCEPTION_H
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
+
 
 // Utilisé en cas d'exception
 #define ECHECALLOCATION 1

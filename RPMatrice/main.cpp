@@ -11,8 +11,10 @@ void main(unsigned int argc, char *argv[])
 {
 	try {
 		// Exeception si l'utilisateur n'a pas renseigné de nom de fichier
-		if (argc < 2) 
-			throw CException(ECHECOUVERTUREFICHIER, "Echec d'ouverture du fichier");
+		if (argc < 2) {
+			CException * CEXObject = new CException(ECHECOUVERTUREFICHIER, "Aucun nom de fichier n'a ete fourni en parametre");
+			throw *CEXObject;
+		} 
 
 		// Déclarations des variables
 		unsigned int uiBoucleTableau = 0;
@@ -114,8 +116,8 @@ void main(unsigned int argc, char *argv[])
 		delete CPAMonParseur;
 		delete CMAMesMatrices;
 
-		} catch (CException & EXCObjet) {
+	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::terminate();
+		std::exit(EXIT_FAILURE);
 	}
 }

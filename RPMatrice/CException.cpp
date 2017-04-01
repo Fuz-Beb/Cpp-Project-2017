@@ -11,11 +11,17 @@ CException::CException()
 CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 {
 	uiEXCCode = uiCodeErreur;
-	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
-		if (psEXCMessage == nullptr)
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
-	strcpy_s(psEXCMessage, strlen(psMessageErreur) + 1, psMessageErreur);
+	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
+	if (psEXCMessage == nullptr) {
+		CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+		throw *CEXObject;
+	}
+
+	strncpy(psEXCMessage, psMessageErreur, strlen(psMessageErreur) + 1);
+
+	printf("MON MESSAGE : %s \n", psEXCMessage);
+	printf("MON CODE : %ld \n", uiEXCCode);
 }
 
 
@@ -49,6 +55,6 @@ void CException::EXCEcritureMessage(char * psMessage)
 	if (psEXCMessage == nullptr)
 		delete psEXCMessage;
 
-	psEXCMessage = new char[strlen(psMessage) + 1];
-	strcpy_s(psEXCMessage, strlen(psMessage) + 1, psMessage);
+	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessage) + 1);
+	strncpy(psEXCMessage, psMessage, strlen(psMessage) + 1);
 }

@@ -32,26 +32,40 @@ char * CParse::PARLireChemin()
 
 void CParse::PARModifierChemin(char * psParam)
 {
-	unsigned int uiTaille = strlen(psParam);
+	try {
+		unsigned int uiTaille = strlen(psParam);
 
-	if(psPARChemin != NULL)
-		delete(psPARChemin);
+		if(psPARChemin != NULL)
+			delete(psPARChemin);
 
-	psPARChemin = (char*) calloc(uiTaille + 1, sizeof(char));
+		psPARChemin = (char*) calloc(uiTaille + 1, sizeof(char));
 
-	if(psPARChemin == NULL)
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		if(psPARChemin == NULL) {
+			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+			throw *CEXObject;
+		}
 
-	strncpy(psPARChemin, psParam, uiTaille);
+		strncpy(psPARChemin, psParam, uiTaille);
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
 
 void CParse::PAROuvrirFichier(char * psParam)
 {
-	pPARFichier = fopen(psParam, "r");
+	try {
+		pPARFichier = fopen(psParam, "r");
 
-	if(pPARFichier == nullptr)
-		throw CException(ECHECOUVERTUREFICHIER, "Echec d'ouverture du fichier");
+		if(pPARFichier == nullptr) {
+			CException * CEXObject = new CException(ECHECOUVERTUREFICHIER, "Echec d'ouverture du fichier");
+			throw *CEXObject;
+		}
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
 
@@ -64,72 +78,96 @@ void CParse::PARFermerFicher()
 
 char * CParse::PARLireLigne()
 {
-	// Position de départ
-	unsigned int uiCurseurInitial = ftell(pPARFichier);
-	unsigned int uiSizeMaxBuffer = 0;
+	try {
+		// Position de départ
+		unsigned int uiCurseurInitial = ftell(pPARFichier);
+		unsigned int uiSizeMaxBuffer = 0;
 
-	// Mise du curseur à la fin du fichier pour le calcul de la taille de la chaine
-	fseek(pPARFichier, 0, SEEK_END);
+		// Mise du curseur à la fin du fichier pour le calcul de la taille de la chaine
+		fseek(pPARFichier, 0, SEEK_END);
 
-	// Récupération de la taille maximum du buffer
-	uiSizeMaxBuffer = ftell(pPARFichier) - uiCurseurInitial + 1;
+		// Récupération de la taille maximum du buffer
+		uiSizeMaxBuffer = ftell(pPARFichier) - uiCurseurInitial + 1;
 	
-	// Allocation de la chaine avec la "bonne taille"
-	char * psBuffer = (char*) malloc (sizeof(char) * uiSizeMaxBuffer);
-	if(psBuffer == NULL)
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+		// Allocation de la chaine avec la "bonne taille"
+		char * psBuffer = (char*) malloc (sizeof(char) * uiSizeMaxBuffer);
+		if(psBuffer == NULL) {
+			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+			throw *CEXObject;
+		}
 
-	fseek(pPARFichier, uiCurseurInitial, SEEK_SET);
+		fseek(pPARFichier, uiCurseurInitial, SEEK_SET);
 
-	// Récupération de la ligne
-	psBuffer = fgets(psBuffer, uiSizeMaxBuffer, pPARFichier);
+		// Récupération de la ligne
+		psBuffer = fgets(psBuffer, uiSizeMaxBuffer, pPARFichier);
 	
-	if (psBuffer == nullptr)
-		throw CException(ECHECLECTURELIGNEFICHIER, "Erreur lors de la lecture d'une ligne du fichier");
+		if (psBuffer == nullptr) {
+			CException * CEXObject = new CException(ECHECLECTURELIGNEFICHIER, "Erreur lors de la lecture d'une ligne du fichier");
+			throw *CEXObject;
+		}
 
-	// Mise à l'échelle de la chaine retournée
-	psBuffer = (char*) realloc(psBuffer, sizeof(char) * (strlen(psBuffer) + 1));
-	if (psBuffer == nullptr)
-		throw CException(ECHECALLOCATION, "Echec de la reallocation");
+		// Mise à l'échelle de la chaine retournée
+		psBuffer = (char*) realloc(psBuffer, sizeof(char) * (strlen(psBuffer) + 1));
+		if (psBuffer == nullptr) {
+			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+			throw *CEXObject;
+		}
 
-	return psBuffer;
+		return psBuffer;
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
 
 char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille)
 {
-	char * psRetour = (char *) malloc(sizeof(char) * uiTaille + 1);
-	if(psRetour == NULL)
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	try {
+		char * psRetour = (char *) malloc(sizeof(char) * uiTaille + 1);
+		if(psRetour == NULL) {
+			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+			throw *CEXObject;
+		}
 
-	memcpy(psRetour, &psParam[uiDebut], uiTaille);
-	psRetour[uiTaille] = '\0';
+		memcpy(psRetour, &psParam[uiDebut], uiTaille);
+		psRetour[uiTaille] = '\0';
 
-	PARConvertirStrMinusc(psRetour);
+		PARConvertirStrMinusc(psRetour);
 
-	return psRetour;
+		return psRetour;
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
 
 char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2) 
 {
-    size_t lengthStr1 = strlen(psStr1);
-    size_t lengthStr2 = strlen(psStr2);
-    char * psConcatenate = (char*)malloc(strlen(psStr1) + strlen(psStr2) + 1);
+	try {
+		size_t lengthStr1 = strlen(psStr1);
+		size_t lengthStr2 = strlen(psStr2);
+		char * psConcatenate = (char*)malloc(strlen(psStr1) + strlen(psStr2) + 1);
 
-    if (psConcatenate != NULL)
-    {
-		strncpy(psConcatenate, psStr1, lengthStr1);
-		strncpy(psConcatenate + lengthStr1, psStr2, lengthStr2);
-    }
+		if (psConcatenate != NULL)
+		{
+			strncpy(psConcatenate, psStr1, lengthStr1);
+			strncpy(psConcatenate + lengthStr1, psStr2, lengthStr2);
+		}
 
-    else
-	{
-		delete(psConcatenate);
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
-    }
+		else
+		{
+			delete(psConcatenate);
+			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+			throw *CEXObject;
+		}
 
-    return psConcatenate;
+		return psConcatenate;
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
 
