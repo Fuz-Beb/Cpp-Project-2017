@@ -1,5 +1,5 @@
 typematrice=double
-NBLignes=3
+NBLignes =3
 NBColonnes=3
 Matrice=[
 -18 48 5

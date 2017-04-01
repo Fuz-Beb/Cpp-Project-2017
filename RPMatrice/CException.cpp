@@ -20,8 +20,7 @@ CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 
 	strncpy(psEXCMessage, psMessageErreur, strlen(psMessageErreur) + 1);
 
-	printf("MON MESSAGE : %s \n", psEXCMessage);
-	printf("MON CODE : %ld \n", uiEXCCode);
+	strcpy_s(psEXCMessage, strlen(psMessageErreur) + 1, psMessageErreur);
 }
 
 
