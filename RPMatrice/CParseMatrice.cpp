@@ -37,6 +37,7 @@ void CParseMatrice::PAMAssignerNbLignes()
 
 	delete(sRetour);
 
+	// Vérification de la valeur et conversion string vers int
 	sRetour = PARSubString(sBuffer, 9, strlen(sBuffer) - 9);
 
 	if(sRetour == NULL) {
@@ -67,10 +68,10 @@ void CParseMatrice::PAMAssignerNbColonnes()
 	
 	sBuffer = CParse::PARLireLigne();
 
-	// Verification du préfixe avant le =
-	sRetour = PARSubString(sBuffer, 1, 11);
+	// Verification du préfixe nbcolonnes
+	sRetour = PARSubString(sBuffer, 0, 12);
 
-	if(strcmp(sRetour, "nbcolonnes=") == 1) {
+	if(strcmp(sRetour, "nbcolonnes") == 1) {
 		delete(sBuffer);
 		delete(sRetour);
 		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBColonnes=");
@@ -78,6 +79,7 @@ void CParseMatrice::PAMAssignerNbColonnes()
 
 	delete(sRetour);
 
+	// Vérification de la valeur et conversion string vers int
 	sRetour = PARSubString(sBuffer, 11, strlen(sBuffer) - 11);
 
 	if(sRetour == NULL) {
@@ -103,7 +105,7 @@ void CParseMatrice::PAMVerifierType()
 
 	sBuffer = CParse::PARLireLigne();
 
-	// Verification du préfixe avant le =
+	// Verification du préfixe typematrice
 	sRetour = PARSubString(sBuffer, 0, 11);
 
 	if(strcmp(sRetour, "typematrice") != 0) {
@@ -113,9 +115,12 @@ void CParseMatrice::PAMVerifierType()
 	}
 
 	delete(sRetour);
+
+	// Extraction et allocation sur le tas 
 	sRetour = PARSubString(sBuffer, 12, 6);
 	delete(sBuffer);
 
+	// Vérifier que le fichier lu est bien une matrice double
 	if(strcmp(sRetour, "double") != 0) {
 		delete(sRetour);
 		throw CException(MAUVAISTYPE, "La matrice lue n'est pas de type double");
