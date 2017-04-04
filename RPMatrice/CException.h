@@ -97,5 +97,16 @@ public:
 	Entraine : modification du message d'erreur
 	*****************************/
 	void EXCEcritureMessage(char * psMessage);
+
+	/*****************************
+	Methode : Suppression du message d'erreur
+	******************************
+	Entrée : CException EXCObjet
+	Necessité : néant
+	Sortie : néant
+	Entraine : Suppression du message d'erreur
+	*****************************/
+	void EXCDeleteMessage(CException EXCObjet);
+
 };
 #endif
