@@ -48,7 +48,7 @@ void CParse::PARModifierChemin(char * psParam)
 		strncpy(psPARChemin, psParam, uiTaille);
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -64,7 +64,7 @@ void CParse::PAROuvrirFichier(char * psParam)
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -116,7 +116,7 @@ char * CParse::PARLireLigne()
 		return psBuffer;
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return nullptr;
 	}
 }
 
@@ -138,7 +138,7 @@ char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int u
 		return psRetour;
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return nullptr;
 	}
 }
 
@@ -166,7 +166,7 @@ char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2)
 		return psConcatenate;
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return nullptr;
 	}
 }
 
