@@ -1,19 +1,20 @@
 #ifndef C_EXCEPTION_H
 #define C_EXCEPTION_H
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 
+
+// Utilisé en cas d'exception
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 #define DIMENSIONINEGALE 3
-#define ACTIONHORSPORTEE 4
-#define FORMATFICHIERINCORRECTE 5
-#define MAUVAISTYPE 6
-#define ERREURTAILLE 7
-#define DIVISIONPARZERO 8
-#define ECHECOUVERTUREFICHIER 9
-#define ECHECLECTURELIGNEFICHIER 10
-#define UNITEST 11
+#define FORMATFICHIERINCORRECTE 4
+#define MAUVAISTYPE 5
+#define ERREURTAILLE 6
+#define DIVISIONPARZERO 7
+#define ECHECOUVERTUREFICHIER 8
+#define ECHECLECTURELIGNEFICHIER 9
 
 class CException
 {
@@ -23,15 +24,89 @@ private:
 	char * psEXCMessage;
 
 public:
-	// Constructeur et destructeur
-	CException();
-	CException(unsigned int uiCodeErreur, char * psMessageErreur);
+	// Constructeurs et destructeur
+
+	/*****************************
+	Constructeur par défaut
+	******************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : néant
+	Entraine : l'objet en cours est initialisé
+	*****************************/
+	explicit CException();
+
+	/*****************************
+	Constructeur à deux arguments
+	******************************
+	Entrée : unsigned int uiCodeErreur, char * psMessageErreur
+	Necessité : néant
+	Sortie : néant
+	Entraine : le paramètre est recopié et ainsi l'objet en cours est initialisé
+	*****************************/
+	explicit CException(unsigned int uiCodeErreur, char * psMessageErreur);
+
+	/*****************************
+	Destructeur par défaut
+	******************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : néant
+	Entraine : l'objet en cours est détruit
+	*****************************/
 	~CException();
 
 	// Accesseurs
+
+	/*****************************
+	Methode : Lecture du code d'erreur
+	*****************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : unsigned int
+	Entraine : retourne le code d'erreur
+	*****************************/
 	unsigned int EXCLectureCode();
+
+	/*****************************
+	Methode : Modification du code d'erreur
+	******************************
+	Entrée : unsigned int uiCodeErreur
+	Necessité : néant
+	Sortie : néant
+	Entraine : modification du code d'erreur
+	*****************************/
 	void EXCEcritureCode(unsigned int uiCodeErreur);
+
+	/*****************************
+	Methode : Lecture du message d'erreur
+	******************************
+	Entrée : néant
+	Necessité : néant
+	Sortie : néant
+	Entraine : affiche le message d'erreur
+	*****************************/
 	char * EXCLectureMessage();
+
+	/*****************************
+	Methode : Modification du message d'erreur
+	******************************
+	Entrée : char * psMessage
+	Necessité : néant
+	Sortie : néant
+	Entraine : modification du message d'erreur
+	*****************************/
 	void EXCEcritureMessage(char * psMessage);
+
+	/*****************************
+	Methode : Suppression du message d'erreur
+	******************************
+	Entrée : CException EXCObjet
+	Necessité : néant
+	Sortie : néant
+	Entraine : Suppression du message d'erreur
+	*****************************/
+	void EXCDeleteMessage(CException EXCObjet);
+
 };
 #endif

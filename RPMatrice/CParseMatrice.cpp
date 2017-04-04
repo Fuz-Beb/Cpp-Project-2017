@@ -1,77 +1,53 @@
 #include "CParseMatrice.h"
 
 
-/*****************************
-Constructeur par défaut
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : l'objet en cours est initialisé
-*****************************/
 CParseMatrice::CParseMatrice()
 {
 	matPAMMatrice = CMatrice<double>();
 }
 
-/*****************************
-Methode : Retourner Matrice
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : Retourne un pointeur sur l'attribut de matPAMMatrice
-Entraine : Création d'un objet/pointeur en appellant le constructeur de recopie de CMatrice
-*****************************/
+
 CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
 	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(matPAMMatrice);
-
 	return pMatriceRetourner;
 }
 
-/*****************************
-Methode : Lire Nombre Lignes
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : unsigned int
-Entraine : Retourne le nombre de lignes précédemment lu
-*****************************/
+
 unsigned int CParseMatrice::PAMLireNbLignes()
 {
 	return uiPAMNbLignes;
 }
 
-/*****************************
-Methode : Assigner Nombre Lignes
-******************************
-Entrée : néant
-Necessité : Méthode Traiter fichier / Ouvrir fichier
-Sortie : néant
-Entraine : Assigner le nombre de colonnes lu
-*****************************/
+
 void CParseMatrice::PAMAssignerNbLignes()
 {
+	try {
 	char * sBuffer = nullptr, * sRetour = nullptr;
 
 	sBuffer = CParse::PARLireLigne();
 
 	// Verification du préfixe avant le =
-	sRetour = PARSubString(sBuffer, 0, 8);
+	sRetour = PARSubString(sBuffer, 0, 9);
 
-	if(strcmp(sRetour, "nblignes") == 1) {
+	if(strcmp(sRetour, "nblignes=") == 1) {
 		delete(sBuffer);
 		delete(sRetour);
-		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes==");
+
+		CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBLignes=");
+		throw *CEXObject;
 	}
 
 	delete(sRetour);
 
+	// Vérification de la valeur et conversion string vers int
 	sRetour = PARSubString(sBuffer, 9, strlen(sBuffer) - 9);
 
 	if(sRetour == NULL) {
 		delete(sBuffer);
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+		CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+		throw *CEXObject;
 	}
 
 	uiPAMNbLignes = atoi(sRetour);
@@ -79,54 +55,50 @@ void CParseMatrice::PAMAssignerNbLignes()
 	delete(sBuffer);
 	delete(sRetour);
 
-	if(uiPAMNbLignes < 1)
-		throw CException(ERREURTAILLE, "Erreur de la taille");
-
+		if(uiPAMNbLignes < 1) {
+			CException * CEXObject = new CException(ERREURTAILLE, "Erreur de la taille");
+			throw *CEXObject;
+}
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
-/*****************************
-Methode : Lire Nombre Colonnes
-******************************
-Entrée : néant
-Necessité : néant
-Sortie : unsigned int
-Entraine : Retourne le nombre de colonnes qui a été précédemment lu
-*****************************/
+
 unsigned int CParseMatrice::PAMLireNbColonnes()
 {
 	return uiPAMNbColonnes;
 }
 
-/*****************************
-Methode : Assigner nombre colonnes
-******************************
-Entrée : néant
-Necessité : Méthode Traiter fichier / Ouvrir fichier
-Sortie : néant
-Entraine : Assigner le nombre de colonne lu
-*****************************/
+
 void CParseMatrice::PAMAssignerNbColonnes()
 {
+	try {
 	char *sBuffer = nullptr, * sRetour = nullptr;
 	
 	sBuffer = CParse::PARLireLigne();
 
-	// Verification du préfixe avant le =
-	sRetour = PARSubString(sBuffer, 1, 11);
+	// Verification du préfixe nbcolonnes
+	sRetour = PARSubString(sBuffer, 0, 11);
 
 	if(strcmp(sRetour, "nbcolonnes=") == 1) {
 		delete(sBuffer);
 		delete(sRetour);
-		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBColonnes=");
+
+			CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de NBColonnes=");
+			throw *CEXObject;
 	}
 
 	delete(sRetour);
 
+	// Vérification de la valeur et conversion string vers int
 	sRetour = PARSubString(sBuffer, 11, strlen(sBuffer) - 11);
 
 	if(sRetour == NULL) {
 		delete(sBuffer);
-		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
+			throw *CEXObject;
 	}
 
 	uiPAMNbColonnes = atoi(sRetour);
@@ -134,61 +106,66 @@ void CParseMatrice::PAMAssignerNbColonnes()
 	delete(sBuffer);
 	delete(sRetour);
 
-	if(uiPAMNbColonnes < 1)
-		throw CException(ERREURTAILLE, "Erreur de la taille");
-	
-
+		if(uiPAMNbColonnes < 1){
+			CException * CEXObject = new CException(ERREURTAILLE, "Erreur de la taille");
+			throw *CEXObject;
+		}
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
 }
 
-/*****************************
-Methode : Vérifier le type
-******************************
-Entrée : néant
-Necessité : Méthode Traiter fichier / Ouvrir fichier
-Sortie : néant
-Entraine : La vérification du type double sur la lecture du fichier
-*****************************/
+
 void CParseMatrice::PAMVerifierType() 
 {
+	try {
 	char * sBuffer = nullptr, * sRetour = nullptr;
 
 	sBuffer = CParse::PARLireLigne();
 
-	// Verification du préfixe avant le =
+	// Verification du préfixe typematrice
 	sRetour = PARSubString(sBuffer, 0, 11);
 
-	if(strcmp(sRetour, "typematrice") == 1) {
+	if(strcmp(sRetour, "typematrice") != 0) {
 		delete(sBuffer);
 		delete(sRetour);
-		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de TypeMatrice=");
+	
+			CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de TypeMatrice=");
+			throw *CEXObject;
 	}
 
 	delete(sRetour);
 
+	// Extraction et allocation sur le tas 
 	sRetour = PARSubString(sBuffer, 12, 6);
-
 	delete(sBuffer);
 
+	// Vérifier que le fichier lu est bien une matrice double
 	if(strcmp(sRetour, "double") != 0) {
 		delete(sRetour);
-		throw CException(MAUVAISTYPE, "La matrice lue n'est pas de type double");
+
+			CException * CEXObject = new CException(MAUVAISTYPE, "La matrice lue n'est pas de type double");
+			throw *CEXObject;
 	}
 
 	delete(sRetour);
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		std::exit(EXIT_FAILURE);
+}
 }
 
-/*****************************
-Methode : Traiter fichier
-******************************
-Entrée : char * sChemin
-Necessité : néant
-Sortie : néant
-Entraine : La lecture du fichier et création de la matrice associée
-*****************************/
+
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
+	try {
 	// Initialisation du buffer ligne par ligne
-	char * sBuffer = nullptr, * sChaineBuffer = nullptr, * sBufferDoubleTemp = nullptr;
+	char * sBuffer = nullptr, * sChaineBuffer = nullptr, * sBufferDoubleTemp = nullptr, * sBufferDouble = nullptr;
+
+	// Initialisation Variables d'indice de boucles
+	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
+	
 
 	// Mise en place de l'ouverture du fichier
 	PARModifierChemin(sChemin);
@@ -206,21 +183,16 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	// Lire une ligne dans le vide (ligne inutile Matrice=[)
 	sBuffer = CParse::PARLireLigne();
 
-	PARConvertirMinusc(sBuffer);
+	PARConvertirStrMinusc(sBuffer);
 
-	if(strcmp(sBuffer, "matrice=[\n") == 1)
-		throw CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
+		if(strcmp(sBuffer, "matrice=[\n") == 1) {
+			delete sBuffer;
+			CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
+			throw *CEXObject;
+		}
 
 	delete(sBuffer);
 
-	// Boucles pour lire et créer une CMatrice
-
-	// Buffer d'un élément spécifique ex : ligne 1 colonne 1
-	char * sBufferDouble = nullptr;
-
-	// Variables d'indice de boucles
-	unsigned int uiMaxColonne = 0, uiBoucleBuffer = 0, uiIndiceLigne = 1, uiIndiceColonne = 1, uiBoucleBufferDouble = 0;
-	
 	// Création d'une CMatrice selon sa taille lu
 	matPAMMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
 		
@@ -232,8 +204,11 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		sBuffer = PARLireLigne(); // Remplissage du buffer par rapport à la ligne actuel
 
 		// Verification du fichier
-		if(strcmp(sBuffer, "]") == 0)
-			throw CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
+			if(strcmp(sBuffer, "]") == 0) {
+				PARFermerFicher();
+				CException * CEXObject = new CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
+				throw *CEXObject;
+			}
 
 		// Boucle TQ concernant le nombre de colonne à lire (gère les espaces en trop)
 		while(uiBoucleBuffer < uiMaxColonne) {
@@ -266,8 +241,10 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 				if(sBuffer[uiBoucleBuffer + 1] == ' ' || sBuffer[uiBoucleBuffer + 1] == '\0' || sBuffer[uiBoucleBuffer + 1] == '\n' || sBuffer[uiBoucleBuffer + 1] == '\t') {
 					
 					// Verification du fichier
-					if(sBuffer[0] == '\n')
-						throw CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
+						if(sBuffer[0] == '\n') {
+							CException * CEXObject = new CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
+							throw *CEXObject;
+						}
 					
 					matPAMMatrice.MATModifierElement(uiIndiceLigne, uiIndiceColonne, stof(sBufferDouble));
 
@@ -276,12 +253,10 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 					uiIndiceColonne++;
 				}
 
-
 				// Sinon on recommence une boucle pour aller concatener la dizaine, centaine...
 				else {
 					uiMaxColonne++;
 				}
-
 			}
 
 			// En cas d'espace en trop ex : 2    4 5 ; Je continue à parcourir en ignorant
@@ -305,4 +280,9 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 	// Fermer le fichier
 	PARFermerFicher();
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
+		std::exit(EXIT_FAILURE);
+	}
 }
