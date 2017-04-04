@@ -186,6 +186,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PARConvertirStrMinusc(sBuffer);
 
 		if(strcmp(sBuffer, "matrice=[\n") == 1) {
+			delete sBuffer;
 			CException * CEXObject = new CException(FORMATFICHIERINCORRECTE, "Lecture incorrect de Matrice=[");
 			throw *CEXObject;
 		}
@@ -204,6 +205,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 
 		// Verification du fichier
 			if(strcmp(sBuffer, "]") == 0) {
+				PARFermerFicher();
 				CException * CEXObject = new CException(ERREURTAILLE, "Il manque des lignes dans la matrice du fichier");
 				throw *CEXObject;
 			}
@@ -280,6 +282,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PARFermerFicher();
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }

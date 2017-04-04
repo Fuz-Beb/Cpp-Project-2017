@@ -117,7 +117,8 @@ void main(unsigned int argc, char *argv[])
 		delete CMAMesMatrices;
 
 		} catch (CException & EXCObjet) {
-		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+			std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+			EXCObjet.EXCDeleteMessage(EXCObjet);
+		return;
 	}
 }

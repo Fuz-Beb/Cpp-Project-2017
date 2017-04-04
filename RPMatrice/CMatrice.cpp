@@ -309,6 +309,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -352,6 +353,7 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -386,6 +388,7 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -419,6 +422,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -435,6 +439,7 @@ void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiN
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -451,6 +456,7 @@ void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int 
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -537,6 +543,7 @@ CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }
@@ -564,6 +571,7 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		std::exit(EXIT_FAILURE);
 	}
 }

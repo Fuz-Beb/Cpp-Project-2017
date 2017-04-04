@@ -55,3 +55,9 @@ void CException::EXCEcritureMessage(char * psMessage)
 	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessage) + 1);
 	strncpy(psEXCMessage, psMessage, strlen(psMessage) + 1);
 }
+
+void CException::EXCDeleteMessage(CException EXCObjet)
+{
+	if (EXCObjet.psEXCMessage == nullptr)
+		delete EXCObjet.psEXCMessage;
+}
