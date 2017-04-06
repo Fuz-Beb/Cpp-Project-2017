@@ -116,7 +116,7 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 		if (ppqMATMatrice[uiBoucle] == nullptr) {
 			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 			throw *CEXObject;
-	}
+		}
 	}
 
 	// Affectation des valeurs
