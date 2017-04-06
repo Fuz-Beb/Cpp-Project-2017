@@ -80,7 +80,7 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 		if (ppqMATMatrice[uiBoucle] == nullptr) {
 			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 			throw *CEXObject;
-	}
+		}
 	}
 
 	// Initalisation de la matrice avec la valeur 0
