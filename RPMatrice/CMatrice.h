@@ -283,7 +283,7 @@ public:
 	CMatrice<Type> operator-(CMatrice<Type> & MATMatrice);
 
 	/*****************************
-	Methode : Surcharge operateur / par constante
+	Methode : Surcharge operateur * par constante
 	******************************
 	Entrée : Type & MATMatrice
 	Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets

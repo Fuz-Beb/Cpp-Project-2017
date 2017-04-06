@@ -239,12 +239,12 @@ CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 	}
 
 /*****************************
-Methode : Lire l'élèment à l'endroit de la matrice
+Methode : Modifier l'élèment à l'endroit de la matrice
 ******************************
-Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement
 Necessité : néant
-Sortie : Type
-Entraine : retourne l'element à l'endroit de la matrice
+Sortie : néant
+Entraine : modification de l'élèment
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement)
@@ -389,12 +389,12 @@ void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 }
 
 /*****************************
-Methode : Ajouter une colonne à un endroit précis de la matrice
+Methode : Supprimer une/des ligne en bas de la matrice
 ******************************
-Entrée : unsigned int uiNumColonnes
-Necessité : néant
+Entrée : unsigned int uiNbLignes
+Necessité : Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 Sortie : néant
-Entraine : réallouer et ajout d'une colonne
+Entraine : réallouer selon suppression nb lignes
 *****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
@@ -694,10 +694,10 @@ CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 }
 
 /*****************************
-Methode : Surcharge operateur *
+Methode : Surcharge operateur * par constante
 ******************************
-Entrée : CMatrice<Type> & MATMatrice
-Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur * doit être présente dans la classe concernée
+Entrée : Type & MATMatrice
+Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 Sortie : CMatrice<Type>
 Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
@@ -717,10 +717,10 @@ CMatrice<Type> CMatrice<Type>::operator*(Type & qMATparam)
 }
 
 /*****************************
-Methode : Surcharge operateur / par constante
+Methode : Surcharge operateur *
 ******************************
-Entrée : Type & MATMatrice
-Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur * doit être présente dans la classe concernée
 Sortie : CMatrice<Type>
 Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 *****************************/
