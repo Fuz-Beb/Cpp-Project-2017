@@ -123,5 +123,7 @@ void main(unsigned int argc, char *argv[])
 
 		} catch (CException & EXCObjet) {
 			std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+			cout << "Appuyer sur une touche pour quitter le programme";
+			cin.get();
 	}
 }
