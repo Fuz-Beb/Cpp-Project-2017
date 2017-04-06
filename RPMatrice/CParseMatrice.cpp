@@ -91,7 +91,6 @@ void CParseMatrice::PAMAssignerNbLignes()
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
 
 	}
@@ -160,7 +159,6 @@ void CParseMatrice::PAMAssignerNbColonnes()
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -210,7 +208,6 @@ void CParseMatrice::PAMVerifierType()
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);	
 	}
 }
@@ -350,7 +347,6 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
 	}
 }

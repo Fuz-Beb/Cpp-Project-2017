@@ -1,7 +1,6 @@
 #include "CParse.h"
 #include "CException.h"
 
-
 /*****************************
 Constructeur par défaut
 ******************************

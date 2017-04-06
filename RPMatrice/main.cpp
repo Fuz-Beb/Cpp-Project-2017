@@ -123,6 +123,5 @@ void main(unsigned int argc, char *argv[])
 
 		} catch (CException & EXCObjet) {
 			std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-			EXCObjet.EXCDeleteMessage(EXCObjet);
 	}
 }

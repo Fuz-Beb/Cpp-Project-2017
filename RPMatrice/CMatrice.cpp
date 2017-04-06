@@ -254,7 +254,6 @@ void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int ui
 		ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1] = tElement;
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -275,7 +274,6 @@ template <class Type>
 		return ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1];
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return 0;
 	}
 }
@@ -383,7 +381,6 @@ void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -411,7 +408,6 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -456,7 +452,6 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -507,7 +502,6 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -547,7 +541,6 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -587,7 +580,6 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -655,7 +647,6 @@ CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 	
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return *this;
 	}
 }
@@ -687,7 +678,6 @@ CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return *this;
 	}
 }
@@ -749,7 +739,6 @@ CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return *this;
 	}
 }
@@ -784,7 +773,6 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return *this;
 	}
 }
