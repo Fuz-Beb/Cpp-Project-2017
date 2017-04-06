@@ -41,12 +41,12 @@ unsigned int CParseMatrice::PAMLireNbLignes()
 }
 
 /*****************************
-Methode : Lire Nombre Colonnes
+Methode : Assigner Nombre Lignes
 ******************************
 Entrée : néant
-Necessité : néant
-Sortie : unsigned int
-Entraine : Retourne le nombre de colonnes qui a été précédemment lu
+Necessité : Méthode Traiter fichier / Ouvrir fichier
+Sortie : néant
+Entraine : Assigner le nombre de colonnes lu
 *****************************/
 void CParseMatrice::PAMAssignerNbLignes()
 {
