@@ -89,6 +89,7 @@ void CParseMatrice::PAMAssignerNbLignes()
 }
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -154,6 +155,7 @@ void CParseMatrice::PAMAssignerNbColonnes()
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
@@ -201,6 +203,7 @@ void CParseMatrice::PAMVerifierType()
 	delete(sRetour);
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 }
 }
@@ -338,6 +341,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PARFermerFicher();
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		return;
 	}
 }
