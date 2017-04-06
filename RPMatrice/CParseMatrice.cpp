@@ -61,7 +61,9 @@ void CParseMatrice::PAMAssignerNbLignes()
 }
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		return;
+		cout << "Appuyer sur une touche pour quitter le programme";
+		cin.get();
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -112,7 +114,9 @@ void CParseMatrice::PAMAssignerNbColonnes()
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		return;
+		cout << "Appuyer sur une touche pour quitter le programme";
+		cin.get();
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -152,8 +156,10 @@ void CParseMatrice::PAMVerifierType()
 	delete(sRetour);
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		return;
-}
+		cout << "Appuyer sur une touche pour quitter le programme";
+		cin.get();
+		exit(EXIT_FAILURE);
+	}
 }
 
 
@@ -282,6 +288,8 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PARFermerFicher();
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		return;
+		cout << "Appuyer sur une touche pour quitter le programme";
+		cin.get();
+		exit(EXIT_FAILURE);
 	}
 }

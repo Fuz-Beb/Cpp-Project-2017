@@ -60,7 +60,7 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 		if (ppqMATMatrice[uiBoucle] == nullptr) {
 			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 			throw *CEXObject;
-	}
+		}
 	}
 
 	// Initalisation de la matrice avec la valeur 0
@@ -89,7 +89,7 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 		if (ppqMATMatrice[uiBoucle] == nullptr) {
 			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 			throw *CEXObject;
-	}
+		}
 	}
 
 	// Affectation des valeurs
@@ -146,28 +146,28 @@ CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 {
-		unsigned int uiBoucleLigne, uiBoucleColonne;
-		int iExposant;
+	unsigned int uiBoucleLigne, uiBoucleColonne;
+	int iExposant;
 
-		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
+	CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
-		// Dans le cas ou la puissance vaut 0
-		if (uiNombre == 0) {
-			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
-		} // Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
-		else {
-			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
-					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
-					for (iExposant = uiNombre ; iExposant > 1 ; iExposant--)
-						MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
-				}
-		}
-
-		return MATNewMatrice;
+	// Dans le cas ou la puissance vaut 0
+	if (uiNombre == 0) {
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
+	} // Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
+	else {
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				for (iExposant = uiNombre ; iExposant > 1 ; iExposant--)
+					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+			}
 	}
+
+	return MATNewMatrice;
+}
 
 
 template <class Type>

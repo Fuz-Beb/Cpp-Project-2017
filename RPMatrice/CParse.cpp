@@ -64,7 +64,9 @@ void CParse::PAROuvrirFichier(char * psParam)
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		return;
+		cout << "Appuyer sur une touche pour quitter le programme";
+		cin.get();
+		exit(EXIT_FAILURE);
 	}
 }
 
