@@ -445,7 +445,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 			if (ppqMATMatrice[uiBoucleLigne] == nullptr) {
 				CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 				throw *CEXObject;
-		}
+			}
 		}
 
 		// Changement de position des valeurs de la matrice
@@ -523,8 +523,7 @@ Entraine : réallouer et suppression d'une colonne
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
-	try	{
-
+	try {
 		unsigned int uiBoucleColonne = 0, uiBoucleLigne = 0;
 
 		MATVerifierPortee(uiMATNbLignes, uiNumColonne);
@@ -584,7 +583,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 		if (ppqMATMatrice == nullptr) {
 				CException * CEXObject = new CException(ECHECALLOCATION, "Echec de la reallocation");
 				throw *CEXObject;
-			}
+		}
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
