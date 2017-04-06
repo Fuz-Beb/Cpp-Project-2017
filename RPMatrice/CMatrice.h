@@ -28,11 +28,10 @@ public:
 	Destructeur par défaut
 	******************************
 	Entrée : néant
-	Necessité : néant
+	Necessité : Pré-condition : La libération des pointeurs avant la suppression de la matrice est à la charge de l'utilisateur
 	Sortie : néant
 	Entraine : l'objet est détruit
 	*****************************/
-	// Pré-condition : La libération des pointeurs avant la suppression de la matrice est à la charge de l'utilisateur
 	~CMatrice();
 
 	/*****************************
@@ -185,22 +184,20 @@ public:
 	Methode : Supprimer une/des colonnes à droite de la matrice
 	******************************
 	Entrée : unsigned int uiNbColonnes
-	Necessité : néant
+	Necessité : Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 	Sortie : néant
 	Entraine : réallouer selon suppression nb colonnes
 	*****************************/
-	// Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 	void MATSupprimerColonneFin(unsigned int uiNbColonnes);
 
 	/*****************************
 	Methode : Supprimer une/des ligne en bas de la matrice
 	******************************
 	Entrée : unsigned int uiNbLignes
-	Necessité : néant
+	Necessité : Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 	Sortie : néant
 	Entraine : réallouer selon suppression nb lignes
 	*****************************/
-	// Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 	void MATSupprimerLigneFin(unsigned int uiNbLignes);
 	
 	/*****************************
@@ -227,22 +224,20 @@ public:
 	Methode : Supprimer une colonne à un endroit précis de la matrice
 	******************************
 	Entrée : unsigned int uiNumColonnes
-	Necessité / Précondition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
+	Necessité : Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 	Sortie : néant
 	Entraine : réallouer et suppression d'une colonne
 	*****************************/
-	// Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
 	void MATSupprimerColonnePrecis(unsigned int uiNumColonne);
 
 	/*****************************
-	Methode : Supprimer unes ligne à un endroit précis de la matrice
+	Methode : Supprimer une ligne à un endroit précis de la matrice
 	******************************
 	Entrée : unsigned int uiNumLignes
-	Necessité / Précondition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
+	Necessité : Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 	Sortie : néant
 	Entraine : Réallocation et suppression d'une ligne
 	*****************************/
-	// Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 	void MATSupprimerLignePrecis(unsigned int uiNumLigne);
 
 	/*****************************
@@ -271,29 +266,27 @@ public:
 	Methode : Surcharge operateur +
 	******************************
 	Entrée : CMatrice<Type> & MATMatrice
-	Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur + pour une matrice contenant des objets
+	Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur + doit être présente dans la classe concernée
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
-	// Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur + doit être présente dans la classe concernée
 	CMatrice<Type> operator+(CMatrice<Type> & MATMatrice);
 
 	/*****************************
 	Methode : Surcharge operateur -
 	******************************
 	Entrée : CMatrice<Type> & MATMatrice
-	Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur - pour une matrice contenant des objets
+	Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur - doit être présente dans la classe concernée
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
-	// Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur - doit être présente dans la classe concernée
 	CMatrice<Type> operator-(CMatrice<Type> & MATMatrice);
 
 	/*****************************
 	Methode : Surcharge operateur / par constante
 	******************************
 	Entrée : Type & MATMatrice
-	Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
+	Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
@@ -303,18 +296,17 @@ public:
 	Methode : Surcharge operateur *
 	******************************
 	Entrée : CMatrice<Type> & MATMatrice
-	Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
+	Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur * doit être présente dans la classe concernée
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
-	// Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur * doit être présente dans la classe concernée
 	CMatrice<Type> operator*(CMatrice<Type> & MATMatrice);
 
 	/*****************************
 	Methode : Surcharge operateur / par constante
 	******************************
 	Entrée : Type & MATMatrice
-	Necessité / Précondition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
+	Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
@@ -324,11 +316,10 @@ public:
 	Methode : Surcharge operateur =
 	******************************
 	Entrée : CMatrice<Type> & MATMatrice
-	Necessité / Précondtion : La libération des pointeurs sur la matrice de destination est à la charge de l'utilisateur
+	Necessité : Pré-condition : La libération des pointeurs avant l'affectation est à la charge de l'utilisateur
 	Sortie : CMatrice<Type>
 	Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
 	*****************************/
-	// Pré-condition : La libération des pointeurs avant l'affectation est à la charge de l'utilisateur
 	CMatrice<Type> & operator=(CMatrice<Type> & MATMatrice);
 
 	/*****************************

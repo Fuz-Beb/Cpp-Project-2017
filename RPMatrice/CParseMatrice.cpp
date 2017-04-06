@@ -1,25 +1,53 @@
 #include "CParseMatrice.h"
 
-
+/*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 CParseMatrice::CParseMatrice()
 {
 	matPAMMatrice = CMatrice<double>();
 }
 
-
+/*****************************
+Methode : Retourner Matrice
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : Retourne un pointeur sur l'attribut de matPAMMatrice
+Entraine : Création d'un objet/pointeur en appellant le constructeur de recopie de CMatrice
+*****************************/
 CMatrice<double> * CParseMatrice::PAMRetournerMatrice()
 {
 	CMatrice<double> * pMatriceRetourner = new CMatrice<double>(matPAMMatrice);
 	return pMatriceRetourner;
 }
 
-
+/*****************************
+Methode : Lire Nombre Lignes
+*****************************
+Entrée : néant
+Necessité : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de lignes précédemment lu
+*****************************/
 unsigned int CParseMatrice::PAMLireNbLignes()
 {
 	return uiPAMNbLignes;
 }
 
-
+/*****************************
+Methode : Lire Nombre Colonnes
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de colonnes qui a été précédemment lu
+*****************************/
 void CParseMatrice::PAMAssignerNbLignes()
 {
 	try {
@@ -63,17 +91,33 @@ void CParseMatrice::PAMAssignerNbLignes()
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
+
 	}
 }
 
-
+/*****************************
+Methode : Lire Nombre Colonnes
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : unsigned int
+Entraine : Retourne le nombre de colonnes qui a été précédemment lu
+*****************************/
 unsigned int CParseMatrice::PAMLireNbColonnes()
 {
 	return uiPAMNbColonnes;
 }
 
-
+/*****************************
+Methode : Assigner nombre colonnes
+******************************
+Entrée : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
+Sortie : néant
+Entraine : Assigner le nombre de colonne lu
+*****************************/
 void CParseMatrice::PAMAssignerNbColonnes()
 {
 	try {
@@ -116,11 +160,21 @@ void CParseMatrice::PAMAssignerNbColonnes()
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
+		
+
 	}
 }
 
-
+/*****************************
+Methode : Vérifier le type
+******************************
+Entrée : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
+Sortie : néant
+Entraine : La vérification du type double sur la lecture du fichier
+*****************************/
 void CParseMatrice::PAMVerifierType() 
 {
 	try {
@@ -158,11 +212,20 @@ void CParseMatrice::PAMVerifierType()
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
-	}
+		
+}
 }
 
-
+/*****************************
+Methode : Traiter fichier
+******************************
+Entrée : char * sChemin
+Necessité : néant
+Sortie : néant
+Entraine : La lecture du fichier et création de la matrice associée
+*****************************/
 void CParseMatrice::PAMTraiterFichier(char * sChemin)
 {
 	try {
@@ -290,6 +353,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 		cout << "Appuyer sur une touche pour quitter le programme";
 		cin.get();
+		EXCObjet.EXCDeleteMessage(EXCObjet);
 		exit(EXIT_FAILURE);
 	}
 }
