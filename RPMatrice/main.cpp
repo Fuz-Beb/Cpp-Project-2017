@@ -34,8 +34,16 @@ void main(unsigned int argc, char *argv[])
 			uiSizeOfCMAMesMatrice++;
 		}
 
+		// Affichage des matrices
+		printf("---- Affichage des matrices ----\n\n");
+		for (uiBoucleTableau = 0 ; uiBoucleTableau < argc -1; uiBoucleTableau++) {
+			printf("Matrice numero %d \n", uiBoucleTableau+1);
+			CMAMesMatrices[uiBoucleTableau]->MATAfficherMatrice();
+			printf("\n");
+		}
+
 		// Demande de saisie utilisateur
-		printf("Merci de renseigner la constante : ");
+		printf("---- Merci de renseigner la constante ----\n ");
 		cin >> eValeurC;
 		while (!bCorrectValue)
 		{
@@ -50,29 +58,28 @@ void main(unsigned int argc, char *argv[])
 		}
 
 		// Multiplication et affichage du résultat
-		printf("Division des matrices \n\n");
+		printf("\n---- Division des matrices ----\n");
 		for (uiBoucleTableau = 0; uiBoucleTableau < argc - 1 ; uiBoucleTableau++)
 		{
-			printf("Matrice %d * %0.2f. Resultat = \n", uiBoucleTableau+1, eValeurC);
+			printf("\n\nMatrice %d * %0.2f \n", uiBoucleTableau+1, eValeurC);
 			CMAResultOperation = *CMAMesMatrices[uiBoucleTableau] * eValeurC;
 			CMAResultOperation.MATAfficherMatrice();
 		}
 
 
 		// Division et affichage du résultat
-		printf("Multiplication des matrices \n\n");
+		printf("\n---- Multiplication des matrices ----\n");
 		for (uiBoucleTableau = 0; uiBoucleTableau < argc - 1 ; uiBoucleTableau++)
 		{
-			printf("Matrice %d / %0.2f. Resultat = \n", uiBoucleTableau+1, eValeurC);
+			printf("\n\nMatrice %d / %0.2f \n", uiBoucleTableau+1, eValeurC);
 			CMAResultOperation = *CMAMesMatrices[uiBoucleTableau] / eValeurC;
 			CMAResultOperation.MATAfficherMatrice();
 		}
 
 
 		// Additions des matrices
-		printf("Addition des matrices \n\n");
+		printf("\n---- Addition des matrices ---- \n\n");
 		CMAResultOperation = *CMAMesMatrices[0];
-		printf("Resultat = \n");
 
 		for (uiBoucleTableau = 1; uiBoucleTableau < argc - 1; uiBoucleTableau++)
 			CMAResultOperation = CMAResultOperation + *CMAMesMatrices[uiBoucleTableau];
@@ -81,9 +88,8 @@ void main(unsigned int argc, char *argv[])
 
 
 		// Additions et soustractions des matrices
-		printf("Additions et soustractions des matrices \n\n");
+		printf("\n---- Additions et soustractions des matrices ----\n\n");
 		CMAResultOperation = *CMAMesMatrices[0];
-		printf("Resultat = \n");
 
 		for (uiBoucleTableau = 1; uiBoucleTableau < argc - 1; uiBoucleTableau++)
 		{
@@ -99,9 +105,8 @@ void main(unsigned int argc, char *argv[])
 
 
 		// Multiplication des matrices
-		printf("Multiplication des matrices \n\n");
+		printf("\n ---- Multiplication des matrices ---- \n\n");
 		CMAResultOperation = *CMAMesMatrices[0];
-		printf("Resultat = \n");
 
 		for (uiBoucleTableau = 1 ; uiBoucleTableau < argc -1 ; uiBoucleTableau++)
 			CMAResultOperation = CMAResultOperation * *CMAMesMatrices[uiBoucleTableau];
@@ -118,6 +123,7 @@ void main(unsigned int argc, char *argv[])
 
 		} catch (CException & EXCObjet) {
 			std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-			EXCObjet.EXCDeleteMessage(EXCObjet);
+			cout << "Appuyer sur une touche pour quitter le programme";
+			cin.get();
 	}
 }

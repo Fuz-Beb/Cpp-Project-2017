@@ -1,7 +1,14 @@
 #include "CMatrice.h"
 #include "CException.h"
 
-
+/*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 template <class Type>
 CMatrice<Type>::CMatrice()
 {
@@ -24,8 +31,14 @@ CMatrice<Type>::CMatrice()
 	MATInit();
 }
 
-
-// Pré-condition : La libération des pointeurs avant la suppression de la matrice est à la charge de l'utilisateur
+/*****************************
+Destructeur par défaut
+******************************
+Entrée : néant
+Necessité : Pré-condition : La libération des pointeurs avant la suppression de la matrice est à la charge de l'utilisateur
+Sortie : néant
+Entraine : l'objet est détruit
+*****************************/
 template <class Type>
 CMatrice<Type>::~CMatrice()
 {
@@ -38,7 +51,14 @@ CMatrice<Type>::~CMatrice()
 	delete[] ppqMATMatrice;
 }
 
-
+/*****************************
+Constructeur à deux arguments
+******************************
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 template <class Type>
 CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
@@ -60,14 +80,21 @@ CMatrice<Type>::CMatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 		if (ppqMATMatrice[uiBoucle] == nullptr) {
 			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 			throw *CEXObject;
-	}
+		}
 	}
 
 	// Initalisation de la matrice avec la valeur 0
 	MATInit();
 }
 
-
+/*****************************
+Constructeur de recopie
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé/recopié
+*****************************/
 template <class Type>
 CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 {
@@ -89,7 +116,7 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 		if (ppqMATMatrice[uiBoucle] == nullptr) {
 			CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 			throw *CEXObject;
-	}
+		}
 	}
 
 	// Affectation des valeurs
@@ -98,35 +125,70 @@ CMatrice<Type>::CMatrice(CMatrice<Type> & MATMatrice)
 			ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 }
 
-
+/*****************************
+Methode : Ecrire nombre de lignes
+******************************
+Entrée : unsigned int uiNbLignes
+Necessité : néant
+Sortie : néant
+Entraine : modification nombre de lignes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATEcrireNbLignes(unsigned int uiNbLignes)
 {
 	uiMATNbLignes = uiNbLignes;
 }
 
-
+/*****************************
+Methode : Lire nombre de lignes
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : unsigned int
+Entraine : retourne nombre de lignes
+*****************************/
 template <class Type>
 unsigned int CMatrice<Type>::MATLireNbLignes()
 {
 	return uiMATNbLignes;
 }
 
-
+/*****************************
+Methode : Ecrire nombre de colonnes
+******************************
+Entrée : unsigned int uiNbColonnes
+Necessité : néant
+Sortie : néant
+Entraine : modification nombre de colonnes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATEcrireNbColonnes(unsigned int uiNbColonnes)
 {
 	uiMATNbColonnes = uiNbColonnes;
 }
 
-
+/*****************************
+Methode : Lire nombre de colonnes
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : unsigned int
+Entraine : retourne nombre de colonnes
+*****************************/
 template <class Type>
 unsigned int CMatrice<Type>::MATLireNbColonnes()
 {
 	return uiMATNbColonnes;
 }
 
-
+/*****************************
+Methode : Calculer la transposée d'une matrice
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en calculant la transposée
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 {
@@ -142,34 +204,48 @@ CMatrice<Type> CMatrice<Type>::MATCalculerTransposee()
 	return MATNewMatrice;
 }
 
-
+/*****************************
+Methode : Mettre une matrice à la puissance
+******************************
+Entrée : unsigned int uiNombre
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en mettant la puissance de la matrice
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 {
-		unsigned int uiBoucleLigne, uiBoucleColonne;
-		int iExposant;
+	unsigned int uiBoucleLigne, uiBoucleColonne;
+	int iExposant;
 
-		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
+	CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
-		// Dans le cas ou la puissance vaut 0
-		if (uiNombre == 0) {
-			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
-		} // Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
-		else {
-			for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-				for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
-					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
-					for (iExposant = uiNombre ; iExposant > 1 ; iExposant--)
-						MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
-				}
-		}
-
-		return MATNewMatrice;
+	// Dans le cas ou la puissance vaut 0
+	if (uiNombre == 0) {
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = 1;
+	} // Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
+	else {
+		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++) {
+				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+				for (iExposant = uiNombre ; iExposant > 1 ; iExposant--)
+					MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] *= ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
+			}
 	}
 
+	return MATNewMatrice;
+}
 
+/*****************************
+Methode : Modifier l'élèment à l'endroit de la matrice
+******************************
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes, Type tElement
+Necessité : néant
+Sortie : néant
+Entraine : modification de l'élèment
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement)
 {
@@ -182,7 +258,14 @@ void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int ui
 	}
 }
 
-
+/*****************************
+Methode : Lire l'élèment à l'endroit de la matrice
+******************************
+Entrée : unsigned int uiNbLignes, unsigned int uiNbColonnes
+Necessité : néant
+Sortie : Type
+Entraine : retourne l'element à l'endroit de la matrice
+*****************************/
 template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
@@ -195,7 +278,14 @@ template <class Type>
 	}
 }
 
-
+/*****************************
+Methode : Initialise l'ensemble des valeurs de la matrice à la valeur 0
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : nénant
+Entraine : mise à la valeur 0 à l'ensemble des cases de la matrice
+*****************************/
  template <class Type>
  void CMatrice<Type>::MATInit()
  {
@@ -207,7 +297,14 @@ template <class Type>
 			 MATModifierElement(uiNbLignes, uiNbColonnes, 0);
  }
 
-
+/*****************************
+Methode : Afficher la matrice à l'écran
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : Afficher la matrice de l'objet à l'écran
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATAfficherMatrice()
 {
@@ -232,30 +329,43 @@ Entraine : réallouer selon ajout nb colonnes
 template <class Type>
 void CMatrice<Type>::MATAjouterColonnesFin(unsigned int uiNbColonnes)
 {
-		unsigned int uiBoucle = 1;
-		// Tant que le nombre de colonne à rajouter n'est pas atteint
-		while(uiBoucle <= uiNbColonnes)
-		{
-			MATAjouterColonnePrecis(uiMATNbColonnes + 1);
-			uiBoucle++;
-		}
+	unsigned int uiBoucle = 1;
+	// Tant que le nombre de colonne à rajouter n'est pas atteint
+	while(uiBoucle <= uiNbColonnes)
+	{
+		MATAjouterColonnePrecis(uiMATNbColonnes + 1);
+		uiBoucle++;
 	}
+}
 
-
+/*****************************
+Methode : Ajouter une/des lignes en bas de la matrice
+******************************
+Entrée : unsigned int uiNbLignes
+Necessité : Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
+Sortie : néant
+Entraine : réallouer selon ajout nb lignes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 {
-		unsigned int uiBoucle = 1;
-		// Tant que le nombre de ligne à rajouter n'est pas atteint
-		while(uiBoucle <= uiNbLignes)
-		{
-			MATAjouterLignePrecis(uiMATNbLignes + 1);
-			uiBoucle++;
-		}
+	unsigned int uiBoucle = 1;
+	// Tant que le nombre de ligne à rajouter n'est pas atteint
+	while(uiBoucle <= uiNbLignes)
+	{
+		MATAjouterLignePrecis(uiMATNbLignes + 1);
+		uiBoucle++;
 	}
+}
 
-
-// Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
+/*****************************
+Methode : Supprimer une/des colonnes à droite de la matrice
+******************************
+Entrée : unsigned int uiNbColonnes
+Necessité : néant
+Sortie : néant
+Entraine : réallouer selon suppression nb colonnes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 {
@@ -275,8 +385,14 @@ void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 	}
 }
 
-
-// Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
+/*****************************
+Methode : Supprimer une/des ligne en bas de la matrice
+******************************
+Entrée : unsigned int uiNbLignes
+Necessité : Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
+Sortie : néant
+Entraine : réallouer selon suppression nb lignes
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 {
@@ -296,7 +412,14 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 	}
 }
 
-
+/*****************************
+Methode : Ajouter une colonne à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : réallouer et ajout d'une colonne
+*****************************/
  template <class Type>
 void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 {
@@ -318,7 +441,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 			if (ppqMATMatrice[uiBoucleLigne] == nullptr) {
 				CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
 				throw *CEXObject;
-		}
+			}
 		}
 
 		// Changement de position des valeurs de la matrice
@@ -333,7 +456,14 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 	}
 }
 
-
+/*****************************
+Methode : Ajouter une ligne à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumLignes
+Necessité : néant
+Sortie : néant
+Entraine : réallouer et ajout d'une ligne
+*****************************/
  template <class Type>
 void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 {
@@ -376,13 +506,18 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 	}
 }
 
-
-// Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
+/*****************************
+Methode : Supprimer une colonne à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumColonnes
+Necessité : Pré-condition : La libération des pointeurs avant la suppression de la colonne est à la charge de l'utilisateur
+Sortie : néant
+Entraine : réallouer et suppression d'une colonne
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 {
-	try	{
-
+	try {
 		unsigned int uiBoucleColonne = 0, uiBoucleLigne = 0;
 
 		MATVerifierPortee(uiMATNbLignes, uiNumColonne);
@@ -410,8 +545,14 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 	}
 }
 
-
-// Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
+/*****************************
+Methode : Supprimer une ligne à un endroit précis de la matrice
+******************************
+Entrée : unsigned int uiNumLignes
+Necessité : Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
+Sortie : néant
+Entraine : Réallocation et suppression d'une ligne
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 {
@@ -435,7 +576,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 		if (ppqMATMatrice == nullptr) {
 				CException * CEXObject = new CException(ECHECALLOCATION, "Echec de la reallocation");
 				throw *CEXObject;
-			}
+		}
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
@@ -443,30 +584,50 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 	}
 }
 
-
+/*****************************
+Methode : Vérifier la portée de l'action dans la matrice
+******************************
+Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : (néant) ou (Exception DIMENSIONHORSPORTEE : les paramètres fournis sont incorrectes)
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
 	// Si les paramètres founies sont supérieurs à la dimension de la matrice
-		if (uiMATNbLignes < uiNumLigne || uiNumLigne == 0 || uiMATNbColonnes < uiNumColonne || uiNumColonne == 0) {
-			CException * CEXObject = new CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
-			throw *CEXObject;
-		}
+	if (uiMATNbLignes < uiNumLigne || uiNumLigne == 0 || uiMATNbColonnes < uiNumColonne || uiNumColonne == 0) {
+		CException * CEXObject = new CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
+		throw *CEXObject;
+	}
 }
 
-
+/*****************************
+Methode : Vérifier la dimension de la matrice
+******************************
+Entrée : unsigned int uiNumLignes, unsigned int uiNumColonnes
+Necessité : néant
+Sortie : néant
+Entraine : (néant) ou (Exception DIMENSIONINEGALE : les dimensions fournies ne correspondent pas à la matrice)
+*****************************/
 template <class Type>
 void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
 	// Si les matrices ont la même dimension
-		if (uiMATNbLignes != uiNbLignes || uiMATNbColonnes != uiNbColonnes) {
-			CException * CEXObject = new CException(DIMENSIONINEGALE, "Dimension matrice inégale");
-			throw *CEXObject;
-		}
+	if (uiMATNbLignes != uiNbLignes || uiMATNbColonnes != uiNbColonnes) {
+		CException * CEXObject = new CException(DIMENSIONINEGALE, "Dimension matrice inégale");
+		throw *CEXObject;
+	}
 }
 
-
-// Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur + doit être présente dans la classe concernée
+/*****************************
+Methode : Surcharge operateur +
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur + doit être présente dans la classe concernée
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
@@ -490,8 +651,14 @@ CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 	}
 }
 
-
-// Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur - doit être présente dans la classe concernée
+/*****************************
+Methode : Surcharge operateur -
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur - doit être présente dans la classe concernée
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
@@ -515,24 +682,37 @@ CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 	}
 }
 
-
+/*****************************
+Methode : Surcharge operateur * par constante
+******************************
+Entrée : Type & MATMatrice
+Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur * pour une matrice contenant des objets
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator*(Type & qMATparam)
 {
-		unsigned int uiBoucleLigne, uiBoucleColonne;
+	unsigned int uiBoucleLigne, uiBoucleColonne;
 
-		CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
+	CMatrice<Type> MATNewMatrice = CMatrice<Type>(uiMATNbLignes, uiMATNbColonnes);
 
-		// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
-		for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
-			for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
-				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * qMATparam;
-
-		return MATNewMatrice;
+	// Calcul et affectation des nouvelles valeurs dans la nouvelle matrice
+	for (uiBoucleLigne = 0 ; uiBoucleLigne < uiMATNbLignes ; uiBoucleLigne++)
+		for (uiBoucleColonne = 0 ; uiBoucleColonne < uiMATNbColonnes ; uiBoucleColonne++)
+			MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] * qMATparam;
+	
+	return MATNewMatrice;
 }
 
-
-// Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur * doit être présente dans la classe concernée
+/*****************************
+Methode : Surcharge operateur *
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : Pré-condition : Si la matrice contient des pointeurs sur des objets, la surchage de l'opérateur * doit être présente dans la classe concernée
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 {
@@ -563,7 +743,14 @@ CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 	}
 }
 
-
+/*****************************
+Methode : Surcharge operateur / par constante
+******************************
+Entrée : Type & MATMatrice
+Necessité : Précondition : Nécessite la présence de la surcharge de l'opérateur / pour une matrice contenant des objets
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 {
@@ -590,8 +777,14 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 	}
 }
 
-
-// Pré-condition : La libération des pointeurs avant l'affectation est à la charge de l'utilisateur
+/*****************************
+Methode : Surcharge operateur =
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : Pré-condition : La libération des pointeurs avant l'affectation est à la charge de l'utilisateur
+Sortie : CMatrice<Type>
+Entraine : retourne une nouvelle matrice en surchageant l'operateur en question membre à membre
+*****************************/
 template <class Type>
 CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 {
@@ -621,7 +814,14 @@ CMatrice<Type> & CMatrice<Type>::operator=(CMatrice<Type> & MATMatrice)
 	return *this;
 }
 
-
+/*****************************
+Methode : Surcharge de l'opérateur de différence entre deux matrices
+******************************
+Entrée : CMatrice<Type> & MATMatrice
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Recherche de différence entre les deux matrices
+*****************************/
 template <class Type>
 bool CMatrice<Type>::operator!=(CMatrice<Type> & MATMatrice)
 {
@@ -640,7 +840,14 @@ bool CMatrice<Type>::operator!=(CMatrice<Type> & MATMatrice)
 	return false;
 }
 
-
+/*****************************
+Methode : Surcharge operateur * avec deux arguments
+******************************
+Entrée : Type qMATparam, CMatrice<Type> & MATparam
+Necessité : néant
+Sortie : CMatrice<Type>
+Entraine : Surchage de l'operateur * (pour avoir la commutativité)
+*****************************/
 template <class Type>
 CMatrice<Type> operator*(Type qMATparam, CMatrice<Type> & MATMatrice)
 {

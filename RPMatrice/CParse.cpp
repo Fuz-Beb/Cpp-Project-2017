@@ -1,35 +1,69 @@
 #include "CParse.h"
 #include "CException.h"
 
-
-
+/*****************************
+Constructeur par défaut
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 CParse::CParse()
 {
 	psPARChemin = nullptr;
 	pPARFichier = nullptr;
 }
 
-
+/*****************************
+Constructeur de confort
+******************************
+Entrée : char * psChemin
+Necessité : néant
+Sortie : néant
+Entraine : l'objet en cours est initialisé
+*****************************/
 CParse::CParse(char * psChemin)
 {
 	CParse();
 	PARModifierChemin(psChemin);
 }
 
-
+/*****************************
+Destructeur par défaut
+*****************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : l'objet est détruit
+*****************************/
 CParse::~CParse()
 {
 	delete(psPARChemin);
 	PARFermerFicher();
 }
 
-
+/*****************************
+Methode : Lire Chemin
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : char *
+Entraine : retourne le chemin de l'attribut
+*****************************/
 char * CParse::PARLireChemin()
 {
 	return psPARChemin;
 }
 
-
+/*****************************
+Methode : Modifier Chemin
+******************************
+Entrée : char * sParam
+Necessité : néant
+Sortie : néant
+Entraine : modification de l'attribut sPARChemin
+*****************************/
 void CParse::PARModifierChemin(char * psParam)
 {
 	try {
@@ -52,7 +86,14 @@ void CParse::PARModifierChemin(char * psParam)
 	}
 }
 
-
+/*****************************
+Methode : Ouvrir Fichier
+*****************************
+Entrée : char * sChaine
+Necessité : Fichier
+Sortie : néant
+Entraine : ouverture un fichier
+*****************************/
 void CParse::PAROuvrirFichier(char * psParam)
 {
 	try {
@@ -64,18 +105,34 @@ void CParse::PAROuvrirFichier(char * psParam)
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		return;
+		cout << "Appuyer sur une touche pour quitter le programme";
+		cin.get();
+		exit(EXIT_FAILURE);
 	}
 }
 
-
+/*****************************
+Methode : Fermer Fichier
+******************************
+Entrée : néant
+Necessité : néant
+Sortie : néant
+Entraine : Fermeture du fichier
+*****************************/
 void CParse::PARFermerFicher()
 {
 	if(pPARFichier != NULL)
 		fclose(pPARFichier);
 }
 
-
+/*****************************
+Methode : Lire Ligne
+******************************
+Entrée : néant
+Necessité : Méthode Traiter fichier / Ouvrir fichier
+Sortie : char *
+Entraine : lecture d'une ligne du fichier et retourne sur le tas une chaîne
+*****************************/
 char * CParse::PARLireLigne()
 {
 	try {
@@ -120,7 +177,14 @@ char * CParse::PARLireLigne()
 	}
 }
 
-
+/*****************************
+Methode : SubString
+******************************
+Entrée : char * sParam, unsigned int uiDebut, unsigned int uiTaille
+Necessité : néant
+Sortie : char *
+Entraine : permet d'extraire une chaîne d'une position à une autre
+*****************************/
 char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int uiTaille)
 {
 	try {
@@ -142,7 +206,14 @@ char * CParse::PARSubString(char * psParam, unsigned int uiDebut, unsigned int u
 	}
 }
 
-
+/*****************************
+Methode : Concatener deux chaines
+******************************
+Entrée : const char * sStr1, const char * sStr2
+Necessité : néant
+Sortie : char *
+Entraine : retourne sur le tas la concatenation des deux chaînes
+*****************************/
 char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2) 
 {
 	try {
@@ -170,7 +241,14 @@ char * CParse::PARConcatenateString(const char * psStr1, const char * psStr2)
 	}
 }
 
-
+/*****************************
+Methode : Convertir Chaine Minuscule
+******************************
+Entrée : char * sChaine
+Necessité : néant
+Sortie : néant
+Entraine : convertir la chaine en paramètre en minuscule
+*****************************/
 void CParse::PARConvertirStrMinusc(char * psParam)
 {
     int uiBoucle = 0;
@@ -181,7 +259,14 @@ void CParse::PARConvertirStrMinusc(char * psParam)
 	}
 }
 
-
+/*****************************
+Methode : Convertir un char en minuscule
+******************************
+Entrée : char cParam
+Necessité : Méthode Ouvrir fichier
+Sortie : char
+Entraine : Conversion d'un char en char minuscule
+*****************************/
 char CParse::PARConvertirCharMinusc(char cParam) 
 {
     int iTemp = (int)cParam;
