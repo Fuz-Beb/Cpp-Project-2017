@@ -89,7 +89,7 @@ void CParseMatrice::PAMAssignerNbLignes()
 }
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -154,7 +154,7 @@ void CParseMatrice::PAMAssignerNbColonnes()
 		}
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -201,8 +201,8 @@ void CParseMatrice::PAMVerifierType()
 	delete(sRetour);
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		std::exit(EXIT_FAILURE);
-	}
+		return;
+}
 }
 
 /*****************************
@@ -247,7 +247,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 			throw *CEXObject;
 		}
 
-	delete(sBuffer);
+		delete sBuffer;
 
 	// Création d'une CMatrice selon sa taille lu
 	matPAMMatrice = CMatrice<double>(uiPAMNbLignes, uiPAMNbColonnes);
@@ -326,7 +326,7 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 		}
 
 		// Libérer le buffer général pour éviter les fuites
-		delete(sBuffer);
+			delete sBuffer;
 
 		// Remise par défaut des variables pour recommencer une boucle
 		uiIndiceColonne = 1;
@@ -338,7 +338,6 @@ void CParseMatrice::PAMTraiterFichier(char * sChemin)
 	PARFermerFicher();
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }

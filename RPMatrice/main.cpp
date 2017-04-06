@@ -17,7 +17,7 @@ void main(unsigned int argc, char *argv[])
 		} 
 
 		// Déclarations des variables
-		unsigned int uiBoucleTableau = 0;
+		unsigned int uiBoucleTableau = 0, uiSizeOfCMAMesMatrice = 0;
 		double eValeurC = 0;
 		bool bAdditionOuSoustraction = false, bCorrectValue = false;
 		CMatrice<double> CMAResultOperation = CMatrice<double>();
@@ -25,13 +25,13 @@ void main(unsigned int argc, char *argv[])
 		CParseMatrice ** CPAMonParseur = (CParseMatrice **) malloc(sizeof(CParseMatrice*) * argc - 1);
 		CMatrice<double> ** CMAMesMatrices = (CMatrice<double> **) malloc(sizeof(CMatrice<double> *) * argc - 1);
 
-
 		// Traitement des fichiers - Création des matrices
 		for (uiBoucleTableau = 0 ; uiBoucleTableau < argc - 1; uiBoucleTableau++)
 		{
 			CPAMonParseur[uiBoucleTableau] = new CParseMatrice();
 			CPAMonParseur[uiBoucleTableau]->PAMTraiterFichier(argv[uiBoucleTableau + 1]);
 			CMAMesMatrices[uiBoucleTableau] = CPAMonParseur[uiBoucleTableau]->PAMRetournerMatrice();
+			uiSizeOfCMAMesMatrice++;
 		}
 
 		// Demande de saisie utilisateur
@@ -119,6 +119,5 @@ void main(unsigned int argc, char *argv[])
 		} catch (CException & EXCObjet) {
 			std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
 			EXCObjet.EXCDeleteMessage(EXCObjet);
-		return;
 	}
 }

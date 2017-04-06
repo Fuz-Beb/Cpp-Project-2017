@@ -173,17 +173,27 @@ CMatrice<Type> CMatrice<Type>::MATPPuissanceMatrice(unsigned int uiNombre)
 template <class Type>
 void CMatrice<Type>::MATModifierElement(unsigned int uiNumLigne, unsigned int uiNumColonne, Type tElement)
 {
+	try {
 		MATVerifierPortee(uiNumLigne, uiNumColonne);
 		ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1] = tElement;
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		return;
 	}
+}
 
 
 template <class Type>
  Type CMatrice<Type>::MATLireElement(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
+	try {
 		MATVerifierPortee(uiNumLigne, uiNumColonne);
 		return ppqMATMatrice[uiNumLigne - 1][uiNumColonne - 1];
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		return 0;
 	}
+}
 
 
  template <class Type>
@@ -249,6 +259,7 @@ void CMatrice<Type>::MATAjouterLignesFin(unsigned int uiNbLignes)
 template <class Type>
 void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 {
+	try {
 		unsigned int uiBoucle = 1;
 
 		MATVerifierPortee(uiMATNbLignes, uiNbColonnes + 1);
@@ -258,13 +269,18 @@ void CMatrice<Type>::MATSupprimerColonneFin(unsigned int uiNbColonnes)
 			MATSupprimerColonnePrecis(uiMATNbColonnes);
 			uiBoucle++;
 		}
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		return;
 	}
+}
 
 
 // Pré-condition : La libération des pointeurs avant la suppression de la ligne est à la charge de l'utilisateur
 template <class Type>
 void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 {
+	try {
 		unsigned int uiBoucle = 1;
 
 		MATVerifierPortee(uiNbLignes + 1, uiMATNbColonnes);
@@ -274,7 +290,11 @@ void CMatrice<Type>::MATSupprimerLigneFin(unsigned int uiNbLignes)
 			MATSupprimerLignePrecis(uiMATNbLignes);
 			uiBoucle++;
 		}
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		return;
 	}
+}
 
 
  template <class Type>
@@ -309,8 +329,7 @@ void CMatrice<Type>::MATAjouterColonnePrecis(unsigned int uiNumColonne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -353,8 +372,7 @@ void CMatrice<Type>::MATAjouterLignePrecis(unsigned int uiNumLigne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -388,8 +406,7 @@ void CMatrice<Type>::MATSupprimerColonnePrecis(unsigned int uiNumColonne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -422,8 +439,7 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 
 	} catch(CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return;
 	}
 }
 
@@ -431,34 +447,22 @@ void CMatrice<Type>::MATSupprimerLignePrecis(unsigned int uiNumLigne)
 template <class Type>
 void CMatrice<Type>::MATVerifierPortee(unsigned int uiNumLigne, unsigned int uiNumColonne)
 {
-	try {
 	// Si les paramètres founies sont supérieurs à la dimension de la matrice
 		if (uiMATNbLignes < uiNumLigne || uiNumLigne == 0 || uiMATNbColonnes < uiNumColonne || uiNumColonne == 0) {
 			CException * CEXObject = new CException(DIMENSIONHORSPORTEE, "Dimension matrice incorrecte - hors portee");
 			throw *CEXObject;
 		}
-	} catch(CException & EXCObjet) {
-		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
-	}
 }
 
 
 template <class Type>
 void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int uiNbColonnes)
 {
-	try {
 	// Si les matrices ont la même dimension
 		if (uiMATNbLignes != uiNbLignes || uiMATNbColonnes != uiNbColonnes) {
 			CException * CEXObject = new CException(DIMENSIONINEGALE, "Dimension matrice inégale");
 			throw *CEXObject;
 		}
-	} catch(CException & EXCObjet) {
-		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
-	}
 }
 
 
@@ -466,6 +470,7 @@ void CMatrice<Type>::MATVerifierDimension(unsigned int uiNbLignes, unsigned int 
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 {
+	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
@@ -478,6 +483,11 @@ CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] + MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
 		return MATNewMatrice;
+	
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		return *this;
+	}
 }
 
 
@@ -485,6 +495,7 @@ CMatrice<Type> CMatrice<Type>::operator+(CMatrice<Type> & MATMatrice)
 template <class Type>
 CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 {
+	try {
 		unsigned int uiBoucleLigne, uiBoucleColonne;
 
 		MATVerifierDimension(MATMatrice.uiMATNbLignes, MATMatrice.uiMATNbColonnes);
@@ -497,6 +508,11 @@ CMatrice<Type> CMatrice<Type>::operator-(CMatrice<Type> & MATMatrice)
 				MATNewMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] = ppqMATMatrice[uiBoucleLigne][uiBoucleColonne] - MATMatrice.ppqMATMatrice[uiBoucleLigne][uiBoucleColonne];
 
 		return MATNewMatrice;
+
+	} catch(CException & EXCObjet) {
+		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
+		return *this;
+	}
 }
 
 
@@ -543,8 +559,7 @@ CMatrice<Type> CMatrice<Type>::operator*(CMatrice<Type> & MATMatrice)
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return *this;
 	}
 }
 
@@ -571,8 +586,7 @@ CMatrice<Type> CMatrice<Type>::operator/(Type & qMATparam)
 
 	} catch (CException & EXCObjet) {
 		std::cerr << "Code d'erreur : " << EXCObjet.EXCLectureCode() << std::endl << EXCObjet.EXCLectureMessage() << std::endl;
-		EXCObjet.EXCDeleteMessage(EXCObjet);
-		std::exit(EXIT_FAILURE);
+		return *this;
 	}
 }
 
