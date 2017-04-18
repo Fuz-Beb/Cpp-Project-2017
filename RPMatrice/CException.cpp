@@ -1,12 +1,12 @@
 #include "CException.h"
 
 /*****************************
-Constructeur par défaut
+Constructeur par dÃ©faut
 ******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : l'objet en cours est initialisé
+EntrÃ©e : nÃ©ant
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
+Entraine : l'objet en cours est initialisÃ©
 *****************************/
 CException::CException()
 {
@@ -15,33 +15,49 @@ CException::CException()
 }
 
 /*****************************
-Constructeur à deux arguments
+Constructeur Ã  deux arguments
 ******************************
-Entrée : unsigned int uiCodeErreur, char * psMessageErreur
-Necessité : néant
-Sortie : néant
-Entraine : le paramètre est recopié et ainsi l'objet en cours est initialisé
+EntrÃ©e : unsigned int uiCodeErreur, char * psMessageErreur
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
+Entraine : le paramÃ¨tre est recopiÃ© et ainsi l'objet en cours est initialisÃ©
 *****************************/
 CException::CException(unsigned int uiCodeErreur, char * psMessageErreur)
 {
 	uiEXCCode = uiCodeErreur;
 
 	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessageErreur) + 1);
-	if (psEXCMessage == nullptr) {
-		CException * CEXObject = new CException(ECHECALLOCATION, "Echec de l'allocation");
-		throw *CEXObject;
-	}
+	if (psEXCMessage == nullptr)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
 
 	strncpy(psEXCMessage, psMessageErreur, strlen(psMessageErreur) + 1);
 }
 
 /*****************************
-Destructeur par défaut
+Constructeur de recopie
 ******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
-Entraine : l'objet en cours est détruit
+EntrÃ©e : CException & e
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
+Entraine : l'object en cours en initialisÃ© avec les mÃªme attributs que l'objet passÃ© en paramÃ¨tre
+*****************************/
+CException::CException(CException & e) {
+	uiEXCCode = e.uiEXCCode;
+
+	psEXCMessage = (char*) malloc(sizeof(char) * strlen(e.psEXCMessage) + 1);
+	if (psEXCMessage == nullptr)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+
+	strncpy(psEXCMessage, e.psEXCMessage, strlen(e.psEXCMessage) + 1);
+}
+
+/*****************************
+Destructeur par dÃ©faut
+******************************
+EntrÃ©e : nÃ©ant
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
+Entraine : l'objet en cours est dÃ©truit
 *****************************/
 CException::~CException()
 {
@@ -52,8 +68,8 @@ CException::~CException()
 /*****************************
 Methode : Lecture du code d'erreur
 *****************************
-Entrée : néant
-Necessité : néant
+EntrÃ©e : nÃ©ant
+NecessitÃ© : nÃ©ant
 Sortie : unsigned int
 Entraine : retourne le code d'erreur
 *****************************/
@@ -65,9 +81,9 @@ unsigned int CException::EXCLectureCode()
 /*****************************
 Methode : Modification du code d'erreur
 ******************************
-Entrée : unsigned int uiCodeErreur
-Necessité : néant
-Sortie : néant
+EntrÃ©e : unsigned int uiCodeErreur
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
 Entraine : modification du code d'erreur
 *****************************/
 void CException::EXCEcritureCode(unsigned int uiCodeErreur)
@@ -78,9 +94,9 @@ void CException::EXCEcritureCode(unsigned int uiCodeErreur)
 /*****************************
 Methode : Lecture du message d'erreur
 ******************************
-Entrée : néant
-Necessité : néant
-Sortie : néant
+EntrÃ©e : nÃ©ant
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
 Entraine : affiche le message d'erreur
 *****************************/
 char * CException::EXCLectureMessage()
@@ -91,9 +107,9 @@ char * CException::EXCLectureMessage()
 /*****************************
 Methode : Modification du message d'erreur
 ******************************
-Entrée : char * psMessage
-Necessité : néant
-Sortie : néant
+EntrÃ©e : char * psMessage
+NecessitÃ© : nÃ©ant
+Sortie : nÃ©ant
 Entraine : modification du message d'erreur
 *****************************/
 void CException::EXCEcritureMessage(char * psMessage)
@@ -102,5 +118,8 @@ void CException::EXCEcritureMessage(char * psMessage)
 		delete psEXCMessage;
 
 	psEXCMessage = (char*) malloc(sizeof(char) * strlen(psMessage) + 1);
+	if (psEXCMessage == nullptr)
+		throw CException(ECHECALLOCATION, "Echec de l'allocation");
+	
 	strncpy(psEXCMessage, psMessage, strlen(psMessage) + 1);
 }

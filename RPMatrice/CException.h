@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-// Utilisé en cas d'exception
+// UtilisÃ© en cas d'exception
 #define ECHECALLOCATION 1
 #define DIMENSIONHORSPORTEE 2
 #define DIMENSIONINEGALE 3
@@ -27,32 +27,42 @@ public:
 	// Constructeurs et destructeur
 
 	/*****************************
-	Constructeur par défaut
+	Constructeur par dÃ©faut
 	******************************
-	Entrée : néant
-	Necessité : néant
-	Sortie : néant
-	Entraine : l'objet en cours est initialisé
+	EntrÃ©e : nÃ©ant
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
+	Entraine : l'objet en cours est initialisÃ©
 	*****************************/
 	explicit CException();
 
 	/*****************************
-	Constructeur à deux arguments
+	Constructeur Ã  deux arguments
 	******************************
-	Entrée : unsigned int uiCodeErreur, char * psMessageErreur
-	Necessité : néant
-	Sortie : néant
-	Entraine : le paramètre est recopié et ainsi l'objet en cours est initialisé
+	EntrÃ©e : unsigned int uiCodeErreur, char * psMessageErreur
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
+	Entraine : le paramÃ¨tre est recopiÃ© et ainsi l'objet en cours est initialisÃ©
 	*****************************/
 	explicit CException(unsigned int uiCodeErreur, char * psMessageErreur);
 
 	/*****************************
-	Destructeur par défaut
+	Constructeur de recopie
 	******************************
-	Entrée : néant
-	Necessité : néant
-	Sortie : néant
-	Entraine : l'objet en cours est détruit
+	EntrÃ©e : CException & e
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
+	Entraine : l'object en cours en initialisÃ© avec les mÃªme attributs que l'objet passÃ© en paramÃ¨tre
+	*****************************/
+	CException(CException & e);
+
+	/*****************************
+	Destructeur par dÃ©faut
+	******************************
+	EntrÃ©e : nÃ©ant
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
+	Entraine : l'objet en cours est dÃ©truit
 	*****************************/
 	~CException();
 
@@ -61,8 +71,8 @@ public:
 	/*****************************
 	Methode : Lecture du code d'erreur
 	*****************************
-	Entrée : néant
-	Necessité : néant
+	EntrÃ©e : nÃ©ant
+	NecessitÃ© : nÃ©ant
 	Sortie : unsigned int
 	Entraine : retourne le code d'erreur
 	*****************************/
@@ -71,9 +81,9 @@ public:
 	/*****************************
 	Methode : Modification du code d'erreur
 	******************************
-	Entrée : unsigned int uiCodeErreur
-	Necessité : néant
-	Sortie : néant
+	EntrÃ©e : unsigned int uiCodeErreur
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
 	Entraine : modification du code d'erreur
 	*****************************/
 	void EXCEcritureCode(unsigned int uiCodeErreur);
@@ -81,9 +91,9 @@ public:
 	/*****************************
 	Methode : Lecture du message d'erreur
 	******************************
-	Entrée : néant
-	Necessité : néant
-	Sortie : néant
+	EntrÃ©e : nÃ©ant
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
 	Entraine : affiche le message d'erreur
 	*****************************/
 	char * EXCLectureMessage();
@@ -91,9 +101,9 @@ public:
 	/*****************************
 	Methode : Modification du message d'erreur
 	******************************
-	Entrée : char * psMessage
-	Necessité : néant
-	Sortie : néant
+	EntrÃ©e : char * psMessage
+	NecessitÃ© : nÃ©ant
+	Sortie : nÃ©ant
 	Entraine : modification du message d'erreur
 	*****************************/
 	void EXCEcritureMessage(char * psMessage);
